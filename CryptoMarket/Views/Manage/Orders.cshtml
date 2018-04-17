@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Order>
+@{
+    Layout = "~/Views/Shared/_LayoutAltexBlue.cshtml";
+    ViewBag.Title = "Order History";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="markets-filter-tabs clear-block">
+            <ul class="flex-row tabs-nav">
+                @Html.Partial("_TabbedMenuPartial")
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div class="pane active card-block markets-table">
+                <div class="markets-table-tbody">
+                    <div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <a>Type</a>
+                                    </th>
+                                    <th>
+                                        <a>Market Id</a>
+                                    </th>
+                                    <th>
+                                        <a>Amount</a>
+                                    </th>
+                                    <th>
+                                        <a>Price Per One</a>
+                                    </th>
+                                    <th>
+                                        <a>Total (Left)</a>
+                                    </th>
+                                    <th>
+                                        <a>Fee Total</a>
+                                    </th>
+                                    <th>
+                                        <a>Net Total</a>
+                                    </th>
+                                    <th>
+                                        <a>Creation Date</a>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TradeType)
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Index", "Market", new{id = item.MarketId})">@MarketsManager.GetMarketPairName(item.MarketId)</a>
+                                        </td>
+                                        <td>
+                                            @item.Amount.ToString("F8")
+                                        </td>
+                                        <td>
+                                            @item.Price.ToString("F8")
+                                        </td>
+                                        <td>
+                                            @item.Total.ToString("F8") (@item.PartialOrderTotalLeft.ToString("F8"))
+                                        </td>
+                                        <td>
+                                            @item.FeeTotal.ToString("F8")
+                                        </td>
+                                        <td>
+                                            @item.NetTotal.ToString("F8")
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DateCreated)
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

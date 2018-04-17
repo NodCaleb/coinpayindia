@@ -1,0 +1,398 @@
+﻿@model CryptoMarket.Models.ApplicationUser
+@{
+    ViewBag.Title = "Messages";
+}
+
+<script src="https://use.fontawesome.com/45e03a14ce.js"></script>
+<style>#custom-search-input {
+     background: #e8e6e7 none repeat scroll 0 0;
+     margin: 0;
+     padding: 10px;
+ }
+ #custom-search-input .search-query {
+     background: #fff none repeat scroll 0 0 !important;
+     border-radius: 4px;
+     height: 33px;
+     margin-bottom: 0;
+     padding-left: 7px;
+     padding-right: 7px;
+ }
+ #custom-search-input button {
+     background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+     border: 0 none;
+     border-radius: 3px;
+     color: #666666;
+     left: auto;
+     margin-bottom: 0;
+     margin-top: 7px;
+     padding: 2px 5px;
+     position: absolute;
+     right: 0;
+     z-index: 9999;
+ }
+ .search-query:focus + button {
+     z-index: 3;
+ }
+ .all_conversation button {
+     background: #f5f3f3 none repeat scroll 0 0;
+     border: 1px solid #dddddd;
+     height: 38px;
+     text-align: left;
+     width: 100%;
+ }
+ .all_conversation i {
+     background: #e9e7e8 none repeat scroll 0 0;
+     border-radius: 100px;
+     color: #636363;
+     font-size: 17px;
+     height: 30px;
+     line-height: 30px;
+     text-align: center;
+     width: 30px;
+ }
+ .all_conversation .caret {
+     bottom: 0;
+     margin: auto;
+     position: absolute;
+     right: 15px;
+     top: 0;
+ }
+ .all_conversation .dropdown-menu {
+     background: #f5f3f3 none repeat scroll 0 0;
+     border-radius: 0;
+     margin-top: 0;
+     padding: 0;
+     width: 100%;
+ }
+ .all_conversation ul li {
+     border-bottom: 1px solid #dddddd;
+     line-height: normal;
+     width: 100%;
+ }
+ .all_conversation ul li a:hover {
+     background: #dddddd none repeat scroll 0 0;
+     color: #333;
+ }
+ .all_conversation ul li a {
+     color: #333;
+     line-height: 30px;
+     padding: 3px 20px;
+ }
+ .member_list .chat-body {
+     margin-left: 47px;
+     margin-top: 0;
+ }
+ .top_nav {
+     overflow: visible;
+ }
+ .member_list .contact_sec {
+     margin-top: 3px;
+ }
+ .member_list li {
+     padding: 6px;
+ }
+ .member_list ul {
+     border: 1px solid #dddddd;
+ }
+ .chat-img img {
+     height: 34px;
+     width: 34px;
+ }
+ .member_list li {
+     border-bottom: 1px solid #dddddd;
+     padding: 6px;
+ }
+ .member_list li:last-child {
+     border-bottom: none;
+ }
+ .member_list {
+     height: 380px;
+     overflow-x: hidden;
+     overflow-y: auto;
+ }
+ .sub_menu_ {
+     background: #e8e6e7 none repeat scroll 0 0;
+     left: 100%;
+     max-width: 233px;
+     position: absolute;
+     width: 100%;
+ }
+ .sub_menu_ {
+     background: #f5f3f3 none repeat scroll 0 0;
+     border: 1px solid rgba(0, 0, 0, 0.15);
+     display: none;
+     left: 100%;
+     margin-left: 0;
+     max-width: 233px;
+     position: absolute;
+     top: 0;
+     width: 100%;
+ }
+ .all_conversation ul li:hover .sub_menu_ {
+     display: block;
+ }
+ .new_message_head button {
+     background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+     border: medium none;
+ }
+ .new_message_head {
+     background: #f5f3f3 none repeat scroll 0 0;
+     float: left;
+     font-size: 13px;
+     font-weight: 600;
+     padding: 18px 10px;
+     width: 100%;
+ }
+ .message_section {
+     border: 1px solid #dddddd;
+ }
+ .chat_area {
+     float: left;
+     height: 600px;
+     overflow-x: hidden;
+     overflow-y: auto;
+     width: 100%;
+ }
+ .chat_area li {
+     padding: 14px 14px 0;
+ }
+ .chat_area li .chat-img1 img {
+     height: 40px;
+     width: 40px;
+ }
+ .chat_area .chat-body1 {
+     margin-left: 50px;
+ }
+ .chat-body1 p {
+     background: #fbf9fa none repeat scroll 0 0;
+     padding: 10px;
+ }
+ .chat_area .admin_chat .chat-body1 {
+     margin-left: 0;
+     margin-right: 50px;
+ }
+ .chat_area li:last-child {
+     padding-bottom: 10px;
+ }
+ .message_write {
+     background: #f5f3f3 none repeat scroll 0 0;
+     float: left;
+     padding: 15px;
+     width: 100%;
+ }
+
+ .message_write textarea.form-control {
+     height: 70px;
+     padding: 10px;
+ }
+ .chat_bottom {
+     float: left;
+     margin-top: 13px;
+     width: 100%;
+ }
+ .upload_btn {
+     color: #777777;
+ }
+ .sub_menu_ > li a, .sub_menu_ > li {
+     float: left;
+     width: 100%;
+ }
+ .member_list li:hover {
+     background: #428bca none repeat scroll 0 0;
+     color: #fff;
+     cursor: pointer;
+ }</style>
+<script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+<script src="~/marketrealtime/js"></script>
+
+<script>
+    $(document)
+        .ready(function() {
+
+            $.post("@Url.Action("GetConversationRecipients")",
+                function(result) {
+                    console.log(result);
+                    $.each(result,
+                        function(key, value) {
+                            var template =
+                                '<li class="left clearfix" onclick="location.href=\'/manage/messages/' +
+                                    key +
+                                    '\';"><div class="chat-body clearfix"> <div class="header_sec"> <strong class="primary-font">' +
+                                    value +
+                                    '</strong> <strong class="pull-right">09:45AM</strong></div><div class="contact_sec"><strong class="primary-font">' +
+                                    key +
+                                    '</strong> <span class="badge pull-right">3</span></div> </div></li>';
+
+                            $("#conversationlist").append(template);
+                        });
+                });
+
+            $("#newmessage")
+                .click(function() {
+                    $('#exampleModal').modal('show');
+                });
+
+            $("#modal-send-message")
+                .click(function() {
+                    $.post("@Url.Action("PostNewMessage")",
+                        { recipientUsername: $("#recipient-username").val(), text: $("#message-text-modal").val() },
+                        function(result) {
+                            if (!result.Success) {
+                                alert("Seems there is no trader with that username");
+                            } else {
+                                window.location = "/manage/messages/" + result.UserId;
+                            }
+                        });
+                });
+
+        });
+</script>
+@if (Model != null) {
+    <script>
+        var recipientUsername = '@Model.UserName';
+        var recipientId = '@Model.Id';
+        var messagesrealtime = $.connection.messagesrealtime;
+
+        function AddMessageFromMe(message, date) {
+            var template =
+                '<li class="left clearfix"><div class="chat-body1 clearfix pull-right"><b>Me</b><br/><p>' +
+                    message +
+                    '</p><i>' +
+                    date +
+                    '</i></div></li>';
+
+            $("#messagebody").append(template);
+        }
+
+        function AddMessage(message, date) {
+            var template =
+                '<li class="left clearfix"><div class="chat-body1 clearfix admin_chat pull-left"><b>' +
+                    recipientUsername +
+                    '</b><br/><p>' +
+                    message +
+                    '</p><i>' +
+                    date +
+                    '</i></div></li>';
+
+            $("#messagebody").append(template);
+        }
+
+
+        messagesrealtime.client.newMessage = function(message) {
+            AddMessage(message);
+        };
+        $(document)
+            .ready(function() {
+
+                $.post("@Url.Action("GetLastMessages", new {id = Model.Id})",
+                    function(result) {
+                        $.each(result,
+                            function(key, value) {
+                                if (value.RecipientUserId === recipientId) {
+                                    AddMessageFromMe(value.Text, value.SendDateTime);
+                                } else {
+
+                                    AddMessage(value.Text, value.SendDateTime);
+                                }
+                            });
+                    });
+
+                $.connection.hub.start()
+                    .done(function() {
+                        messagesrealtime.server.joinConversation("@User.Identity.GetUserId()");
+                    });
+
+
+                $("#button-send")
+                    .click(function() {
+                        var message = $("#message-text").val();
+
+                        messagesrealtime.server.addMessage("@User.Identity.GetUserId()", "@Model.Id", message);
+
+                        AddMessageFromMe(message, new Date().toLocaleString());
+
+                        $("#message-text").val("");
+                    });
+            });
+    </script>
+}
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">New message</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-username" class="control-label">Recipient:</label>
+                        <input type="text" class="form-control" id="recipient-username">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text-modal" class="control-label">Message:</label>
+                        <textarea class="form-control" id="message-text-modal"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="modal-send-message">Send message</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <ul class="nav nav-tabs navtab-bg nav-justified">
+            @Html.Partial("_TabbedMenuPartial")
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active">
+
+                <div class="main_section">
+                    <div class="container">
+                        <div class="chat_container">
+                            <div class="col-lg-3 chat_sidebar">
+                                <div class="row">
+                                    <div class="member_list">
+                                        <ul class="list-unstyled" id="conversationlist">
+
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--chat_sidebar-->
+
+
+                            <div class="col-lg-9 message_section">
+                                <div class="row">
+                                    <div class="new_message_head">
+                                        <div class="pull-left"><button  id="newmessage"><i class="fa fa-plus-square-o"></i> New Message</button>
+                                        </div>
+                                    </div><!--new_message_head-->
+
+                                    <div class="chat_area">
+                                        <ul class="list-unstyled" id="messagebody">
+                                        </ul>
+                                    </div><!--chat_area-->
+                                    <div class="message_write">
+                                        <textarea class="form-control" placeholder="type a message" id="message-text"></textarea>
+                                        <div class="clearfix"></div>
+                                        <div class="chat_bottom">
+                                            <a href="#" class="pull-right btn btn-success" id="button-send">
+                                                Send
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!--message_section-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

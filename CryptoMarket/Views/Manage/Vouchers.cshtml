@@ -1,0 +1,201 @@
+﻿@model List<Vouchers>
+    @{
+        Layout = "~/Views/Shared/_LayoutAltexBlue.cshtml";
+        ViewBag.Title = "Vouchers";
+    }
+@section scripts{
+<script>
+    $(function () {
+        $('#voucher-button').click(function () {
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Content("/Manage/RedeemVoucher/")",
+                data: {
+                    id: $('#voucher-id').val()
+                }
+            }).done(function (data) {
+                if (data) {
+                    location.reload();
+                }
+                else {
+                    $('#voucher-alert').show();
+                };
+            });
+        });
+    });
+</script>
+    }
+<style>
+    h3 {
+        margin: 15px;
+    }
+    .buttons-container{
+        margin: 15px;
+    }
+    .buttons-container > .btn{
+        padding: 5px;
+        height: 33px;
+    }
+    body{
+        font-family:sans-serif;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="markets-filter-tabs clear-block">
+            <ul class="flex-row tabs-nav">
+                @Html.Partial("_TabbedMenuPartial")
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div class="pane active card-block markets-table">
+                <div class="buttons-container">
+                    <a href="@Url.Action("CreateVoucher")" class="btn btn-default"> <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Create New Voucher</a>&nbsp;&nbsp;&nbsp;or&nbsp;&nbsp;&nbsp;
+                    <button id="redeem-voucher" class="btn btn-default" data-toggle="modal" data-target="#myModal"> <span class="btn-label"><i class="glyphicon glyphicon-barcode"></i></span>Redeem Voucher</button>
+                </div>
+                <br />
+                <div class="markets-table-tbody">
+                    <div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <a>Voucher Code</a>
+                                    </th>
+                                    <th>
+                                        <a>Amount</a>
+                                    </th>
+                                    <th>
+                                        <a>Expiry Date</a>
+                                    </th>
+                                    <th>
+                                        <a>Redeemed?</a>
+                                    </th>
+                                    <th>
+                                        <a>Coin</a>
+                                    </th>
+                                    <th>
+                                        <a>Creation Date</a>
+                                    </th>
+                                    <th>
+                                        <a>Actions</a>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Where(voucher => voucher.CreatorUserId == User.Identity.GetUserId()))
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.VoucherCode
+                                        </td>
+                                        <td>
+                                            @item.Amount
+                                        </td>
+                                        <td>
+                                            @item.ExpiryDate
+                                        </td>
+                                        <td>
+                                            @if (item.Redeemed)
+                                            {
+                                                <text>YES. Activated by @UsersManager.GetUserObfuscatedEmail(item.RedeemerUserId), @item.RedeemDate</text>
+                                            }
+                                            else
+                                            {
+                                                <text>NO</text>
+                                            }
+                                        </td>
+                                        <td>
+                                            @CoinsManager.GetCoinShortNameById(item.CoinId)
+                                        </td>
+                                        <td>
+                                            @item.DateCreated
+                                        </td>
+                                        <td>
+                                            @if (!item.Redeemed)
+                                            {
+                                                <a href="@Url.Action("CancelVoucher", "Manage", new {id = item.Id})" class="btn btn-labeled btn-danger"> <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Cancel </a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <hr />
+                <h3>Used Vouchers</h3>
+                <div class="markets-table-tbody">
+                    <div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <a>Voucher Code</a>
+                                    </th>
+                                    <th>
+                                        <a>Amount</a>
+                                    </th>
+                                    <th>
+                                        <a>Coin</a>
+                                    </th>
+                                    <th>
+                                        <a>From</a>
+                                    </th>
+                                    <th>
+                                        <a>Date</a>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Where(voucher => voucher.RedeemerUserId == User.Identity.GetUserId()))
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.VoucherCode
+                                        </td>
+                                        <td>
+                                            @item.Amount
+                                        </td>
+                                        <td>
+                                            @CoinsManager.GetCoinShortNameById(item.CoinId)
+                                        </td>
+                                        <td>
+                                            @UsersManager.GetUserObfuscatedEmail(item.CreatorUserId)
+                                        </td>
+                                        <td>
+                                            @item.DateCreated
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @using (Html.BeginForm("RedeemVoucher", "Manage", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Redeem voucher</h4>
+                </div>
+                <div class="modal-body card-block">
+                    <input type="text" id="voucher-id" class="form-control" style="text-align:left;" />
+                </div>
+                <div class="modal-footer">
+                    <a id="voucher-alert" style="color:red; display:none">Wrong voucher id!</a>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    <button id="voucher-button" type="button" class="btn btn-default">Redeem</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

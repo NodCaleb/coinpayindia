@@ -1,0 +1,81 @@
+﻿@model IEnumerable<CryptoMarket.Models.ApplicationUser>
+@{
+    Layout = "~/Views/Shared/_LayoutAltexBlue.cshtml";
+}
+
+<script>
+    $(function () {
+        $('.goacceptbutton').click(function () {
+            $("#userId").val($(this).data("id"));
+        });
+    });
+</script>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("Accept", "VerificationAdmin", FormMethod.Post))
+                {  
+                    <label for="fullName">Please enter FULL NAME from Passport ID photo</label> 
+                    <div class="input-block flex-row flex-align-items-center">
+                        @Html.TextBox("fullName", "", new {
+                            placeholder = "Bill Gates"
+                        })
+                    </div>
+                    <br />
+                    <input type="hidden" id="userId" name="userId"/><br/>
+                    <input type="submit" value="Accept Verification Document" /> 
+                }
+            </div>
+        </div>
+      
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <h2>Verification Administration</h2>
+        <div class="pane active card-block markets-table">
+
+            <div class="markets-table-tbody">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            Verification Uploaded Image
+                        </th>
+                        <th>
+                            Actions
+                        </th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                <a href="@Url.Action("ShowImage","VerificationAdmin",new { id = item.VerificationDocumentImageGuid})" target="_blank">VIEW Image</a>
+                            </td>
+                            <td>
+                                <button data-id="@item.Id" class="goacceptbutton" data-toggle="modal" data-target="#myModal">ACCEPT</button> |  @Html.ActionLink("Reject", "Reject", new { id = item.Id })
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+﻿<li onclick="document.location='@Url.Action("Index")'">
+    <a href="@Url.Action("Index")" class="@if (Html.IsCurrentAction("Index", "Manage")) {<text>active</text>}">
+        <span><i class="fa fa-fw fa-lg fa-user"></i> General Info</span>
+    </a>
+</li>
+<li onclick="document.location='@Url.Action("Balances")'">
+    <a href="@Url.Action("Balances")" class="@if (Html.IsCurrentAction("Balances", "Manage")) {<text>active</text>}">
+        <span><i class="fa fa-fw fa-lg fa-money"></i> Balances</span>
+    </a>
+</li>
+<li onclick="document.location='@Url.Action("Deposits")'">
+    <a href="@Url.Action("Deposits")" class="@if (Html.IsCurrentAction("Deposits", "Manage")) {<text>active</text>}">
+        <span><i class="fa fa-fw fa-lg fa-share"></i> Deposits</span>
+    </a>
+</li>
+<li onclick="document.location='@Url.Action("Withdrawals")'">
+    <a href="@Url.Action("Withdrawals")" class="@if (Html.IsCurrentAction("Withdrawals", "Manage")) {<text>active</text>}">
+        <span><i class="fa fa-fw fa-lg fa-level-down"></i> Withdrawals</span>
+    </a>
+</li>
+<li onclick="document.location='@Url.Action("Order")'">
+    <a href="@Url.Action("Orders")" class="@if (Html.IsCurrentAction("Orders", "Manage")) {<text>active</text>}">
+        <span><i class="fa fa-fw fa-lg fa-align-justify"></i> Order</span>
+    </a>
+</li>
+<li onclick="document.location='@Url.Action("TradeHistory")'">
+    <a href="@Url.Action("TradeHistory")" class="@if (Html.IsCurrentAction("TradeHistory", "Manage")) {<text>active</text>}">
+        <span><i class="fa fa-fw fa-lg fa-gavel"></i> Trade History</span>
+    </a>
+</li>
+<li onclick="document.location='@Url.Action("LoginHistory")'">
+    <a href="@Url.Action("LoginHistory")" class="@if (Html.IsCurrentAction("LoginHistory", "Manage")) {<text>active</text>}">
+        <span><i class="fa fa-fw fa-lg fa-exclamation-triangle"></i> Login History</span>
+    </a>
+</li>
+<li onclick="document.location='@Url.Action("Vouchers")'">
+    <a href="@Url.Action("Vouchers")" class="@if (Html.IsCurrentAction("Vouchers", "Manage")) {<text>active</text>}">
+        <span><i class="fa fa-fw fa-lg fa-certificate"></i> Vouchers</span>
+    </a>
+</li>
+<li onclick="document.location = '@Url.Action("EnableGoogleAuthenticator")'">
+    <a href="@Url.Action("EnableGoogleAuthenticator")" class="@if (Html.IsCurrentAction("EnableGoogleAuthenticator", "Manage")) {<text>active</text>}">
+        <span><i class="fa fa-fw fa-lg fa-lock"></i> Two Factor Authentication</span>
+    </a>
+</li>
+
+<li onclick="document.location = '@Url.Action("Verification")'">
+    <a href="@Url.Action("Verification")" class="@if (Html.IsCurrentAction("Verification", "Manage")) {<text>active</text>}">
+        <span><i class="fa fa-fw fa-lg fa-user"></i> Verification</span>
+    </a>
+</li>

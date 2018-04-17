@@ -1,0 +1,314 @@
+﻿@using CryptoMarket
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <title> IVUGEO - Cryptocurrency Market </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="~/Assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="~/Assets/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="~/Assets/css/smartadmin-production_unminified.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="~/Assets/css/smartadmin-skins.css">
+    <link rel="shortcut icon" href="~/Assets/img/favicon/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="~/Assets/img/favicon/favicon.ico" type="image/x-icon">
+    <link href="~/Assets/Market/fonts.css" rel="stylesheet" />
+    @RenderSection("scripts", false)
+
+</head>
+<body class="">
+    <header id="header">
+        <div id="logo-group">
+            <span id="logo">
+                <img src="~/img/logo-29.07.15.png" />
+            </span>
+        </div>
+        <div class="pull-right">
+            <div id="hide-menu" class="btn-header pull-right">
+                <span> <a href="javascript:void(0);" title="Collapse Menu"><i class="fa fa-reorder"></i></a> </span>
+            </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div id="logout" class="btn-header transparent pull-right">
+                    <span> <a href="@Url.Action("LogOff", "Account")" title="Sign Out"><i class="fa fa-sign-out"></i> Log out</a> </span>
+                </div>
+            }
+            else
+            {
+                <div id="login" class="btn-header transparent pull-right">
+                    <span> <a href="@Url.Action("Login", "Account")" title="Sign Out"><i class="fa fa-sign-in"></i> Log In</a> </span>
+                </div>
+                <div id="Register" class="btn-header transparent pull-right">
+                    <span> <a href="@Url.Action("Register", "Account")" title="Sign Out"><i class="fa fa-key"></i> Register</a> </span>
+                </div>
+            }
+
+        </div>
+    </header>
+    <!-- Left panel : Navigation area -->
+    <aside id="left-panel">
+        @if (Request.IsAuthenticated) {
+            <div class="login-info">
+                <span>
+                    <a href="javascript:void(0);" id="show-shortcut">
+                        <span>
+                            @User.Identity.GetUserName()
+                        </span>
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                </span>
+            </div>
+        }
+        @{
+            var marketData = MarketsManager.GetMarketsData();
+            var staticPagesList = StaticPageManager.GetAll();
+        }
+
+        <div class="jarviswidget jarviswidget-color-darken" id="wid-id-menu" style="opacity: 1; margin-bottom: 0;">
+            <header role="heading" style="height: 40px;">
+                <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                <h2>Menu</h2>
+                <span class="pull-right"><i id="menu-collapser" class="fa fa-plus"></i>&nbsp;&nbsp;&nbsp;</span>
+            </header>
+            <div role="content" id="wid-id-menu-content" style="display: none;">
+                <div class="jarviswidget-editbox">
+                </div>
+                <div class="widget-body no-padding">
+                    <nav>
+                        <ul>
+                            <li><a href="@Url.Action("Index", "Manage")" style="color: black;"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">My Account</span></a></li>
+                            @foreach (var page in staticPagesList){
+                                <li>
+                                    <a href="@Url.Action("Page", "Static", new{url = page.Url})" style="color: black;"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">@page.Title</span></a>
+                                </li>
+                            }
+                            <li><a href="@Url.Action("Voting", "Home")" style="color: black;"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Voting</span></a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+   
+        <div class="jarviswidget jarviswidget-color-darken" id="wid-id-btc" style="opacity: 1; margin-bottom: 0;">
+            <header role="heading" style="height: 40px;">
+                <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                <h2>Latest BTC Markets</h2>
+                <span class="pull-right"><i id="btc-collapser" class="fa fa-plus"></i>&nbsp;&nbsp;&nbsp;</span>
+            </header>
+            <div role="content" id="wid-id-btc-content" style="display: none;">
+                <div class="jarviswidget-editbox">
+                </div>
+                <div class="widget-body no-padding">
+                    <div class="dataTables_wrapper form-inline" role="grid">
+                        <div class="dt-wrapper">
+                            <table class="table table-striped table-bordered table-hover dataTable">
+                                <thead>
+                                    <tr role="row">
+                                        <th>Coin</th>
+                                        <th>Price(BTC)</th>
+                                        <th>Change%</th>
+                                    </tr>
+                                </thead>
+                                <tbody role="alert" aria-live="polite" aria-relevant="all">
+                                    @foreach (var bitcoinMarket in marketData.BtcMarkets) {
+                                        <tr style="cursor: pointer;" onclick='document.location="/market?pair=@bitcoinMarket.PairName";'>
+                                            <td>@CoinsManager.GetCoinShortNameById(bitcoinMarket.CoinTo)</td>
+                                            <td id="latest-@bitcoinMarket.Id">@bitcoinMarket.LatestPrice.Value.ToString("N8")</td>
+                                            <td id="pricechange-@bitcoinMarket.Id">
+                                                @bitcoinMarket.PriceChangePercent% @if (bitcoinMarket.PriceChangePercent > 0) {
+                                                    <text>&#9650;</text>
+                                                } else {
+                                                    <text>&#9660;</text>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="jarviswidget jarviswidget-color-darken" id="wid-id-ltc" style="opacity: 1; margin-bottom: 0;">
+        <header role="heading" style="height: 40px;">
+            <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+            <h2>Latest LTC Markets</h2>
+            <span class="pull-right"><i id="ltc-collapser" class="fa fa-plus"></i>&nbsp;&nbsp;&nbsp;</span>
+        </header>
+        <div role="content" id="wid-id-ltc-content" style="display: none;">
+            <div class="jarviswidget-editbox">
+            </div>
+            <div class="widget-body no-padding">
+                <div class="dataTables_wrapper form-inline" role="grid">
+                    <div class="dt-wrapper">
+                        <table class="table table-striped table-bordered table-hover dataTable">
+                            <thead>
+                            <tr role="row">
+                                <th>Coin</th>
+                                <th>Price(LTC)</th>
+                                <th>Change%</th>
+                            </tr>
+                            </thead>
+                            <tbody role="alert" aria-live="polite" aria-relevant="all">
+                            @foreach (var litecoinMarket in marketData.LtcMarkets) {
+                                <tr style="cursor: pointer;" onclick='document.location = "/market?pair=@litecoinMarket.PairName";'>
+                                    <td class="sorting_1">@CoinsManager.GetCoinShortNameById(litecoinMarket.CoinTo)</td>
+                                    <td id="latest-@litecoinMarket.Id">@litecoinMarket.LatestPrice.Value.ToString("N8")</td>
+                                    <td id="pricechange-@litecoinMarket.Id">
+                                        @litecoinMarket.PriceChangePercent% @if (litecoinMarket.PriceChangePercent > 0) {
+                                            <text>&#9650;</text>
+                                        } else {
+                                            <text>&#9660;</text>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="jarviswidget jarviswidget-color-darken" id="wid-id-stats-24" style="opacity: 1;">
+        <header role="heading" style="height: 40px;">
+            <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+            <h2>Market Stats Past 24h</h2>
+            <span class="pull-right"><i id="stats-collapser" class="fa fa-minus"></i>&nbsp;&nbsp;&nbsp;</span>
+        </header>
+        <div role="content" id="wid-id-stats-content">
+            <div class="jarviswidget-editbox">
+            </div>
+            <div class="widget-body no-padding">
+                <div class="dataTables_wrapper form-inline" role="grid">
+                    <div class="dt-wrapper">
+                        <table class="table table-striped table-bordered table-hover dataTable">
+                            <tbody role="alert" aria-live="polite" aria-relevant="all">
+                            <tr class="odd">
+                                <td>BTC Volume</td>
+                                <td>@marketData.BtcValue.ToString("N8") BTC</td>
+                            </tr>
+                            <tr>
+                                <td>LTC Volume</td>
+                                <td>@marketData.LtcValue.ToString("N8") LTC</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>Total Trades</td>
+                                <td>@marketData.TradesCount</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+       
+    </aside>
+    <div id="main" role="main">
+        <div id="ribbon">
+            <span class="ribbon-button-alignment"> <span id="refresh" class="btn btn-ribbon" data-title="refresh" rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true"><i class="fa fa-refresh"></i></span> </span>
+        </div>
+        <div id="content">
+            @RenderBody()
+        </div>
+    </div>
+    <div id="shortcut">
+        <ul>
+            <li>
+                <a href="@Url.Action("Index", "Manage")" class="jarvismetro-tile big-cubes bg-color-blue"> <span class="iconbox"> <i class="fa fa-user fa-4x"></i> <span>User Profile</span> </span> </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "Platforms")" class="jarvismetro-tile big-cubes bg-color-blue"> <span class="iconbox"> <i class="fa fa-exchange fa-4x"></i> <span>Platforms</span> </span> </a>
+            </li>
+            @if(ApplicationUserManager.IsUserAdmin(User.Identity.GetUserId())) { 
+            <li>
+                <a href="@Url.Action("Index", "MarketsAdmin")" class="jarvismetro-tile big-cubes bg-color-blue"> <span class="iconbox"> <i class="fa fa-list fa-4x"></i> <span>Markets Admin</span> </span> </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "CoinsAdmin")" class="jarvismetro-tile big-cubes bg-color-grayDark"> <span class="iconbox"> <i class="fa fa-btc fa-4x"></i> <span>Coins Admin</span> </span> </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "UsersAdmin")" class="jarvismetro-tile big-cubes bg-color-lighten"> <span class="iconbox"> <i class="fa fa-user fa-4x"></i> <span>Users Admin</span> </span> </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "OrdersAdmin")" class="jarvismetro-tile big-cubes bg-color-redLight"> <span class="iconbox"> <i class="fa fa-exchange fa-4x"></i> <span>Order Admin</span> </span> </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "StaticPagesAdmin")" class="jarvismetro-tile big-cubes bg-color-blueLight"> <span class="iconbox"> <i class="fa fa-desktop fa-4x"></i> <span>Static Page Admin</span> </span> </a>
+            </li>
+                var pendingWithdrawCount = WithdrawManager.GetPendingWithdrawsCount();
+            
+            <li>
+                <a href="@Url.Action("Index", "WithdrawAdmin")" class="jarvismetro-tile big-cubes bg-color-red">
+                    <span class="iconbox">
+                        <i class="fa fa-level-down fa-4x"></i> <span>
+                            Withdraw Admin @if (pendingWithdrawCount > 0) {
+                                <text><span class="label pull-right bg-color-red">@pendingWithdrawCount</span></text>
+                            }
+                        </span>
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "AccountingAdmin")" class="jarvismetro-tile big-cubes bg-color-greenLight"> <span class="iconbox"> <i class="fa fa-tachometer fa-4x"></i> <span>Accounting Admin</span> </span> </a>
+            </li>
+
+            <li>
+                <a href="@Url.Action("Index", "VotingAdmin")" class="jarvismetro-tile big-cubes bg-color-blue"> <span class="iconbox"> <i class="fa fa-flag fa-4x"></i> <span>Coin Votes Admin</span> </span> </a>
+            </li>
+
+            <li>
+                <a href="@Url.Action("Index", "EmailAdmin")" class="jarvismetro-tile big-cubes bg-color-blue"> <span class="iconbox"> <i class="fa fa-envelope fa-4x"></i> <span>Email Send Admin</span> </span> </a>
+            </li>
+
+            <li>
+                <a href="@Url.Action("Index", "AdminLogs")" class="jarvismetro-tile big-cubes bg-color-red"> <span class="iconbox"> <i class="fa fa-search fa-4x"></i> <span>Log Control Admin</span> </span> </a>
+            </li>
+
+            <li>
+                <a href="@Url.Action("Index", "CoinsInspectionAdmin")" class="jarvismetro-tile big-cubes bg-color-blueDark"> <span class="iconbox"> <i class="fa fa-terminal fa-4x"></i> <span>Coin Inspection</span> </span> </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "VouchersAdmin")" class="jarvismetro-tile big-cubes bg-color-greenLight"> <span class="iconbox"> <i class="fa fa-newspaper-o fa-4x"></i> <span>Vouchers Admin</span> </span> </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "BlogAdmin")" class="jarvismetro-tile big-cubes bg-color-greenLight"> <span class="iconbox"> <i class="fa fa-pencil-square-o fa-4x"></i> <span>Blog Admin</span> </span> </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "EmergencyMessages")" class="jarvismetro-tile big-cubes bg-color-greenLight"> <span class="iconbox"> <i class="fa fa-warning fa-4x"></i> <span>Emergency Messages</span> </span> </a>
+            </li>
+            }
+        </ul>
+    </div>
+
+<script data-pace-options='{ "restartOnRequestAfter": true }' src="~/Assets/js/plugin/pace/pace.min.js"></script>
+    <script src="~/Assets/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script>
+    <script src="~/Assets/js/bootstrap/bootstrap.min.js"></script>
+    <script src="~/Assets/js/notification/SmartNotification.min.js"></script>
+    <script src="~/Assets/js/smartwidgets/jarvis.widget.min.js"></script>
+    <script src="~/Assets/js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js"></script>
+    <script src="~/Assets/js/plugin/sparkline/jquery.sparkline.min.js"></script>
+    <script src="~/Assets/js/plugin/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/Assets/js/plugin/masked-input/jquery.maskedinput.min.js"></script>
+    <script src="~/Assets/js/plugin/select2/select2.min.js"></script>
+    <script src="~/Assets/js/plugin/bootstrap-slider/bootstrap-slider.min.js"></script>
+    <script src="~/Assets/js/plugin/msie-fix/jquery.mb.browser.min.js"></script>
+    <script src="~/Assets/js/plugin/fastclick/fastclick.js"></script>
+    <script src="~/Assets/js/app.js"></script>
+<!--[if IE 7]>
+        <h1>Your browser is out of date, please update your browser by going to www.microsoft.com/download</h1>
+    <![endif]-->
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            pageSetUp();
+        });
+    </script>
+</body>
+</html>

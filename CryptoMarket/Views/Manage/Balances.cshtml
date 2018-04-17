@@ -1,0 +1,55 @@
+﻿@model CryptoMarket.Controllers.ManageController.BalancesPageModel
+@{
+    Layout = "~/Views/Shared/_LayoutAltexBlue.cshtml";
+    ViewBag.Title = "Balances";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="markets-filter-tabs clear-block">
+            <ul class="flex-row tabs-nav">
+                @Html.Partial("_TabbedMenuPartial")
+            </ul>
+        </div>
+        <div class="tabs-pane">
+            <div class="pane active card-block markets-table">
+                <div class="markets-table-tbody">
+                    <div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <a>Coin Name</a>
+                                    </th>
+                                    <th>
+                                        <a>Available Amount</a>
+                                    </th>
+                                    <th>
+                                        <a>Actions</a>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Balances)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CoinName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Amount)
+                                        </td>
+                                        <td>
+                                            @*Deposts and Withdrawals disabled on Demo*@
+                                            @Html.ActionLink("Deposit", "Deposit", new { coinId = item.CoinId }) |
+                                            @Html.ActionLink("Withdraw", "Withdraw", new { coinId = item.CoinId })
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

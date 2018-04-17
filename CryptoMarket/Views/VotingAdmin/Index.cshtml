@@ -1,0 +1,90 @@
+﻿@model IEnumerable<VotingForCoins>
+@{
+    ViewBag.Title = "Index";
+}
+@Scripts.Render("~/datatable")
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#dt_basic').dataTable({
+            "sPaginationType": "bootstrap_full"
+        });
+    });
+</script>
+<style>
+    p {
+        margin: 15px;
+    }
+</style>
+<div class="row">
+    <div class="col-sm-12">
+        <h2>Voting List</h2>
+        <div class="pane active card-block markets-table">
+            <div class="buttons-container">
+                <a href="@Url.Action("Create")" class="btn btn-default"> <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Create New Voting </a>
+            </div>
+            <div class="markets-table-tbody">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CoinName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.VotingAddress)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CurrentVotesNumber)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CoinUsed)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Price)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Active)
+                            </th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CoinName)
+                                </td>
+                                <td>
+                                    <a href="https://blockchain.info/address/@item.VotingAddress" target="_blank">@item.VotingAddress</a>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CurrentVotesNumber)
+                                </td>
+                                <td>
+                                    @CoinsManager.Get(item.CoinUsed.ToString()).ShortName
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Price)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Active)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }) | @Html.ActionLink(item.Active ? "Deactivate" : "Activate", "ToggleActive", new { id = item.Id })
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <h2>Voting Summary</h2>
+        <p>Total Vote Count: @ViewBag.TotalVoteCount</p>
+        <p>Total BTC with Votes: @ViewBag.TotalBtc BTC</p>
+    </div>
+</div>

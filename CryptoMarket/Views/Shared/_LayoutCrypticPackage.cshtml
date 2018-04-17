@@ -1,0 +1,223 @@
+﻿@using CryptoMarket
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="HTML,CSS,JavaScript">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="~/Assets/cryptic_package/images/favicon.png" type="image/ico" />
+    <title>Cryptic - Cryptocurrency Admin Dashboard Template</title>
+    <!-- CSS -->
+    <!-- Bootstrap -->
+    <link href="~/Assets/cryptic_package/plugins/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Assets/cryptic_package/fonts/cryptocoins.css" rel="stylesheet">
+    <!-- Simple line icons -->
+    <link href="~/Assets/cryptic_package/css/simple-line-icons.css" rel="stylesheet">
+    <!-- Font awesome icons -->
+    <link href="~/Assets/cryptic_package/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Assets/cryptic_package/css/font-awesome-animation.min.css" rel="stylesheet">
+    <!-- Custom Style -->
+    <link href="~/Assets/cryptic_package/plugins/select2/select2.min.css" rel="stylesheet">
+    <link href="~/Assets/cryptic_package/css/custom.css" rel="stylesheet">
+    <link href="~/Assets/cryptic_package/css/skin-colors/skin-yellow.css" rel="stylesheet">
+    <link href="~/Assets/cryptic_package/css/media.css" rel="stylesheet">
+    <!-- Charts -->
+    <link href="~/Assets/cryptic_package/plugins/rickshaw/rickshaw.min.css" rel="stylesheet">
+    <!-- Custom Font -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <!-- Charts -->
+    <link rel="stylesheet" href="~/Content/altex_blue/css/TechanChart.css?2">
+    <link href="~/Assets/notiny/notiny.min.css" rel="stylesheet" />
+</head>
+<body class="nav-md preloader-off">
+    <div class="pace-cover"></div>
+    <div id="st-container" class="st-container st-effect">
+        <!-- MAIN PAGE CONTAINER -->
+        <div class="container body">
+            <div class="main_container">
+                <!-- LEFT PRIMARY NAVIGATION -->
+                <div class="col-md-3 left_col">
+                    <div class="scroll-view">
+                        <div class="navbar nav_title">
+                            <h1 class="logo_wrapper">
+                                <a href="index.html" class="site_logo">
+                                    @*<img class="logo" src="~/Content/altex_blue/img/loowerewgos_small_ntrade.png" alt="cryptic logo">*@
+                                    <span class="logo-text">N-Trade</span>
+                                </a>
+                            </h1>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                            <div class="menu_section">
+                                <h3>General</h3>
+                                <ul class="nav side-menu">
+                                    <li>
+                                        <a href="/trade">
+                                            <i class="icon-refresh icons"></i>
+                                            <span>Trade</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/trade">
+                                            <i class="icon-check icons"></i>
+                                            <span>Voting</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/trade">
+                                            <i class="icon-wallet icons"></i>
+                                            <span>FEES</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/trade">
+                                            <i class="icon-speech icons"></i>
+                                            <span>Support</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/trade">
+                                            <i class="icon-screen-desktop icons"></i>
+                                            <span>API</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /sidebar menu -->
+                        <!-- /menu footer buttons -->
+                        @*<div class="sidebar-footer hidden-small">
+                            <a data-toggle="tooltip" data-placement="top" title="Settings">
+                                <span class="icon-settings icons" aria-hidden="true"></span>
+                            </a>
+                            <a data-toggle="tooltip" id="btnFullscreen" data-placement="top" title="FullScreen">
+                                <span class="icon-size-fullscreen icons" aria-hidden="true"></span>
+                            </a>
+                            <a data-toggle="tooltip" data-placement="top" title="Lock">
+                                <span class="icon-eye icons" aria-hidden="true"></span>
+                            </a>
+                            <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+                                <span class="icon-power icons" aria-hidden="true"></span>
+                            </a>
+                        </div>*@
+                        <!-- /menu footer buttons -->
+                    </div>
+                </div>
+                <!-- TOP SECONDARY NAVIGATION -->
+                <div class="top_nav">
+                    <div class="nav_menu">
+                        <ul class="nav navbar-nav navbar-left">
+                            <li class="toggle-li">
+                                <div class="nav toggle burger-nav">
+                                    <a id="menu_toggle">
+                                        <div class="burger">
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul> <!-- top menu ul -->
+                        <ul class="nav navbar-nav navbar-right">
+
+                            <li class="">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <img src="~/Assets/cryptic_package/images/profile-pic.jpg" alt="">
+                                </a>
+                                <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                    <li><a href="javascript:;"> Profile</a></li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <span class="badge bg-red pull-right">50%</span>
+                                            <span>Settings</span>
+                                        </a>
+                                    </li>
+                                    <li><a href="javascript:;">Help</a></li>
+                                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                                </ul>
+                            </li>
+                            <li class="search-wrap">
+                                <a href="javascript:;" id="btn-signin" style="padding: 25px; height: 70px;">
+                                    Sign in
+                                </a>
+                            </li>
+                            <li class="search-wrap">
+                                <a href="javascript:;" id="btn-signin" style="padding: 25px; height: 70px;">
+                                    Register
+                                </a>
+                            </li>
+                            <li class="search-wrap">
+                                <a href="javascript:;" id="btn-search" class="search-nav">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- PAGE CONTENT -->
+                <div class="right_col right_col_exchange" role="main">
+                    @RenderBody()
+                </div>
+                <a href="#" class="scrollToTop"><i class="fa fa-chevron-up text-white" aria-hidden="true"></i></a>
+                <div class="spacer_30"></div>
+                <!-- PAGE FOOTER -->
+                <footer>
+                    <div class="pull-right">
+                        Cryptic - Admin Template by <a href="https://themeforest.net/user/modeltheme/portfolio">ModelTheme</a>
+                    </div>
+                    <div class="clearfix"></div>
+                </footer>
+            </div>
+            <!-- RIGHT SIDE SIDEBAR NAVIGATION -->
+            <nav class="st-menu st-effect">
+                <span class="fa fa-times close-sidebar"></span>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+            </nav>
+        </div>
+        <!-- RIGHT SIDE: SEARCH FORM -->
+        <div class="search search-main">
+            <div id="btn-search-close" class="btn btn--search-close" aria-label="Close search form">
+                <i class="fa fa-times"></i>
+            </div>
+            <form class="search__form" action="search.html">
+                <input class="search__input" name="search" type="search" placeholder="Hash, transactions..." autocapitalize="off" spellcheck="false" />
+                <span class="search__info">Hit enter to search or ESC to close</span>
+            </form>
+        </div>
+        <!-- JS SCRIPTS -->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+        <script src="~/Assets/cryptic_package/js/jquery.scrollbar.min.js"></script>
+        <script src="~/Assets/cryptic_package/plugins/modernizr/modernizr.custom.js"></script>
+        <script src="~/Assets/cryptic_package/plugins/classie/classie.js"></script>
+        <script src="~/Assets/cryptic_package/plugins/bootstrap/bootstrap.min.js"></script>
+        <script src="~/Assets/cryptic_package/plugins/select2/select2.min.js"></script>
+        <script src="~/Assets/cryptic_package/plugins/highcharts/highcharts.js"></script>
+        <script src="~/Assets/cryptic_package/plugins/highcharts/exporting.js"></script>
+        <!-- Custom Charts Scripts -->
+        <script src="~/Assets/cryptic_package/js/charts.js"></script>
+        <script src="~/Assets/cryptic_package/plugins/amcharts/amcharts.js"></script>
+        <script src="~/Assets/cryptic_package/plugins/amcharts/depthChart/serial.js"></script>
+        <script src="~/Assets/cryptic_package/plugins/amcharts/depthChart/export.min.js"></script>
+        <script src="~/Assets/cryptic_package/plugins/amcharts/depthChart/light.js"></script>
+        <script src="~/Assets/cryptic_package/js/charts-amcharts.js"></script>
+        <!-- Custom Theme Scripts -->
+        <script src="~/Assets/cryptic_package/js/custom.min.js"></script>
+        <script src="~/Assets/cryptic_package/js/preloader.min.js"></script>
+    <!-- Application Scripts -->
+    @RenderSection("scripts", false)
+    
+    <script src="~/Assets/notiny/notiny.min.js"></script>
+    </div>
+</body>
+</html>

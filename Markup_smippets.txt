@@ -1,0 +1,85 @@
+<style>
+    h3 {
+        margin: 15px;
+    }
+
+    .buttons-container {
+        margin: 15px;
+    }
+
+        .buttons-container > .btn {
+            padding: 5px;
+            height: 33px;
+        }
+
+    body {
+        font-family: sans-serif;
+    }
+</style>
+<div class="row">
+    <div class="col-sm-12">
+        <h2></h2>
+        <div class="pane active card-block markets-table">
+            <div class="buttons-container">
+                
+            </div>
+            <div class="markets-table-tbody">
+                <table>
+                    <thead>
+                        
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <h2></h2>
+        <div class="pane active card-block markets-table">
+            <div class="markets-table-tbody">
+                <table>
+                    <thead>
+                        
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="pane active card-block">
+    <h2 style="margin-left:15px">Edit Market</h2>
+    @using (Html.BeginForm("EditSubmit", "MarketsAdmin", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("", new { @class = "alert alert-danger" })
+        <div class="form-content">
+
+            <div class="form-group clear-block">
+                <label class="col-md-2 control-label" for="PairName"></label>
+                <div class="col-md-10">
+                    <div class="input-block flex-row flex-align-items-center">
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="form-bottom">
+            <button type="submit" class="btn btn-default">
+                Submit Market Editing
+            </button>
+        </div>
+    }
+</div>
+<p style="margin:15px; font-family:sans-serif;">
+    @Html.ActionLink("Back to List", "Index")
+</p>

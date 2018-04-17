@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Markets>
+@{
+    ViewBag.Title = "Markets List";
+    Layout = "~/Views/Shared/_LayoutAltexBlue.cshtml";
+}
+<style>
+    h3 {
+        margin: 15px;
+    }
+
+    .buttons-container {
+        margin: 15px;
+    }
+
+        .buttons-container > .btn {
+            padding: 5px;
+            height: 33px;
+        }
+
+    body {
+        font-family: sans-serif;
+    }
+</style>
+<div class="row">
+    <div class="col-sm-12">
+        <h2>Markets</h2>
+        <div class="pane active card-block markets-table">
+            <div class="buttons-container">
+                <a href="@Url.Action("Create")" class="btn btn-default"> <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Create New </a>
+            </div>
+            <div class="markets-table-tbody">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Coin From</th>
+                            <th>Coin To</th>
+                            <th>Pair Name</th>
+                            <th>Order Fee</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @CoinsManager.GetCoinNameById(item.CoinFrom)
+                                </td>
+                                <td>
+                                    @CoinsManager.GetCoinNameById(item.CoinTo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PairName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Fee)%
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                    @Html.ActionLink(item.Active ? "Deactivate" : "Activate", "ToggleActive", new { id = item.Id }) 
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

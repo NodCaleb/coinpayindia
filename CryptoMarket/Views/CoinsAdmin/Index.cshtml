@@ -1,0 +1,77 @@
+﻿@model IEnumerable<CoinSystems>
+@{
+    Layout = "~/Views/Shared/_LayoutAltexBlue.cshtml";
+}
+
+@Scripts.Render("~/datatable")
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#dt_basic').dataTable({
+            "sPaginationType": "bootstrap_full"
+        });
+    });
+</script>
+<div class="row">
+    <div class="col-sm-12">
+        <h2>Currently Connected Coins List</h2>
+        <div class="pane active card-block markets-table">
+            <div class="buttons-container">
+                <a href="@Url.Action("Create")" class="btn btn-default"> <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Add New AltCoin</a>
+            </div>
+            <div class="markets-table-tbody">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Abbreviation
+                            </th>
+                            <th>
+                                Endpoint IP
+                            </th>
+                            <th>
+                                Endpoint Port
+                            </th>
+                            <th>
+                                Admin Fee Wallet
+                            </th>
+                            <th>
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ShortName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EndpointIP)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EndpointPort)
+                                </td>
+                                <td>
+                                    @item.AdminWallet
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                    @Html.ActionLink(item.WithdrawDisabled ? "Enable Withdraw" : "Disable Withdraw", "ToggleWithdraw", new { id = item.Id }) |
+                                    @Html.ActionLink(item.DepositDisabled ? "Enable Deposit" : "Disable Deposit", "ToggleDeposit", new { id = item.Id })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+﻿@model INRWithdrawRequest
+@{
+    Layout = "~/Views/Shared/_LayoutAltexBlue.cshtml";
+}
+<script>
+    $(function () {
+        $('#accept').click(function () {
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("Accept")",
+                data: {
+                    id: "@Model.Id"
+                }
+            }).done(function (data) {
+                window.location.replace('@Url.Action("Index", "WithdrawInrAdmin")');
+            });
+        });
+    });
+</script>
+<div class="row card-row">
+    <div class="col-lg-4">
+        <div class="card-block">
+            <div class="card-header">
+                <h3>
+                    User Withdraw Bank Details
+                </h3>
+            </div>
+            <div class="card-form">
+                <h2>Please make a transfer to customer, using that details:</h2>
+
+                <h3>Customer Name: @Model.CustomerName</h3>
+                <h3>Customer Account Number: @Model.CustomerAccountNumber</h3>
+                <h3>Bank Name: @Model.BankName</h3>
+                <h3>IFSCCode: @Model.IFSCCode</h3>
+                <h3><b>Amount: @Model.Amount INR</b></h3>
+
+                <div class="form-content">
+                    <div class="form-bottom">
+                        <div class="form-bottom">
+                            <button class="btn btn-default" id="accept">Withdraw Complete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

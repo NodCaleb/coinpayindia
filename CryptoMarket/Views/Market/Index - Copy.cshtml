@@ -1,0 +1,644 @@
+﻿@model Markets
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
+<script src="~/marketrealtime/js"></script>
+<script src="~/Scripts/date.format.js"></script>
+<script src="~/Scripts/amcharts/amcharts.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/amstockchart/3.10.0/serial.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/amstockchart/3.10.0/amstock.js"></script>
+<script>
+    var marketId = "@Model.Id.ToString()";
+
+    var sellingAmount = 1.00000000;
+    var pricePerOne = parseFloat('@Model.LatestPrice.Value.ToString("N8")');
+
+    var buyingAmount = 1.00000000;
+    var buyPricePerOne = parseFloat('@Model.LatestPrice.Value.ToString("N8")');
+
+    $(function () {
+        var marketrealtime = $.connection.marketrealtime;
+        $.connection.hub.start().done(function () {
+            marketrealtime.server.marketHello(marketId);
+        });
+
+        $.connection.hub.stateChanged(function (change) {
+            if (change.newState === $.signalR.connectionState.reconnecting) {
+                console.log("Web Socket is reconnecting!");
+            }
+            else if (change.newState === $.signalR.connectionState.connected) {
+                console.log("Web Socket is connected!");
+            }
+        });
+
+        GetUserActiveOrders(marketId);
+
+        marketrealtime.client.orderClosed = function (msg) {
+            GetUserActiveOrders(marketId);
+            $.smallBox({
+                title: "Order state changed!",
+                content: msg,
+                color: "#5C6073",
+                timeout: 20000,
+                icon: "fa fa-check"
+            });
+        };
+
+        marketrealtime.client.updateBuySell = function (orders, history, depthGraph) {
+            RenderSellBuyTables(orders);
+            RenderOrdersHistory(history);
+            RenderDepthGraph(depthGraph);
+            GetUserActiveOrders(marketId);
+        };
+
+        marketrealtime.client.priceChanged = function (marketId, priceChangePercent, price, grow) {
+            var elem = $("#pricechange-" + marketId);
+            elem.html(priceChangePercent);
+
+            if (grow) {
+                elem.addClass("valid");
+                setTimeout(function () {
+                    elem.removeClass("valid");
+                }, 2000);
+            } else {
+                elem.addClass("invalid");
+                setTimeout(function () {
+                    elem.removeClass("invalid");
+                }, 2000);
+            }
+
+            var elemPrice = $("#latest-" + marketId);
+            elemPrice.html(price);
+
+            if (grow) {
+                elemPrice.addClass("valid");
+                setTimeout(function () {
+                    elemPrice.removeClass("valid");
+                }, 2000);
+            } else {
+                elemPrice.addClass("invalid");
+                setTimeout(function () {
+                    elemPrice.removeClass("invalid");
+                }, 2000);
+            }
+        };
+
+        marketrealtime.client.balanceUpdate = function (coinId, newBalance, coinName, value, type) {
+            switch (type) {
+                // deposit
+                case 0:
+                    $.smallBox({
+                        title: "Balance Update",
+                        content: coinName + " balance updated. Deposited:" + value + ". Current total:" + newBalance,
+                        color: "#739E73",
+                        timeout: 5000,
+                        icon: "fa fa-check"
+                    });
+                    break;
+                    // Withdraw
+                case 1:
+                    $.smallBox({
+                        title: "Balance Update",
+                        content: coinName + " balance updated. Withdrawed:" + value + ". Current total:" + newBalance,
+                        color: "#739E73",
+                        timeout: 5000,
+                        icon: "fa fa-check"
+                    });
+                    break;
+            }
+
+            $("span[id^='" + coinId + "']").html(newBalance);
+        }
+
+
+        $("#SellAmount").keyup(function () {
+            sellingAmount = parseFloat($(this).val());
+            sellCalculate();
+        });
+        $("#SellPricePerOne").keyup(function () {
+            pricePerOne = parseFloat($(this).val());
+            sellCalculate();
+        });
+
+        $("#SellAmount").val(sellingAmount.toFixed(8));
+        $("#SellPricePerOne").val(pricePerOne.toFixed(8));
+
+        pricePerOne = parseFloat($("#SellPricePerOne").val());
+        sellingAmount = parseFloat($("#SellAmount").val());
+
+        sellCalculate();
+
+        $("#@Model.CoinTo-balance-sell").click(function () {
+            var amount = parseFloat($(this).html());
+            sellingAmount = amount;
+            $("#SellAmount").val(amount);
+            sellCalculate();
+        });
+
+        $("#@Model.CoinFrom-balance-buy").click(function () {
+            var amount = parseFloat($(this).html());
+            buyingAmount = amount;
+            $("#BuyAmount").val(amount);
+            BuyCalculate();
+        });
+
+        bindSellBuy();
+
+    });
+
+    function GetUserActiveOrders(marketId) {
+        $.get('@Url.Action("GetUserActiveOrders", "Market")', { marketId: marketId }, RenderUserActiveOrdersTable);
+    }
+
+    function RenderOrdersHistory(orders) {
+        var prependData = "";
+        $.each(orders, function (i, value) {
+            var orderTypeName = value.OrderType === 0 ? "BUY" : "SELL";
+            prependData += '<tr id="hisory-tr-' + value.Id + '">' +
+                '<td style="vertical-align:middle;">' + dateFormat(value.DateClosed, "mm/dd/yyyy h:MM:ss TT") + '</td>' +
+                '<td style="vertical-align:middle;">' + orderTypeName + '</td>' +
+                '<td style="vertical-align:middle;">' + value.PricePerOne.toFixed(8) + '</td>' +
+                '<td style="vertical-align:middle;">' + value.Amount.toFixed(8) + '</td></tr>';
+        });
+        $("#closed-orders-tbody").html(prependData);
+    }
+
+    function RenderDepthGraph(depthGraph) {
+        var chartData = [];
+
+        $.each(depthGraph, function (i, val) {
+            chartData[i] = ({
+                price: parseFloat(val.Price),
+                buy: parseFloat(val.Buy),
+                sell: parseFloat(val.Sell)
+            });
+        });
+
+        depthChart.dataProvider = chartData;
+        depthChart.validateData();
+    }
+
+    function RenderUserActiveOrdersTable(data) {
+        $("#@Model.Id-myorders").show();
+        var prependData = "";
+        $.each(data, function (i, value) {
+            var orderTypeName = value.OrderType === 0 ? "BUY" : "SELL";
+            prependData += '<tr id="tr-' + value.Id + '">' +
+                '<td style="vertical-align:middle;">' + dateFormat(parseJsonDate(value.DateCreated), "mm/dd/yyyy h:MM:ss TT") + '</td>' +
+                '<td style="vertical-align:middle;">' + orderTypeName + '</td>' +
+                '<td style="vertical-align:middle;">' + value.PartialOrderTotalLeft.toFixed(8) + '</td>' +
+                '<td style="vertical-align:middle;">' + value.PricePerOne.toFixed(8) + '</td>' +
+                '<td style="vertical-align:middle;">' + value.Total.toFixed(8) + '</td>' +
+                '<td style="vertical-align:middle;">' + value.FeeTotal.toFixed(8) + '</td>' +
+                '<td style="vertical-align:middle;">' + value.NetTotal.toFixed(8) + '</td>' +
+                '<td style="vertical-align:middle;"><a href="javascript:void(0);" class="btn btn-sm btn-labeled btn-danger orderButton" data-orderId=' + value.Id + '> <span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span>Cancel</a></td>' +
+                '</tr>';
+        });
+        $("#@Model.Id-myorders-tbody").html(prependData);
+
+        $(".orderButton").click(function () {
+            DeleteOrder($(this).attr("data-orderId"));
+        });
+    }
+
+    function parseJsonDate(jsonDateString) {
+        return new Date(parseInt(jsonDateString.replace('/Date(', '')));
+    }
+
+    function DeleteOrder(orderId) {
+        $.get('@Url.Action("DeleteOrder", "Market")', { orderId: orderId }, function (result) {
+            if (result === true) {
+                var tr = $("#tr-" + orderId);
+                tr.fadeOut(500, function () {
+                    tr.remove();
+                });
+            } else if (result === false) {
+                $.smallBox({
+                    title: "Error",
+                    content: "Error delete Order. Maybe it was matched due request or deleted before.",
+                    color: "#C46A69",
+                    timeout: 5000,
+                    icon: "fa fa-warning shake animated"
+                });
+            }
+        });
+    }
+
+    function OnSuccessSellOrderCreation(data) {
+        if (data.Status === 1) {
+            $.smallBox({
+                title: "Error",
+                content: data.Error,
+                color: "#C46A69",
+                timeout: 5000,
+                icon: "fa fa-warning shake animated"
+            });
+        }
+
+        if (data.Status === 0) {
+            $.smallBox({
+                title: "Success",
+                content: "Order successfully created.",
+                color: "#739E73",
+                timeout: 7000,
+                icon: "fa fa-check"
+            });
+
+            GetUserActiveOrders('@Model.Id.ToString()');
+        }
+    }
+
+    function OnSuccessTriggerCreation(data) {
+        if (data.Status === 1) {
+            $.smallBox({
+                title: "Error",
+                content: data.Error,
+                color: "#C46A69",
+                timeout: 6000,
+                icon: "fa fa-warning shake animated"
+            });
+        }
+
+        if (data.Status === 0) {
+            $.smallBox({
+                title: "Success",
+                content: "Trigger successfully created.",
+                color: "#739E73",
+                timeout: 4000,
+                icon: "fa fa-check"
+            });
+
+            @*GetUserActiveOrder('@Model.Id.ToString()');*@
+        }
+    }
+
+
+
+    function RenderSellBuyTables(data) {
+        $("#tableSell").empty();
+        $(data.SellOrders).each(function (i, v) {
+            $("#tableSell").append("<tr class='sellorder' data-price='" + parseFloat(v.PricePerOne).toFixed(8).toLocaleString() + "' data-amount='" + parseFloat(v.PartialOrderTotalLeft).toFixed(8).toLocaleString() + "'>" +
+                "<td>" + parseFloat(v.PricePerOne).toFixed(8).toLocaleString() + "</td>" +
+                "<td>" + parseFloat(v.PartialOrderTotalLeft).toFixed(8).toLocaleString() + "</td>" +
+                "<td>" + parseFloat(v.Total).toFixed(8).toLocaleString() + "</td>" +
+                "</tr>");
+        });
+
+        $("#tableBuy").empty();
+        $(data.BuyOrders).each(function (i, v) {
+            $("#tableBuy").append("<tr class='buyorder' data-price='" + parseFloat(v.PricePerOne).toFixed(8).toLocaleString() + "' data-amount='" + parseFloat(v.PartialOrderTotalLeft).toFixed(8).toLocaleString() + "'>" +
+                "<td>" + parseFloat(v.PricePerOne).toFixed(8).toLocaleString() + "</td>" +
+                "<td class='buyorderprice'>" + parseFloat(v.PartialOrderTotalLeft).toFixed(8).toLocaleString() + "</td>" +
+                "<td>" + parseFloat(v.Total).toFixed(8).toLocaleString() + "</td>" +
+                "</tr>");
+        });
+
+        bindSellBuy();
+    }
+
+    function bindSellBuy() {
+        $(".sellorder").click(function () {
+
+            $("#BuyPricePerOne").val($(this).data("price"));
+            $("#BuyAmount").val($(this).data("amount"));
+
+            buyingAmount = parseFloat($(this).data("amount"));
+            buyPricePerOne = parseFloat($(this).data("price"));
+
+            BuyCalculate();
+        });
+
+        $(".buyorder").click(function () {
+            $("#SellPricePerOne").val($(this).data("price"));
+            $("#SellAmount").val($(this).data("amount"));
+
+            sellingAmount = parseFloat($(this).data("amount"));
+            pricePerOne = parseFloat($(this).data("price"));
+
+            sellCalculate();
+        });
+    }
+
+    function sellCalculate() {
+        var total = parseFloat((sellingAmount * pricePerOne).toFixed(8));
+        $("#SellTotal").val(total.toFixed(8));
+        var feePercent = parseFloat($("#SellFee").val()) / 100;
+        var fee = parseFloat((total * feePercent).toFixed(8));
+        $("#SellFeeField").val(fee.toFixed(8));
+        var netTotal = (total + fee).toFixed(8);
+        $("#SellNetTotal").val(netTotal);
+    }
+
+
+    $(document).ready(function () {
+        $("#BuyAmount").keyup(function () {
+            buyingAmount = parseFloat($(this).val());
+            BuyCalculate();
+        });
+        $("#BuyPricePerOne").keyup(function () {
+            buyPricePerOne = parseFloat($(this).val());
+            BuyCalculate();
+        });
+        $("#BuyAmount").val("1.00000000");
+        $("#BuyPricePerOne").val('@Model.LatestPrice.Value.ToString("N8")');
+
+        buyPricePerOne = parseFloat($("#BuyPricePerOne").val());
+        buyingAmount = parseFloat($("#BuyAmount").val());
+
+        BuyCalculate();
+    });
+
+    function BuyCalculate() {
+        var total = parseFloat((buyingAmount * buyPricePerOne).toFixed(8));
+        $("#BuyTotal").val(total.toFixed(8));
+        var feePercent = parseFloat($("#BuyFee").val()) / 100;
+        var fee = parseFloat((total * feePercent).toFixed(8));
+        $("#BuyFeeField").val(fee.toFixed(8));
+        var netTotal = (total + fee).toFixed(8);
+        $("#BuyNetTotal").val(netTotal);
+    }
+</script>
+<script type="text/javascript">
+    var jsonArrayRaw = eval('@Html.Raw(GraphStatsManager.Get(Model.Id.ToString()))');
+    var depthChart;
+
+    var priceChart;
+    var jsonPriceArrayRaw = eval('@Html.Raw(GraphStatsManager.GetPrice(Model.Id.ToString()))');
+</script>
+<script src="~/Scripts/graph.js"></script>
+<div id="content">
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <div class="alert alert-warning fade in">
+            <i class="fa-fw fa fa-warning"></i>
+            Unable to trade. Please, <a href="@Url.Action("Login", "Account")"> log in</a> or <a href="@Url.Action("Register", "Account")"> register</a>
+        </div>
+        <script>
+            $(document).ready(function () {
+                $('button[type=submit]').each(function () {
+                    $(this).attr('disabled', 'disabled');
+                });
+                $('button[type=button]').each(function () {
+                    $(this).attr('disabled', 'disabled');
+                });
+
+            });
+        </script>
+    }
+    @{
+        var emergency = EmergencyMessagesManager.Get();
+    }
+    @if (emergency.IsActive)
+    {
+        <div class="alert alert-danger fade in">
+            <i class="fa-fw fa fa-warning"></i>
+            @Html.Raw(emergency.Text)
+        </div>
+    }
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-money fa-fw "></i> @ViewBag.Title <span> &gt; @Model.PairName</span>
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+            <ul id="sparks" class="">
+                <li class="sparks-info">
+                    <h5> Last Price <span class="txt-color-blue">@Model.LatestPrice.Value.ToString("N8") @CoinsManager.GetCoinShortNameById(Model.CoinFrom)</span></h5>
+                </li>
+                <li class="sparks-info">
+                    <h5> 24h High <span class="txt-color-purple">@ViewBag.DayHigh.ToString("N8")</span></h5>
+                </li>
+                <li class="sparks-info">
+                    <h5> 24h Low <span class="txt-color-greenDark">@ViewBag.DayLow.ToString("N8")</span></h5>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="well well-light .bg-color-greenLight">
+                    
+                </div>
+                <div class="jarviswidget jarviswidget-sortable" id="wid-id-@Model.Id-buyTable3" data-widget-editbutton="false" data-widget-deletebutton="false" role="widget" style="">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                        <h2>Buy Order </h2>
+                    </header>
+                    <!-- widget div-->
+                    <div role="content">
+                        <div class="jarviswidget-editbox">
+                        </div>
+                        <div class="widget-body no-padding">
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>PRICE (@CoinsManager.GetCoinShortNameById(Model.CoinFrom))</th>
+                                        <th>@CoinsManager.GetCoinShortNameById(Model.CoinTo)</th>
+                                        <th>@CoinsManager.GetCoinShortNameById(Model.CoinFrom)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableBuy"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="well well-light .bg-color-greenLight">
+                   
+                </div>
+                <div class="jarviswidget jarviswidget-sortable" id="wid-id-@Model.Id-sellTable3" data-widget-editbutton="false" data-widget-deletebutton="false" role="widget" style="">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                        <h2>Sell Order </h2>
+                    </header>
+                    <!-- widget div-->
+                    <div role="content">
+                        <div class="jarviswidget-editbox">
+                        </div>
+                        <div class="widget-body no-padding">
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>PRICE (@CoinsManager.GetCoinShortNameById(Model.CoinFrom))</th>
+                                        <th>@CoinsManager.GetCoinShortNameById(Model.CoinTo)</th>
+                                        <th>@CoinsManager.GetCoinShortNameById(Model.CoinFrom)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableSell"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="row" id="@Model.Id-myorders" style="display: none;">
+                <div class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable" data-widget-editbutton="false" role="widget" style="">
+                    <header role="heading">
+                        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                        <h2>Your Order</h2>
+                        <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
+                    </header>
+                    <div role="content">
+                        <div class="jarviswidget-editbox">
+                        </div>
+                        <div class="widget-body">
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Type</th>
+                                        <th>Amount Left</th>
+                                        <th>Price Per</th>
+                                        <th>Total</th>
+                                        <th>Fee</th>
+                                        <th>Net Total</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="@Model.Id-myorders-tbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="row" id="@Model.Id-mytriggers">
+            <div class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable" data-widget-editbutton="false" role="widget" style="">
+                <header role="heading">
+                    <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                    <h2>Triggers</h2>
+                    <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
+                </header>
+                <div role="content">
+                    <div class="jarviswidget-editbox">
+                    </div>
+                    <div class="widget-body">
+                        <div class="col-md-6">
+                            @using (Ajax.BeginForm("CreateTrigger", new { marketId = Model.Id }, new AjaxOptions
+                            {
+                                Url = Url.Action("CreateTrigger", "Market", new { marketId = Model.Id }),
+                                OnSuccess = "OnSuccessTriggerCreation",
+                                HttpMethod = "POST"
+                            }, new { @class = "smart-form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <fieldset>
+                                    <div class="row">
+                                        <section class="col col-4">
+                                            <label class="label">I Would Like To:</label>
+                                            <label class="select">
+                                                <select name="triggerType" class="input-lg" id="triggerType">
+                                                    <option value="Buy">Buy</option>
+                                                    <option value="Sell">Sell</option>
+                                                </select>
+                                            </label>
+                                        </section>
+                                        <section class="col col-1" style="padding-right: 0;">
+                                            <label class="label">When @CoinsManager.GetCoinShortNameById(Model.CoinTo) (in @CoinsManager.GetCoinShortNameById(Model.CoinFrom)) Price:</label>
+                                            <label class="select">
+                                                <select name="triggerComparison" class="input-lg" style="display: inline;" id="triggerComparison">
+                                                    <option value="SmallerThan">&lt;=</option>
+                                                    <option value="GreatherThan">&gt;=</option>
+                                                </select>
+                                            </label>
+                                        </section>
+                                        <section class="col col-3" style="padding-left: 0.1%;">
+                                            <label class="label">&nbsp;</label>
+                                            <label class="input">
+                                                <input name="triggerPrice" value="@Model.LatestPrice.Value.ToString("N8")" class="input-lg" style="display: inline;" type="text" id="triggerPrice">
+                                            </label>
+                                        </section>
+                                        <section class="col col-4">
+                                            <label class="label">Create Order With Price:</label>
+                                            <label class="input">
+                                                <input name="triggerOrderprice" value="@Model.LatestPrice.Value.ToString("N8")" class="input-lg" type="text" id="triggerOrderprice">
+                                            </label>
+                                        </section>
+                                    </div>
+                                    <div class="row">
+                                        <section class="col col-6">
+                                            <label class="label">Amount:</label>
+                                            <label class="input">
+                                                <input name="triggerAmount" value="1.00000000" class="input-lg" type="text" id="triggerAmount">
+                                            </label>
+                                        </section>
+
+                                        <section class="col col-6">
+                                            <label class="label">Expire In(Hours):</label>
+                                            <label class="input">
+                                                <input name="triggerExpireHours" value="12" class="input-lg" type="text" id="triggerExpireHours">
+                                            </label>
+                                        </section>
+                                    </div>
+                                </fieldset>
+                                    <footer>
+                                        <button type="submit" class="btn btn-primary">
+                                            Create Trigger
+                                        </button>
+                                    </footer>
+                            }
+                        </div>
+
+                        <div class="col-md-6">
+                            <h3>Active Triggers</h3>
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Condition</th>
+                                        <th>Create With Price</th>
+                                        <th>Amount</th>
+                                        <th>Valid Till</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="active-triggers-body">
+                                    @*@foreach (var trigger in TriggersManager.GetUserTriggers(User.Identity.GetUserId(), Model.Id.ToString()))
+                                    {
+                                        <tr>
+                                            <td>@trigger.TradeType</td>
+                                            <td>@trigger.TriggerType @trigger.CheckPrice.ToString("N8")</td>
+                                            <td>@trigger.OrderCreationPrice.ToString("N8")</td>
+                                            <td>@trigger.OrderCreationAmount.ToString("N8")</td>
+                                            <td>@trigger.ValidTill</td>
+                                        </tr>
+                                    }*@
+                                </tbody>
+                            </table>
+                            <div class="alert alert-success fade in">
+                                A trigger is similar to a stop-loss order. It executes an order when the trigger price is met if you have the funds available for such order. Triggers do not place any funds on hold.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="jarviswidget jarviswidget-color-darken jarviswidget-sortable" id="wid-@Model.Id.ToString()-orders" data-widget-editbutton="false" data-widget-deletebutton="false" role="widget" style="">
+                <header role="heading">
+                    <div class="widget-toolbar" role="menu"><a data-toggle="dropdown" class="dropdown-toggle color-box selector" href="javascript:void(0);"></a><ul class="dropdown-menu arrow-box-up-right color-select pull-right"><li><span class="bg-color-green" data-widget-setstyle="jarviswidget-color-green" rel="tooltip" data-placement="left" data-original-title="Green Grass"></span></li><li><span class="bg-color-greenDark" data-widget-setstyle="jarviswidget-color-greenDark" rel="tooltip" data-placement="top" data-original-title="Dark Green"></span></li><li><span class="bg-color-greenLight" data-widget-setstyle="jarviswidget-color-greenLight" rel="tooltip" data-placement="top" data-original-title="Light Green"></span></li><li><span class="bg-color-purple" data-widget-setstyle="jarviswidget-color-purple" rel="tooltip" data-placement="top" data-original-title="Purple"></span></li><li><span class="bg-color-magenta" data-widget-setstyle="jarviswidget-color-magenta" rel="tooltip" data-placement="top" data-original-title="Magenta"></span></li><li><span class="bg-color-pink" data-widget-setstyle="jarviswidget-color-pink" rel="tooltip" data-placement="right" data-original-title="Pink"></span></li><li><span class="bg-color-pinkDark" data-widget-setstyle="jarviswidget-color-pinkDark" rel="tooltip" data-placement="left" data-original-title="Fade Pink"></span></li><li><span class="bg-color-blueLight" data-widget-setstyle="jarviswidget-color-blueLight" rel="tooltip" data-placement="top" data-original-title="Light Blue"></span></li><li><span class="bg-color-teal" data-widget-setstyle="jarviswidget-color-teal" rel="tooltip" data-placement="top" data-original-title="Teal"></span></li><li><span class="bg-color-blue" data-widget-setstyle="jarviswidget-color-blue" rel="tooltip" data-placement="top" data-original-title="Ocean Blue"></span></li><li><span class="bg-color-blueDark" data-widget-setstyle="jarviswidget-color-blueDark" rel="tooltip" data-placement="top" data-original-title="Night Sky"></span></li><li><span class="bg-color-darken" data-widget-setstyle="jarviswidget-color-darken" rel="tooltip" data-placement="right" data-original-title="Night"></span></li><li><span class="bg-color-yellow" data-widget-setstyle="jarviswidget-color-yellow" rel="tooltip" data-placement="left" data-original-title="Day Light"></span></li><li><span class="bg-color-orange" data-widget-setstyle="jarviswidget-color-orange" rel="tooltip" data-placement="bottom" data-original-title="Orange"></span></li><li><span class="bg-color-orangeDark" data-widget-setstyle="jarviswidget-color-orangeDark" rel="tooltip" data-placement="bottom" data-original-title="Dark Orange"></span></li><li><span class="bg-color-red" data-widget-setstyle="jarviswidget-color-red" rel="tooltip" data-placement="bottom" data-original-title="Red Rose"></span></li><li><span class="bg-color-redLight" data-widget-setstyle="jarviswidget-color-redLight" rel="tooltip" data-placement="bottom" data-original-title="Light Red"></span></li><li><span class="bg-color-white" data-widget-setstyle="jarviswidget-color-white" rel="tooltip" data-placement="right" data-original-title="Purity"></span></li><li><a href="javascript:void(0);" class="jarviswidget-remove-colors" data-widget-setstyle="" rel="tooltip" data-placement="bottom" data-original-title="Reset widget color to default">Remove</a></li></ul></div>
+                    <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                    <h2>@Model.PairName Market History</h2>
+                    <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
+                </header>
+                <div role="content">
+                    <div class="jarviswidget-editbox">
+                    </div>
+                    <div class="widget-body no-padding">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

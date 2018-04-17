@@ -1,0 +1,917 @@
+﻿@using CryptoMarket.Source.Core
+@model Markets
+@{
+    Layout = "~/Views/Shared/_LayoutCrypticPackage.cshtml";
+    ViewBag.Title = "Trade " + Model.PairName;
+
+    var btcMarkets = MarketsManager.GetAllActiveMarketsByShortname("BTC");
+    var ethMarkets = MarketsManager.GetAllActiveMarketsByShortname("ETH");
+    var inrMarkets = MarketsManager.GetAllActiveMarketsByShortname("INR");
+
+    var coinFromShortName = CoinsManager.GetCoinShortNameById(Model.CoinFrom);
+
+    var stat = GraphStatsManager.GetStat(Model.Id.ToString());
+
+}
+
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+    <script src="~/marketrealtime/js"></script>
+    <script src="~/Scripts/date.format.js"></script>
+
+    <script src="~/Scripts/jquery-ui.js"></script>
+<script>
+
+    var statPeriod = "@stat.DateTimePeriod";
+    var volume = "@stat.Volume";
+
+    var marketId = "@Model.Id.ToString()";
+    var coinFrom = "@Model.CoinFrom";
+    var coinTo = "@Model.CoinTo";
+
+    var latestPrice = parseFloat('@Model.LatestPrice.Value.ToString("N8")');
+
+    var sellingAmount = 1.00000000;
+    var pricePerOne = latestPrice;
+
+    var buyingAmount = 1.00000000;
+    var buyPricePerOne = latestPrice;
+
+    var jsonArrayRaw = eval('@Html.Raw(GraphStatsManager.Get(Model.Id.ToString()))');
+
+    var deleteRoute = '@Url.Action("DeleteOrder")';
+
+    function SwitchMarket(url, tab) {
+        //setCookie("tab", tab)
+        document.location = url;
+    };
+
+    function setCookie(name, value, options) {
+        options = options || {};
+
+        var expires = options.expires;
+
+        if (typeof expires == "number" && expires) {
+            var d = new Date();
+            d.setTime(d.getTime() + expires * 1000);
+            expires = options.expires = d;
+        }
+        if (expires && expires.toUTCString) {
+            options.expires = expires.toUTCString();
+        }
+
+        value = encodeURIComponent(value);
+
+        var updatedCookie = name + "=" + value;
+
+        for (var propName in options) {
+            updatedCookie += "; " + propName;
+            var propValue = options[propName];
+            if (propValue !== true) {
+                updatedCookie += "=" + propValue;
+            }
+        }
+
+        document.cookie = updatedCookie;
+    };
+
+    function getCookie(name) {
+        var matches = document.cookie.match(new RegExp(
+          "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+        ));
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+    }
+
+    function SwitchTabs(target) {
+        $('ul.tabs-nav a').removeClass('active');
+        $(target).addClass('active');
+
+        $('div.tabs-pane > div.pane').removeClass('active');
+        $('div#' + target.target).addClass('active');
+    };
+
+    function ShowBTCTab() {
+        $('#tab-inr').removeClass('active');
+        $('#tab-eth').removeClass('active');
+        $('#tab-btc').addClass('active');
+
+        $('#inr').removeClass('active');
+        $('#eth').removeClass('active');
+        $('#btc').addClass('active');
+    };
+
+    function ShowETHTab() {
+        $('#tab-btc').removeClass('active');
+        $('#tab-inr').removeClass('active');
+        $('#tab-eth').addClass('active');
+
+        $('#btc').removeClass('active');
+        $('#inr').removeClass('active');
+        $('#eth').addClass('active');
+    };
+
+    function ShowINRTab() {
+        $('#tab-btc').removeClass('active');
+        $('#tab-eth').removeClass('active');
+        $('#tab-inr').addClass('active');
+
+        $('#btc').removeClass('active');
+        $('#eth').removeClass('active');
+        $('#inr').addClass('active');
+    };
+
+    $(function () {
+
+        if (window.location.href.substr(window.location.href.length - 3) == "ETH") {
+            $('#tab-btc').removeClass("active");
+            $('#tab-eth').addClass("active");
+
+            $('div.tabs-pane > div.pane').removeClass('active');
+            $('div#eth').addClass('active');
+        };
+
+        //$('ul.tabs-nav a').click(function (event) {
+        //    //console.log(event.target.target);
+
+        //    SwitchTabs(event.target);
+        //});
+    });
+
+</script>
+    <script src="~/Scripts/market.js?8"></script>
+<style>
+    .orderButton{
+        height: 20px;
+        padding: 1px;
+        width: 20px;
+        text-align: center;
+    }
+</style>
+<div class="row" style="margin:0">
+    <div class="col-lg-9">
+    <div class="header-title-breadcrumb element-box-shadow">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 col-sm-6 col-xs-12 text-left">
+                    <h3>@CoinsManager.GetCoinShortNameById(Model.CoinTo).ToUpperInvariant() Exchange</h3>
+                    <h4 class="color-3388e0">@Model.PairName</h4>
+                </div>
+                <div class="col-md-5 col-sm-6 col-xs-12 hide-on-tablet">
+                    <table class="table no-margin">
+                        <tr>
+                            <td>
+                                Last Price
+                                <span class="block">@Model.LatestPrice.Value.ToString("N8") @CoinsManager.GetCoinShortNameById(Model.CoinFrom)</span>
+                            </td>
+                            <td>
+                                24hr High
+                                <span class="block">@ViewBag.DayHigh.ToString("N8")</span>
+                            </td>
+                            <td>
+                                24hr Low
+                                <span class="block">@ViewBag.DayLow.ToString("N8")</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                24hr Volume: <span>@stat.Volume</span> @CoinsManager.GetCoinShortNameById(Model.CoinTo)
+                            </td>
+                        </tr>
+                    </table>                  
+                </div>
+            </div>
+        </div>
+    </div>
+        @*<div class="content-main">
+            <div class="content-maint-top clear-block">
+                <div class="col-lg-6">
+                    <h2>@CoinsManager.GetCoinShortNameById(Model.CoinTo).ToUpperInvariant() Exchange</h2>
+                    <h3 class="color-3388e0">@Model.PairName</h3>
+                </div>
+                <div class="col-lg-6">
+                    <div class="top-table-block">
+                        <table class="top-table table-full">
+                            <tr>
+                                <td>
+                                    Last Price
+                                    <span class="block">@Model.LatestPrice.Value.ToString("N8") @CoinsManager.GetCoinShortNameById(Model.CoinFrom)</span>
+                                </td>
+                                <td>
+                                    24hr High
+                                    <span class="block">@ViewBag.DayHigh.ToString("N8")</span>
+                                </td>
+                                <td>
+                                    24hr Low
+                                    <span class="block">@ViewBag.DayLow.ToString("N8")</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    24hr Volume: <span>@stat.Volume</span> @CoinsManager.GetCoinShortNameById(Model.CoinTo)
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-block">
+                <div id="chart_container">
+                    <div id="chart_div"></div>
+                </div>
+                <div class="chart-label">
+                    <div class="chart-label-block">
+                        <div>
+                            Zoom:
+                            <ul class="clear-block chart-label-btn">
+                                <li>
+                                    <label>
+                                        <input id="zoom_6h" name="zoomSelector" type="radio">
+                                        6h
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="active">
+                                        <input id="zoom_24h" name="zoomSelector" type="radio">
+                                        24h
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input id="zoom_2d" name="zoomSelector" type="radio">
+                                        2d
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input id="zoom_4d" name="zoomSelector" type="radio">
+                                        4d
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input id="zoom_1w" name="zoomSelector" type="radio">
+                                        1w
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input id="zoom_2w" name="zoomSelector" type="radio">
+                                        2w
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input id="zoom_1m" name="zoomSelector" type="radio">
+                                        1m
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input id="zoom_All" name="zoomSelector" type="radio">
+                                        All
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="chart-label-block">
+                        <div>
+                            Candlesticks:
+                            <ul class="clear-block chart-label-btn">
+                                <li>
+                                    <label>
+                                        <input id="candlesticks_5m" name="candlestickSelector" type="radio">
+                                        5m
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="active">
+                                        <input id="candlesticks_15m" name="candlestickSelector" type="radio">
+                                        15m
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input id="candlesticks_30m" name="candlestickSelector" type="radio">
+                                        30m
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input id="candlesticks_2h" name="candlestickSelector" type="radio">
+                                        2hr
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input id="candlesticks_4h" name="candlestickSelector" type="radio">
+                                        4hr
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input id="candlesticks_1d" name="candlestickSelector" type="radio">
+                                        1day
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+        @*<div class="row card-row">
+            <div class="col-lg-6">
+                <div class="card-block">
+                    <div class="card-header">
+                        <h3>
+                            Sell @CoinsManager.GetCoinShortNameById(Model.CoinTo) @if (User.Identity.IsAuthenticated)
+                            {
+                                <text>, Coins Available: <span class="purseBalance" id="@Model.CoinTo-balance-sell">@BalancesManager.Get(User.Identity.GetUserId(), Model.CoinTo).Balance.ToString("F8")</span></text>
+                            }
+                        </h3>
+                    </div>
+                    <div class="card-form">
+                        @using (Ajax.BeginForm("", null, new AjaxOptions
+                        {
+                            Url = "/api/orders",
+                            OnSuccess = "OrderCreateResult",
+                            HttpMethod = "POST"
+                        }, new { @class = "form-horizontal" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("SellFee", Model.Fee)
+
+                            @Html.Hidden("marketId", Model.Id)
+                            @Html.Hidden("tradeType", "1")
+
+                            <div class="form-content">
+                                <div class="form-group clear-block">
+                                    <label class="col-md-5 control-label" for="Price">Amount</label>
+                                    <div class="col-md-7">
+                                        <div class="input-block flex-row flex-align-items-center">
+                                            @Html.TextBox("amount", "1", new { @class = "form-control", id = "SellAmount" })
+                                            <div class="input-block-label">
+                                                @CoinsManager.GetCoinShortNameById(Model.CoinTo)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group clear-block">
+                                    <label class="col-md-5 control-label" for="Price">Price</label>
+                                    <div class="col-md-7">
+                                        <div class="input-block flex-row flex-align-items-center">
+                                            @Html.TextBox("price", Model.LatestPrice.Value.ToString("N8"), new { @class = "form-control", id = "SellPrice" })
+                                            <div class="input-block-label">
+                                                @CoinsManager.GetCoinShortNameById(Model.CoinFrom)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group clear-block">
+                                    <label class="col-md-5 control-label" for="Price">Total (Minimum > 0.0001)</label>
+                                    <div class="col-md-7">
+                                        <div class="input-block flex-row flex-align-items-center">
+                                            @Html.TextBox("total", "0", new { disabled = "disabled", style = "background: #f2f2f2;", @class = "form-control", id = "SellTotal" })
+                                            <div class="input-block-label">
+                                                @CoinsManager.GetCoinShortNameById(Model.CoinFrom)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group clear-block">
+                                    <label class="col-md-5 control-label" for="Price">Fee (@Model.Fee%)</label>
+                                    <div class="col-md-7">
+                                        <div class="input-block flex-row flex-align-items-center">
+                                            @Html.TextBox("SellFeeField", "", new { disabled = "disabled", @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-total">
+                                <div class="form-group clear-block">
+                                    <label class="col-md-5 control-label" for="Price">You will get:</label>
+                                    <div class="col-md-7">
+                                        <div class="input-block flex-row flex-align-items-center">
+                                            @Html.TextBox("SellNetTotal", "", new { disabled = "disabled", @class = "form-control" })
+                                            <div class="input-block-label">
+                                                @CoinsManager.GetCoinShortNameById(Model.CoinFrom)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="form-bottom">
+                                    @if (!User.Identity.IsAuthenticated)
+                                    {
+                                        <div class="bottom-signin">
+                                            <a href="@Url.Action("Login","Account")">Sign In</a> or <a href="@Url.Action("Register","Account")">Register</a>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <button type="submit" name="submit" class="btn btn-default">Submit sell order</button>
+                                    }
+                                </div>
+
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card-block">
+                    <div class="card-header">
+                        <h3>
+                            Buy @CoinsManager.GetCoinShortNameById(Model.CoinTo) @if (User.Identity.IsAuthenticated)
+                            {
+                                <text>, @CoinsManager.GetCoinShortNameById(Model.CoinFrom) Available: <span class="purseBalance" id="@Model.CoinFrom-balance-buy">@BalancesManager.Get(User.Identity.GetUserId(), Model.CoinFrom).Balance.ToString("F8")</span></text>
+                            }
+                        </h3>
+                    </div>
+                    <div class="card-form">
+                        @using (Ajax.BeginForm("", null, new AjaxOptions
+                        {
+                            Url = "/api/orders",
+                            OnSuccess = "OrderCreateResult",
+                            HttpMethod = "POST"
+                        }, new { @class = "form-horizontal" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("BuyFee", Model.Fee)
+
+                            @Html.Hidden("marketId", Model.Id)
+
+                            @Html.Hidden("tradeType", "0")
+
+                            <div class="form-content">
+                                <div class="form-group clear-block">
+                                    <label class="col-md-5 control-label" for="Price">Amount</label>
+                                    <div class="col-md-7">
+                                        <div class="input-block flex-row flex-align-items-center">
+                                            @Html.TextBox("amount", "1", new { @class = "form-control", id = "BuyAmount" })
+                                            <div class="input-block-label">
+                                                @CoinsManager.GetCoinShortNameById(Model.CoinTo)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group clear-block">
+                                    <label class="col-md-5 control-label" for="Price">Price</label>
+                                    <div class="col-md-7">
+                                        <div class="input-block flex-row flex-align-items-center">
+                                            @Html.TextBox("price", Model.LatestPrice.Value.ToString("N8"), new { @class = "form-control", id = "BuyPrice" })
+                                            <div class="input-block-label">
+                                                @CoinsManager.GetCoinShortNameById(Model.CoinFrom)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group clear-block">
+                                    <label class="col-md-5 control-label" for="Price">Total (Minimum > 0.0001)</label>
+                                    <div class="col-md-7">
+                                        <div class="input-block flex-row flex-align-items-center">
+                                            @Html.TextBox("total", "0", new { disabled = "disabled", style = "background: #f2f2f2;", @class = "form-control", id = "BuyTotal" })
+                                            <div class="input-block-label">
+                                                @CoinsManager.GetCoinShortNameById(Model.CoinFrom)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group clear-block">
+                                    <label class="col-md-5 control-label" for="Price">Fee (@Model.Fee%)</label>
+                                    <div class="col-md-7">
+                                        <div class="input-block flex-row flex-align-items-center">
+                                            @Html.TextBox("BuyFeeField", "", new { disabled = "disabled", @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>                                
+                            </div>
+
+                            <div class="form-total">
+                                <div class="form-group clear-block">
+                                    <label class="col-md-5 control-label" for="Price">You will pay:</label>
+                                    <div class="col-md-7">
+                                        <div class="input-block flex-row flex-align-items-center">
+                                            @Html.TextBox("BuyNetTotal", "", new { disabled = "disabled", @class = "form-control" })
+                                            <div class="input-block-label">
+                                                @CoinsManager.GetCoinShortNameById(Model.CoinFrom)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-bottom">
+                                @if (!User.Identity.IsAuthenticated)
+                                {
+                                    <div class="bottom-signin">
+                                        <a href="@Url.Action("Login","Account")">Sign In</a> or <a href="@Url.Action("Register","Account")">Register</a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <button type="submit" name="submit" class="btn btn-default">Submit buy order</button>
+                                }
+                            </div>
+
+                        }
+
+                    </div>
+                </div>
+            </div>
+          
+        </div>
+
+        <div class="row card-row">
+            <div class="col-lg-6">
+                <div class="sell-buy-block">
+                    <div class="card-header">
+                        <h3>Buy Orders (Total: <span id="totalBuyAmount"></span>)</h3>
+                    </div>
+                    <div class="sell-buy-block-table">
+                        <div class="sell-buy-block-table-tbody ">
+                            <div class="">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th><a>PRICE (@CoinsManager.GetCoinShortNameById(Model.CoinFrom))</a></th>
+                                            <th><a>@CoinsManager.GetCoinShortNameById(Model.CoinTo)</a></th>
+                                            <th><a>@CoinsManager.GetCoinShortNameById(Model.CoinFrom)</a></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tableBuy"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="sell-buy-block">
+                    <div class="card-header">
+                        <h3>Sell Orders (Total: <span id="totalSellAmount"></span>)</h3>
+                    </div>
+                    <div class="sell-buy-block-table">
+                        <div class="sell-buy-block-table-tbody ">
+                            <div class="">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th><a>PRICE (@CoinsManager.GetCoinShortNameById(Model.CoinFrom))</a></th>
+                                            <th><a>@CoinsManager.GetCoinShortNameById(Model.CoinTo)</a></th>
+                                            <th><a>@CoinsManager.GetCoinShortNameById(Model.CoinFrom)</a></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tableSell"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+    <div class="row card-row">
+        
+        <div class="col-lg-6">
+            <div class="sell-buy-block">
+                <div class="card-header">
+                    <h3>Your Orders</h3>
+                </div>
+                <div class="sell-buy-block-table">
+                    <div class="sell-buy-block-table-tbody">
+                        <div class="">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th><a>Date</a></th>
+                                    <th><a>Type</a></th>
+                                    <th><a>Left</a></th>
+                                    <th><a>Price</a></th>
+                                    <th><a>Total</a></th>
+                                    <th><a>Action</a></th>
+                                </tr>
+                                </thead>
+                                <tbody id="myorders-tbody">
+                         
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+        
+        
+        
+    <div class="col-lg-6">
+        <div class="card-block">
+            <div class="card-header">
+                <h3>
+                    Triggers
+                </h3>
+            </div>
+            <div class="card-form">
+                @using (Ajax.BeginForm("CreateTrigger", new {
+                    marketId = Model.Id
+                }, new AjaxOptions {
+                    Url = Url.Action("CreateTrigger", "Market", new {
+                        marketId = Model.Id
+                    }),
+                    OnSuccess = "OnSuccessTriggerCreation",
+                    HttpMethod = "POST"
+                }, new { @class = "form-horizontal" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-content">
+                        <div class="form-group clear-block">
+                            <label class="col-md-5 control-label" for="triggerType">I Would Like To:</label>
+                            <div class="col-md-7">
+                                <div class="input-block flex-row flex-align-items-center">
+                                    <select name="triggerType" class="input-lg" id="triggerType">
+                                        <option value="Buy">Buy</option>
+                                        <option value="Sell">Sell</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group clear-block">
+                            <label class="col-md-5 control-label" for="triggerType">When @CoinsManager.GetCoinShortNameById(Model.CoinTo) (in @CoinsManager.GetCoinShortNameById(Model.CoinFrom)) Price:</label>
+                            <div class="col-md-7">
+                                <div class="input-block flex-row flex-align-items-center">
+                                    <select name="triggerComparison" class="input-lg" style="display: inline;" id="triggerComparison">
+                                        <option value="SmallerThan">&lt;=</option>
+                                        <option value="GreatherThan">&gt;=</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                        
+                        <div class="form-group clear-block">
+                            <label class="col-md-5 control-label" for="triggerPrice">(Price)</label>
+                            <div class="col-md-7">
+                                <div class="input-block flex-row flex-align-items-center">
+                                    <input name="triggerPrice" value="@Model.LatestPrice.Value.ToString("N8")" class="input-lg" style="display: inline;" type="text" id="triggerPrice">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group clear-block">
+                            <label class="col-md-5 control-label" for="triggerOrderprice">Create order with price</label>
+                            <div class="col-md-7">
+                                <div class="input-block flex-row flex-align-items-center">
+                                    <input name="triggerOrderprice" value="@Model.LatestPrice.Value.ToString("N8")" class="input-lg" type="text" id="triggerOrderprice">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group clear-block">
+                            <label class="col-md-5 control-label" for="triggerAmount">Amount</label>
+                            <div class="col-md-7">
+                                <div class="input-block flex-row flex-align-items-center">
+                                    <input name="triggerAmount" value="1.00000000" class="input-lg" type="text" id="triggerAmount">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group clear-block">
+                            <label class="col-md-5 control-label" for="triggerType">Expire in(hours):</label>
+                            <div class="col-md-7">
+                                <div class="input-block flex-row flex-align-items-center">
+                                    <input name="triggerExpireHours" value="12" class="input-lg" type="text" id="triggerExpireHours">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-bottom">                      
+                        <button type="submit" name="submit" class="btn btn-default">
+                            Create Trigger
+                        </button>
+                    </div>
+                }
+
+            </div>
+            
+        </div>
+    </div>     
+
+    </div>
+
+
+        <div class="row card-row">
+            <div class="col-lg-12">
+                <div class="sell-buy-block">
+                    <div class="card-header">
+                        <h3>History</h3>
+                    </div>
+                    <div class="sell-buy-block-table">
+                        <div class="sell-buy-block-table-tbody ">
+                            <div class="">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th><a>Time</a></th>
+                                            <th><a>Type</a></th>
+                                            <th><a>Price(@CoinsManager.GetCoinShortNameById(Model.CoinFrom))</a></th>
+                                            <th><a>@CoinsManager.GetCoinShortNameById(Model.CoinTo)</a></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="closed-orders-tbody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+        
+    </div>
+    <div class="col-lg-3">
+        @*<div class="markets">
+            <div class="card-header">
+                <h3>markets</h3>
+            </div>
+            <div class="tabs-block">
+                <div class="markets-filter-tabs clear-block">
+
+                    <ul class="flex-row tabs-nav">
+                        <li>
+                            <a href="javascript:;" onclick="ShowBTCTab()" id="tab-btc" class="active">BTC</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" onclick="ShowETHTab()" id="tab-eth">ETH</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" onclick="ShowINRTab()" id="tab-inr">INR</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tabs-pane">
+                    <div class="pane active" id="btc">
+                        <div class="markets-table">
+                            <div class="markets-table-tbody">
+                                <div class="">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th><a>Market</a></th>
+                                                <th><a>Price</a></th>
+                                                <th><a>Change</a></th>
+                                                <th><a>Volume</a></th>
+                                                <th><a>Name</a></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach (var market in btcMarkets)
+                                            {
+                                                <tr style="cursor: pointer;" onclick='SwitchMarket("/trade/@market.PairName", "BTC")' id="@string.Format("{0}", market.PairName.Replace("/", ""))">
+                                                    <td>@market.PairName.Substring(0, market.PairName.IndexOf("/"))</td>
+                                                    <td id="latest-@market.Id">@market.LatestPrice.Value.ToString("N6")</td>
+                                                    <td id="pricechange-@market.Id" @if (market.PriceChangePercent > 0) { <text> style="color:green;" </text>     } else { <text> style="color:red;" </text>     }>
+                                                        @if (market.PriceChangePercent > 0)
+                                                        { <text>+</text> }
+                                                        @market.PriceChangePercent%
+                                                    </td>
+                                                    <td>@GraphStatsManager.GetStat(market.Id.ToString()).Volume</td>
+                                                    <td>@market.PairName</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pane" id="eth">
+                        <div class="markets-table">
+                            <div class="markets-table-tbody">
+                                <div class="">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th><a>Market</a></th>
+                                            <th><a>Price</a></th>
+                                            <th><a>Change</a></th>
+                                            <th><a>Volume</a></th>
+                                            <th><a>Name</a></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach (var market in ethMarkets)
+                                        {
+                                            <tr style="cursor: pointer;" onclick='SwitchMarket("/trade/@market.PairName", "ETH")' id="@string.Format("{0}", market.PairName.Replace("/", ""))">
+                                                <td>@market.PairName.Substring(0, market.PairName.IndexOf("/"))</td>
+                                                <td id="latest-@market.Id">@market.LatestPrice.Value.ToString("N6")</td>
+                                                <td id="pricechange-@market.Id" @if (market.PriceChangePercent > 0) { <text> style="color:green;" </text>     } else { <text> style="color:red;" </text>     }>
+                                                    @if (market.PriceChangePercent > 0)
+                                                    { <text>+</text> }
+                                                    @market.PriceChangePercent%
+                                                </td>
+                                                <td>@GraphStatsManager.GetStat(market.Id.ToString()).Volume</td>
+                                                <td>@market.PairName</td>
+                                            </tr>
+                                        }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="pane" id="inr">
+                        <div class="markets-table">
+                            <div class="markets-table-tbody">
+                                <div class="">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th><a>Market</a></th>
+                                                <th><a>Price</a></th>
+                                                <th><a>Change</a></th>
+                                                <th><a>Volume</a></th>
+                                                <th><a>Name</a></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var market in inrMarkets)
+                                            {
+                                                <tr style="cursor: pointer;" onclick='SwitchMarket("/trade/@market.PairName", "INR")' id="@string.Format("{0}", market.PairName.Replace("/", ""))">
+                                                    <td>@market.PairName.Substring(0, market.PairName.IndexOf("/"))</td>
+                                                    <td id="latest-@market.Id">@market.LatestPrice.Value.ToString("N6")</td>
+                                                    <td id="pricechange-@market.Id" @if (market.PriceChangePercent > 0) { <text> style="color:green;" </text>      } else { <text> style="color:red;" </text>      }>
+                                                        @if (market.PriceChangePercent > 0)
+                                                        { <text>+</text> }
+                                                        @market.PriceChangePercent%
+                                                    </td>
+                                                    <td>@GraphStatsManager.GetStat(market.Id.ToString()).Volume</td>
+                                                    <td>@market.PairName</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="card-block card-row">
+            <div class="card-header">
+                <h3>Chat</h3>
+            </div>
+            <div class="chat-block">
+                <div class="nano-content" id="chatcontainer">
+                    <div class="chat" id="chatbox" style="min-height:250px">
+                        @foreach (var chatmessage in ChatManager.Conversation)
+                        {
+                            <div class="chat-row">
+                                <span><b>@chatmessage.Username (@chatmessage.DateTime):</b></span> @chatmessage.Message
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="form-bottom" style="height:46px">
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <div style="padding-top:6px">
+                        <a href="@Url.Action("Login","Account")">Sign In</a> or <a href="@Url.Action("Register","Account")">Register</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-9 col-sm-12 chat-inputbar">
+                        <input type="text" class="form-control chat-input" placeholder="Enter your text" id="chatbox_field">
+                    </div>
+                    <div class="col-md-3 col-sm-12 chat-send">
+                        <button type="submit" class="btn btn-md btn-default btn-block waves-effect waves-light" id="chatbox_send" style="height:25px; width:60px;">Send</button>
+                    </div>
+                }
+                
+            </div>
+        </div>*@
+    </div>
+</div>
+<script>
+    $("#chatbox_field").keyup(function (event) {
+        if (event.keyCode == 13) {
+            $("#chatbox_send").click();
+        }
+    });
+    ScrollChatToBottom();
+</script>
+<script src="//d3js.org/d3.v4.min.js"></script>
+<script src="~/Content/altex_blue/js/techan.min.js"></script>
+<script src="~/Content/altex_blue/js/TechanChart.js?4"></script>

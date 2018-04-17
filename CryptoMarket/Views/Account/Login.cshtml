@@ -1,0 +1,56 @@
+﻿@model CryptoMarket.Models.LoginViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutAltexBlueLogin.cshtml";
+}
+
+<div class="container-fluid wrapper-page">
+    <div class="card-block">
+        <div class="card-header">
+            <h3>
+                Sign In
+            </h3>
+        </div>
+        <div class="card-form">
+            @using (Html.BeginForm("Login", "Account", new { ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form", @class = "form-horizontal m-t-20" }))
+            {
+                @Html.AntiForgeryToken()
+
+                foreach (var modelState in ViewData.ModelState.Values)
+                {
+                    foreach (var error in modelState.Errors)
+                    {
+                        <p style="color: red;">@error.ErrorMessage</p>
+                    }
+                }
+
+                <div class="form-content">
+                    <div class="form-group clear-block">
+                        <div class="col-md-12">
+                            <div class="input-block flex-row flex-align-items-center">
+                                <input class="form-control" placeholder="Email" name="Email" type="text" required="" style="text-align:left;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group clear-block">
+                        <div class="col-md-12">
+                            <div class="input-block flex-row flex-align-items-center">
+                                <input class="form-control" placeholder="Password" name="Password" type="password" required="" style="text-align:left;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                        <div class="form-bottom">
+                            <button type="submit" name="submit" class="btn btn-default">Sign in</button>
+                        </div>
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 underform">
+            <p><a href="/account/forgotpassword" class="text-dark"><i class="fa fa-lock m-r-5"></i> Forgot your password?</a></p>
+            <p>Don't have an account? <a href="@Url.Action("Register","Account")" class="text-primary m-l-5"><b>Sign Up</b></a></p>
+        </div>
+    </div>
+</div>
+

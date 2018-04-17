@@ -1,0 +1,65 @@
+﻿@model CryptoMarket.Models.EditUserViewModel
+
+<div class="pane active card-block">
+    <h2 style="margin-left:15px">Details</h2>
+    @if (Model.Banned)
+    {
+        <div class="alert alert-danger">
+            <i class="fa-fw fa fa-times"></i>
+            <strong>Banned!</strong>
+        </div>
+    }
+    @using (Html.BeginForm("Edit", "UsersAdmin", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("", new { @class = "alert alert-danger" })
+        <div class="form-content">
+
+            <div class="form-group clear-block">
+                @Html.LabelFor(model => model.Email, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    <div class="input-block flex-row flex-align-items-center">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </div>
+                </div>
+            </div>
+            <div class="form-group clear-block">
+                @Html.Label("Roles", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    <div class="input-block flex-row flex-align-items-center">
+                        <span class="col-md-10">
+                            @foreach (var item in Model.RolesList){
+                                <input type="checkbox" name="SelectedRole" value="@item.Value" checked="@item.Selected" class="checkbox-inline" />
+                                @Html.Label(item.Value, new{@class = "control-label"})
+                            }
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="form-bottom">
+            <button type="submit" class="btn btn-default">
+                Save
+            </button>
+        </div>
+    }
+    <div class="buttons-container">
+        @if (!Model.Banned)
+        {
+            <a href="@Url.Action("Ban", "UsersAdmin", new{userId = Model.Id})" class="btn btn-labeled btn-danger"> <span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span>Ban user! </a>
+        }
+        else
+        {
+            <a href="@Url.Action("UnBan", "UsersAdmin", new{userId = Model.Id})" class="btn btn-labeled btn-success"> <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Unban user! </a>
+        }
+
+        <a href="@Url.Action("ResetPasword", "UsersAdmin", new{userId = Model.Id})" class="btn btn-labeled btn-warning"> <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Reset Password </a>
+
+        <a href="@Url.Action("ResetPin", "UsersAdmin", new{userId = Model.Id})" class="btn btn-labeled btn-warning"> <span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span>Reset Pin Code </a>
+    </div>
+</div>
+<p style="margin:15px; font-family:sans-serif;">
+    @Html.ActionLink("Back to List", "Index")
+</p>

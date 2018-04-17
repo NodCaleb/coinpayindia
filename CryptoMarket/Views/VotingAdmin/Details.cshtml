@@ -1,0 +1,29 @@
+﻿@model VotingForCoins
+
+@{
+    ViewBag.Title = "Details";
+}
+<style>
+    p {
+        margin: 15px;
+    }
+</style>
+<div class="row">
+    <div class="col-sm-12">
+        <h2>Details</h2>
+        <div class="pane active card-block markets-table">
+            <h3 style="margin-left:15px;">VotingForCoins</h3>
+            <hr />
+            <p><b>@Html.DisplayNameFor(model => model.CoinName)</b></p>
+            <p>@Html.DisplayFor(model => model.CoinName)</p>
+            <p><b>@Html.DisplayNameFor(model => model.BtcVotingWallet)</b></p>
+            <p>@Html.DisplayFor(model => model.BtcVotingWallet)</p>
+            <p><b>@Html.DisplayNameFor(model => model.CurrentVotesNumber)</b></p>
+            <p>@Html.DisplayFor(model => model.CurrentVotesNumber)</p>
+        </div>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new{id = Model.Id}) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

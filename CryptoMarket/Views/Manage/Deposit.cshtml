@@ -1,0 +1,163 @@
+﻿@model DepositAddressesAssociations
+@{
+    Layout = "~/Views/Shared/_LayoutAltexBlue.cshtml";
+    ViewBag.Title = "Deposit";
+    var coinInfo = CoinsManager.Get(Model.CoinId);
+}
+@Scripts.Render("~/datatable")
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#dt_basic').dataTable({
+            "sPaginationType": "bootstrap_full"
+        });
+        $('#check-transactions').click(function() {
+            $.post('@Url.Action("CheckDeposit", "Manage")', { address: $('#Address').val() }, function(result) {
+                var status = "Unknown";
+                switch (result) {
+                case 0:
+                    status = "No new transactions found";
+                    break;
+                case 1:
+                    status = "Amount successfully deposited to your balance";
+                    break;
+                case 2:
+                    status = "New Pending Transaction Found";
+                    break;
+                }
+                $.smallBox({
+                    title: "Deposit status",
+                    content: status,
+                    color: "#5384AF",
+                    timeout: 5000,
+                    icon: "fa fa-bell"
+                });
+            });
+        });
+        $('#get-new-address').click(function() {
+            $.post('@Url.Action("GetNewDepositAddress", "Manage")', { coinId: '@Model.CoinId' }, function(result) {
+                $("#address").val(result);
+                $.smallBox({
+                    title: "Address Generation",
+                    content: "New Address Successfully Generated!",
+                    color: "#5384AF",
+                    timeout: 5000,
+                    icon: "fa fa-bell"
+                });
+            });
+        });
+    });
+</script>
+<style>
+    .validation-summary-valid {
+        display: none;
+    }
+
+    .validation-summary-errors ul {
+        list-style: none;
+    }
+
+    body {
+        font-family: sans-serif;
+    }
+</style>
+<div class="row">
+    @if (coinInfo.DepositDisabled)
+    {
+        <p class="alert alert-danger no-margin">
+            <i class="fa fa-warning fa-fw"></i> At this moment, all deposit requests are temporarily suspended
+        </p>
+            <script>
+                $(document).ready(function () {
+                    $("#widget-grid :input").prop("disabled", true);
+                    $("#widget-grid :button").prop("disabled", true);
+                });
+            </script>
+    }
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <h3>
+            <i class="fa fa-money fa-fw "></i> @ViewBag.Title <span> &gt; @CoinsManager.GetCoinNameById(Model.CoinId)</span>
+        </h3>
+    </div>
+</div>
+<div class="row card-row">
+    <div class="col-lg-4">
+        <div class="card-block">
+            <div class="card-header">
+                <h3>
+                    Deposit Form
+                </h3>
+            </div>
+            <div class="card-form">
+
+                <form method="post" class="smart-form" autocomplete="Off">
+                    @Html.HiddenFor(model => model.CoinId)
+                    @Html.ValidationSummary("", new { @class = "alert alert-danger" })
+                    @Html.Hidden("Address", Model.Address)
+
+                    <div class="form-content">
+
+                        <div class="form-group clear-block">
+                            <label class="col-md-5 control-label" for="Price">Your deposit address</label>
+                            <div class="col-md-7">
+                                <div class="input-block flex-row flex-align-items-center">
+                                    <input type="text" id="address" class="form-control" value="@Model.Address" disabled="disabled">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-bottom">
+                        <button style="width:40%" class="btn btn-default" id="check-transactions">Check transactions</button>
+                        <button style="width:50%" class="btn btn-default" id="get-new-address">Get New Deposit Address</button>
+                    </div>
+                </form>
+                <p class="alert alert-success no-margin">Your current Balance: @BalancesManager.Get(User.Identity.GetUserId(), Model.CoinId).Balance @CoinsManager.GetCoinShortNameById(Model.CoinId)</p>
+                <p class="alert alert-info no-margin">All coins sended to this address will be deposited to your @CoinsManager.GetCoinNameById(Model.CoinId) balance. No limits. You can set this address to pool's automatic withdraw.</p>
+                <p class="alert alert-success no-margin">Your coins will be deposited after @ViewBag.ConfirmationCount confirmations</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <h2>Pending Deposits</h2>
+        <div class="tabs-pane">
+            <div class="pane active card-block markets-table">
+                <div class="markets-table-tbody">
+                    <div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Coin
+                                    </th>
+                                    <th>
+                                        Amount
+                                    </th>
+                                    <th>
+                                        Date
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in (List<DepositsTransactions>)ViewBag.PendingDeposits)
+                                {
+                                    <tr>
+                                        <td>@CoinsManager.GetCoinNameById(item.CoinId)</td>
+                                        <td>@item.Amount.ToString("f8") @CoinsManager.GetCoinNameById(item.CoinId)</td>
+                                        <td>@item.Date</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Balances")
+</p>

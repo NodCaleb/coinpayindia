@@ -1,0 +1,245 @@
+﻿@using CryptoMarket
+@model CryptoMarket.Models.ApplicationUser
+
+<div class="row">
+    <div class="col-sm-12">
+        <h2><i class="fa fa-desktop fa-fw "></i> @Model.UserName <span>&gt; Details</span></h2>
+        <div class="pane active card-block markets-table">
+            <h2 style="margin-left:15px;">User Order</h2>
+            <div class="markets-table-tbody">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th>Amount (Left)</th>
+                            <th>Price Per</th>
+                            <th>Total</th>
+                            <th>Fee</th>
+                            <th>Net Total</th>
+                            <th>Closed?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var order in (List<Order>)ViewBag.Orders)
+                        {
+                            <tr>
+                                <td><a href="@Url.Action("Details", "OrdersAdmin", new{id = order.Id})">@order.Id</a></td>
+                                <td>@order.DateCreated</td>
+                                <td>
+                                    @if (order.TradeType == TradeType.Buy)
+                                    {
+                                        <text>BUY</text>
+                                    }
+                                    else
+                                    {
+                                        <text>SELL</text>
+                                    }
+                                </td>
+                                <td>@order.Amount.ToString("F8") (@order.PartialOrderTotalLeft.ToString("F8"))</td>
+                                <td>@order.Price.ToString("F8")</td>
+                                <td>@order.Total.ToString("F8")</td>
+                                <td>@order.FeeTotal.ToString("F8")</td>
+                                <td>@order.NetTotal.ToString("F8")</td>
+                                <td>
+                                    @if (order.Closed)
+                                    {
+                                        <text>YES. @order.DateClosed by <a href="@Url.Action("Details", "UsersAdmin", new{Id = order.CloserUserId})">@ApplicationUserManager.GetUserEmail(order.CloserUserId)</a>, order: <a href="@Url.Action("Details", "OrdersAdmin", new{id = order.ClosingOrderId})">@order.ClosingOrderId</a></text>
+                                    }
+                                    else
+                                    {
+                                        <text>NO</text>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <hr />
+            <h2 style="margin-left:15px;">User Balances</h2>
+            <div class="markets-table-tbody">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                Coin Name
+                            </th>
+                            <th>
+                                Available Amount
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in BalancesManager.GetAllBalances(Model.Id))
+                        {
+                            <tr>
+                                <td>
+                                    @CoinsManager.GetCoinNameById(item.CoinId)
+                                </td>
+                                <td>
+                                    @item.Balance.ToString("F8")
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <hr />
+            <h2 style="margin-left:15px;">User Withdrawals</h2>
+            <div class="markets-table-tbody">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                Coin
+                            </th>
+                            <th>
+                                Amount
+                            </th>
+                            <th>
+                                Requested
+                            </th>
+                            <th>
+                                Paid?
+                            </th>
+                            <th>
+                                Payout Date
+                            </th>
+                            <th>
+                                Address
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in WithdrawManager.GetAllUserWithdraws(Model.Id))
+                        {
+                            <tr>
+                                <td>
+                                    @CoinsManager.GetCoinNameById(item.CoinId)
+                                </td>
+                                <td>
+                                    @item.Amount.ToString("F8")
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DateCreated)
+                                </td>
+                                <td>
+                                    @if (item.Paid)
+                                    {
+                                        <text>DONE</text>
+                                    }
+                                    else
+                                    {
+                                        <text>PENDING</text>
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.DatePaid.HasValue)
+                                    {
+                                        <text>@item.DatePaid.Value</text>
+                                    }
+                                    else
+                                    {
+                                        <text>Waiting for admin approval</text>
+                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Address)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <hr />
+            <h2 style="margin-left:15px;">User Deposits</h2>
+            <div class="markets-table-tbody">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                Tx Id
+                            </th>
+                            <th>
+                                Coin Name
+                            </th>
+                            <th>
+                                Process Date
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in DepositsManager.GetAllUserDeposits(Model.Id))
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TxId)
+                                </td>
+                                <td>
+                                    @CoinsManager.GetCoinNameById(item.CoinId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Date)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <hr />
+            <h2 style="margin-left:15px;">User Access Logs</h2>
+            <div class="markets-table-tbody">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                Ip Address
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                            <th>
+                                Date Time
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in LogManager.GetAllUserLogs(Model.Id))
+                        {
+                            <tr>
+                                <td>
+                                    @item.Ip
+                                </td>
+                                <td>
+                                    @switch (item.Type)
+                                    {
+                                        case Logs.LogType.LoggedIn:
+                                            @:Success
+                                                        break;
+                                        case Logs.LogType.FaliedLoggingIn:
+                                            @:FAILED
+                                                        break;
+                                    }
+                                </td>
+                                <td>
+                                    @item.Text
+                                </td>
+                                <td>
+                                    @item.DateTime
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<p style="margin:15px; font-family:sans-serif;">
+    @Html.ActionLink("Back to List", "Index")
+</p>

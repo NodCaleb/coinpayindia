@@ -1,0 +1,48 @@
+﻿@model VotingForCoins
+<style>
+    .validation-summary-valid { display: none; }
+</style>
+<div class="pane active card-block">
+    <h2 style="margin-left:15px">Edit Market</h2>
+    @using (Html.BeginForm("Create", "VotingAdmin", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("", new { @class = "alert alert-danger" })
+        <div class="form-content">
+
+            <div class="form-group clear-block">
+                @Html.LabelFor(model => model.CoinName, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    <div class="input-block flex-row flex-align-items-center">
+                        @Html.EditorFor(model => model.CoinName, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group clear-block">
+                @Html.LabelFor(model => model.CoinUsed, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    <div class="input-block flex-row flex-align-items-center">
+                        @Html.DropDownListFor(model => model.CoinUsed, new SelectList(ViewBag.CoinSystemsList, "Id", "Name"), new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group clear-block">
+                @Html.LabelFor(model => model.Price, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    <div class="input-block flex-row flex-align-items-center">
+                        @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="form-bottom">
+            <button type="submit" class="btn btn-default">
+                Submit Voting Creation
+            </button>
+        </div>
+    }
+</div>
+<p style="margin:15px; font-family:sans-serif;">
+    @Html.ActionLink("Back to List", "Index")
+</p>

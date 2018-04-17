@@ -1,0 +1,42 @@
+﻿@using CryptoMarket
+@model Order
+@{
+    var currentMarketInfo = MarketsManager.GetById(Model.MarketId);
+}
+<style>
+    p {
+        margin: 15px;
+    }
+</style>
+<div class="row">
+    <div class="col-sm-12">
+        <h2>#@Model.Id &gt; Details</h2>
+        <div class="pane active card-block markets-table">
+            <h2 style="margin-left:15px">Order Details</h2>
+            <p>User Creator: <a href="@Url.Action("Details", "UsersAdmin", new{Id = Model.UserId})">@ApplicationUserManager.GetUserEmail(Model.UserId)</a></p>
+            <p>Market: <a href="@Url.Action("Details", "MarketsAdmin", new{id = Model.MarketId})">@MarketsManager.GetMarketPairName(Model.MarketId)</a></p>
+            <p>Order Type: @Html.DisplayFor(model => model.TradeType)</p>
+            <p>Amount: @Model.Amount.ToString("F8") @CoinsManager.GetCoinShortNameById(currentMarketInfo.CoinTo)</p>
+            <p>Price Per One: @Model.Price @CoinsManager.GetCoinShortNameById(currentMarketInfo.CoinFrom)</p>
+            <p>Total: @Model.Total @CoinsManager.GetCoinShortNameById(currentMarketInfo.CoinFrom)</p>
+            <p>Total Left: @Model.PartialOrderTotalLeft @CoinsManager.GetCoinShortNameById(currentMarketInfo.CoinTo)</p>
+            <p>Fee: @Model.FeeTotal @CoinsManager.GetCoinShortNameById(currentMarketInfo.CoinFrom)</p>
+            <p>Net Total: @Model.NetTotal @CoinsManager.GetCoinShortNameById(currentMarketInfo.CoinFrom)</p>
+            <p>Creation Date: @Model.DateCreated</p>
+            <p>
+                Closed? @if (Model.Closed)
+                {
+                    <text>YES. @Model.DateClosed by <a href="@Url.Action("Details", "UsersAdmin", new{Id = Model.CloserUserId})">@ApplicationUserManager.GetUserEmail(Model.CloserUserId)</a>, order: <a href="@Url.Action("Details", "OrdersAdmin", new{id = Model.ClosingOrderId})">@Model.ClosingOrderId</a></text>
+                }
+                else
+                {
+                    <text>NO</text>
+                }
+            </p>
+            <p>Involved IP: <a href="http://www.ipchecking.com/report/@Model.Ip" target="_blank">@Model.Ip</a></p>
+        </div>
+    </div>
+</div>
+<p style="margin:15px; font-family:sans-serif;">
+    @Html.ActionLink("Back to List", "Index")
+</p>

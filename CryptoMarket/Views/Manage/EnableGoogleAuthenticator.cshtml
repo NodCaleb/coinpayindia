@@ -1,0 +1,136 @@
+﻿@model CryptoMarket.Controllers.ManageController.GoogleAuthenticatorViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutAltexBlue.cshtml";
+}
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script>
+    function EnableGoogleAuthenticatorResult(result) {
+        if (result.Result === true) {
+            $.notiny({ text: 'Google Two Factor Authenticator Enabled', position: 'right-top' });
+            location.reload();
+        } else if (result.Result === false) {
+            $.notiny({ text: 'Error: ' + result.Error, position: 'right-top' });
+        }
+    }
+
+    function DisableGoogleAuthenticatorResult(result) {
+        if (result.Result === true) {
+            $.notiny({ text: 'Google Two Factor Authenticator Disabled', position: 'right-top' });
+            location.reload();
+        } else if (result.Result === false) {
+            $.notiny({ text: 'Error: ' + result.Error, position: 'right-top' });
+        }
+    }
+</script>
+<style>
+    h3, .card-block p, .card-block img {
+        margin: 15px;
+    }
+    .form-content {
+        padding-bottom: 0;
+        border-bottom: 0;
+    }
+    .form-bottom{
+        position: relative;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="markets-filter-tabs clear-block">
+            <ul class="flex-row tabs-nav">
+                @Html.Partial("_TabbedMenuPartial")
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div class="pane active card-block">
+                @if (!Model.Enabled)
+                {
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="alert alert-danger">
+                                <i class="glyphicon glyphicon-remove"></i>
+                                Google Authenticator Disabled
+                            </div>
+                            <h3>1. Add CoinPayIndia to Google Authenticator</h3>
+                            <p>Open Google Authenticator and add CoinPayIndia by scanning the QR Code to the right.</p>
+                            <h3>2. Enter the 6 digit code that Google Authenticator generates</h3>
+                            <p>
+                                Verify that CoinPayIndia is added correctly in Google Authenticator by entering the 6 digit code which
+                                Google Authenticator generates for CoinPayIndia below, and then click Enable.
+                            </p>
+                            <br />
+
+                            <p>If you re-enabling your 2FA, please remove old CoinPayIndia row from Google Auth Application and add CoinPayIndia once again.</p>
+                            @using (Ajax.BeginForm("EnableGoogleAuthenticator", new { }, new AjaxOptions
+                            {
+                                Url = Url.Action("EnableGoogleAuthenticator", "Manage", new { }),
+                                OnSuccess = "EnableGoogleAuthenticatorResult",
+                                HttpMethod = "POST"
+                            }, new { @class = "form-inline" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(false)
+                                @Html.HiddenFor(m => m.SecretKey)
+                                @Html.HiddenFor(m => m.BarcodeUrl)
+                                <div class="form-group">
+                                   
+                                    <div class="col-md-8">
+                                        <div class="input-block flex-row flex-align-items-center">
+                                            @Html.TextBoxFor(m => m.Code, new { @class = "form-control", style = "text-align:left;" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" name="submit" class="btn btn-default waves-effect waves-light btn-md">
+                                        Enable
+                                    </button>
+                                </div>
+
+                            }
+                        </div>
+                        <div class="col-md-4">
+                            <img src="https://qrcode.kaywa.com/img.php?s=4&d=@(Model.BarcodeUrl)" alt="" />
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="alert alert-success">
+                                <i class="glyphicon glyphicon-ok"></i>
+                                Google Authenticator Enabled
+                            </div>
+                            @using (Ajax.BeginForm("DisableGoogleAuthenticator", new { }, new AjaxOptions
+                            {
+                                Url = Url.Action("DisableGoogleAuthenticator", "Manage", new { }),
+                                OnSuccess = "DisableGoogleAuthenticatorResult",
+                                HttpMethod = "POST"
+                            }, new { @class = "form-horizontal" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(false)
+                                <div class="form-content">
+                                    <div class="form-group clear-block">
+                                        @Html.Raw(HttpUtility.HtmlDecode(Html.LabelFor(m => m.PinCode, new { @class = "col-md-4 control-label" }).ToString()))
+                                        <div class="col-md-8">
+                                            <div class="input-block flex-row flex-align-items-center">
+                                                @Html.PasswordFor(m => m.PinCode, new { @class = "form-control", style = "text-align:left;" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @Html.Partial("_PinRestoreCompleteView")
+                                <div class="form-bottom">
+                                    <button type="submit" name="submit" class="btn btn-default">
+                                        Disable Google Authenticator
+                                    </button>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

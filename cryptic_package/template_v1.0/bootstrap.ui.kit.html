@@ -1,0 +1,1491 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="HTML,CSS,JavaScript">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="assets/images/favicon.png" type="image/ico" />
+    <title>Cryptic - Cryptocurrency Admin Dashboard Template</title>
+    <!-- CSS -->
+    <!-- Bootstrap -->
+    <link href="assets/plugins/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <!-- Simple line icons -->
+    <link href="assets/css/simple-line-icons.css" rel="stylesheet">
+    <link href="assets/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Custom Style -->
+    <link href="assets/css/custom.css" rel="stylesheet">
+    <link href="assets/css/media.css" rel="stylesheet">
+    <link href="assets/css/skin-colors/skin-yellow.css" rel="stylesheet">
+    <!-- Custom Font -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  </head>
+  <body class="nav-md preloader-off">
+    <div class="pace-cover"></div>
+    <div id="st-container" class="st-container st-effect">
+      <!-- MAIN PAGE CONTAINER -->
+      <div class="container body">
+        <div class="main_container">
+          <!-- LEFT PRIMARY NAVIGATION -->
+          <div class="col-md-3 left_col">
+            <div class="scroll-view">
+              <div class="navbar nav_title">
+                <h1 class="logo_wrapper">
+                  <a href="index.html" class="site_logo">
+                    <img class="logo" src="assets/images/cryptic-logo.png" alt="cryptic logo">
+                    <span class="logo-text">Cryptic</span>
+                  </a>
+                </h1>
+              </div>
+              <div class="clearfix"></div>
+              <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                <div class="menu_section">
+                  <h3>General</h3>
+                  <ul class="nav side-menu">
+                    <li class="active">
+                      <a><i class="icon-home icons"></i> <span>Home</span><span class="fa fa-angle-up"></span></a>
+                      <ul class="nav child_menu" style="display:block">
+                        <li><a href="index.html"><span>Dashboard Default</span></a></li>
+                        <li><a href="dashboard-v1.html"><span>Dashboard v1</span></a></li>
+                        <li><a href="dashboard-v2.html"><span>Dashboard v2</span></a></li>
+                        <li><a href="dashboard-v3.html"><span>Dashboard v3</span></a></li>
+                      </ul>
+                    </li>
+                    <li><a><i class="icon-chart icons"></i> <span>Reports <span class="label label-danger">Hot</span></span><span class="fa fa-angle-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="tables.transactions.html"><span>Transactions</span></a></li>
+                        <li><a href="mining-pool-shares.html"><span>Mining Pool Shares</span></a></li>
+                        <li><a href="tables.top-gainers-losers.html"><span>Top Gainers/Losers</span></a></li>
+                        <li><a href="tables.market-capitalizations.html"><span>Market Capitalizations</span></a></li>
+                        <li><a href="tables.crypto-stats.html"><span>Crypto Stats</span></a></li>
+                      </ul>
+                    </li>
+                    <li><a><i class="icon-compass icons"></i> <span>Initial Coin Offering <span class="fa fa-angle-down"></span></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="ico-distribution-countdown.html"><span>ICO Countdown</span></a></li>
+                        <li><a href="ico-roadmap-timeline.html"><span>ICO Roadmap/Timeline</span></a></li>
+                        <li><a href="ico-progress.html"><span>ICO Progress Bar</span></a></li>
+                        <li><a href="ico-details.html"><span>ICO Details</span></a></li>
+                        <li><a href="ico-listing-3-colums.html"><span>ICO Listing (3 colums)</span></a></li>
+                        <li><a href="ico-listing-3-colums-isotope-filter.html"><span>ICO Listing - Filters (3 colums)</span></a></li>
+                        <li><a href="ico-listing-4-colums.html"><span>ICO Listing (4 colums)</span></a></li>
+                        <li><a href="ico-listing-4-colums-isotope-filter.html"><span>ICO Listing - Filters (4 colums)</span></a></li>
+                      </ul>
+                    </li>
+                    <li><a href="exchange.html"><i class="icon-refresh icons"></i> <span>Currency Exchange</span></a></li>
+                    <li><a><i class="icon-people icons"></i> <span>Members</span><span class="fa fa-angle-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="members.html"> <span>Members Grid v1</span></a></li>
+                        <li><a href="members-v2.html"> <span>Members Grid v2</span></a></li>
+                        <li><a href="members-list.html"> <span>Members List</span></a></li>
+                        <li><a href="member-profile.html"> <span>Member Profile</span></a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a><i class="icon-equalizer icons"></i> <span>Tickers</span><span class="fa fa-angle-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="tickers-dark.html"><span>Ticker Dark</span></a></li>
+                        <li><a href="tickers-light.html"><span>Ticker Light</span></a></li>
+                        <li><a href="pricing-tables-live.html"><span>Live Crypto Prices</span></a></li>
+                      </ul>
+                    </li>
+                    <li><a><i class="icon-refresh icons"></i> <span>Transactions</span> <span class="label label-success">New</span> <span class="fa fa-angle-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="tables.transactions.html"><span>Transactions Tables &amp; Blocks</span></a></li>
+                        <li><a href="search.html"><span>Transactions List</span></a></li>
+                        <li><a href="crypto_address.html"><span>Single Transaction</span></a></li>
+                        <li><a href="counter-transactions.html"><span>Transactions Counter</span></a></li>
+                      </ul>
+                    </li>
+                    <li><a><i class="icon-layers icons"></i> <span>Charts</span><span class="fa fa-angle-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="mining-pool-shares.html"><span>Donnut Chart</span></a></li>
+                        <li><a href="candlestick-charts.html"><span>Candlestick Charts</span></a></li>
+                        <li><a href="chart-depth-chart.html"><span>Depth Chart</span></a></li>
+                        <li><a href="ricksaw-chart-realtime.html"><span>Realtime Charts</span></a></li>
+                        <li><a href="chartjs-bar-chart-vertical.html"><span>Bar Charts</span></a></li>
+                        <li><a href="chartjs-line-chart.html"><span>Line Charts</span></a></li>
+                        <li><a href="chartjs-line-point-sizes.html"><span>Line Point Sizes</span></a></li>
+                        <li><a href="chartjs-line-styles-chart.html"><span>Line Styles Chart</span></a></li>
+                      </ul>
+                    </li>
+                    <li><a><i class="icon-calendar icons"></i> <span>Events</span><span class="fa fa-angle-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="events-calendar.html"><span>Events Calendar</span></a></li>
+                        <li><a href="event-create.html"><span>Add Event</span></a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div class="menu_section">
+                  <h3>Elements</h3>
+                  <ul class="nav side-menu">
+                    <li><a href="bootstrap.ui.kit.html"><i class="icon-drop icons"></i> <span>Bootstrap UI KIT</span></a></li>
+                    <li><a><i class="icon-grid icons"></i> <span>Pricing Tables</span><span class="fa fa-angle-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="pricing-tables-v1.html"><span>Pricing Tables v1</span></a></li>
+                        <li><a href="pricing-tables-v2.html"><span>Pricing Tables v2</span></a></li>
+                      </ul>
+                    </li>
+                    <li><a href="blog-posts-grid.html"><i class="icon-bubbles icons"></i> <span>Blog posts</span></a></li>
+                    <li><a href="stepper.html"><i class="icon-loop icons"></i> <span>Multi Steps Block</span></a></li>
+                    <li><a href="sweetalert.html"><i class="icon-bell icons"></i> <span>Sweet Form Alerts</span></a></li>
+                    <li><a><i class="icon-layers icons"></i> <span>Vector Icons</span><span class="fa fa-angle-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="icons.html"><span>Line Icons</span></a></li>
+                        <li><a href="icons-cryptocurrencies.html"><span>Cryptocurrencies Icons</span></a></li>
+                      </ul>
+                    </li>
+                    <li><a><i class="icon-settings icons"></i> <span>Multi Level Menu</span><span class="fa fa-angle-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="#level1_1"><span>Level One</span></a>
+                        <li><a><span>Level One</span><span class="fa fa-angle-down"></span></a>
+                          <ul class="nav child_menu">
+                            <li class="sub_menu"><a href="level2.html"><span>Level Two</span></a>
+                            </li>
+                            <li><a href="#level2_1"><span>Level Two</span></a>
+                            </li>
+                            <li><a href="#level2_2"><span>Level Two</span></a>
+                            </li>
+                          </ul>
+                        </li>
+                        <li><a href="#level1_2"><span>Level One</span></a>
+                        </li>
+                      </ul>
+                    </li>    
+                  </ul>
+                </div>
+                <div class="menu_section">
+                  <h3>Pages</h3>
+                  <ul class="nav side-menu">
+                    <li><a href="register.html"><i class="icon-note icons"></i> <span>Register</span></a></li>
+                    <li><a href="login.html"><i class="icon-user-follow icons"></i> <span>Login</span></a></li>
+                    <li><a href="maintenance.html"><i class="icon-exclamation icons"></i> <span>Maintenance</span></a></li>
+                    <li><a href="password.html"><i class="icon-lock icons"></i> <span>Recover Password</span></a></li>
+                    <li><a href="reset-password.html"><i class="icon-lock-open icons"></i> <span>Reset Password</span></a></li>
+                    <li><a href="confirm-mail.html"><i class="icon-lock-open icons"></i> <span>Confirm Registration Mail</span></a></li>
+                    <li><a href="404-error.html"><i class="icon-ban icons"></i> <span>Error 404</span></a></li>
+                  </ul>
+                </div>
+              </div>
+              <!-- /sidebar menu -->
+              <!-- /menu footer buttons -->
+              <div class="sidebar-footer hidden-small">
+                <a data-toggle="tooltip" data-placement="top" title="Settings">
+                  <span class="icon-settings icons" aria-hidden="true"></span>
+                </a>
+                <a data-toggle="tooltip" id="btnFullscreen" data-placement="top" title="FullScreen">
+                  <span class="icon-size-fullscreen icons" aria-hidden="true"></span>
+                </a>
+                <a data-toggle="tooltip" data-placement="top" title="Lock">
+                  <span class="icon-eye icons" aria-hidden="true"></span>
+                </a>
+                <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+                  <span class="icon-power icons" aria-hidden="true"></span>
+                </a>
+              </div>
+              <!-- /menu footer buttons -->
+            </div>
+          </div>
+          <!-- TOP SECONDARY NAVIGATION -->
+          <div class="top_nav">
+            <div class="nav_menu">
+              <ul class="nav navbar-nav navbar-left">
+                <li class="toggle-li">
+                  <div class="nav toggle burger-nav">
+                    <a id="menu_toggle">
+                      <div class="burger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                      </div>
+                    </a>
+                  </div>
+                </li>
+                <li class="megamenu-li">                  
+                  <!-- megamenu -->
+                  <div class="megamenu-dropdown-wrapper">
+                    <a class="megamenu-dropdown-trigger megamenu-trigger" href="#0">
+                      <i class="icon-wallet icons"></i>
+                      <span> The Wallet </span>
+                      <span class="fa fa-angle-down"></span>
+                    </a>
+                    <nav class="megamenu-dropdown">
+                      <a href="#0" class="megamenu-close">Close</a>
+                      <ul class="megamenu-dropdown-content">
+                        <li class="has-children">
+                          <a href="#"><i class="cc mmt-icon BTC" title="BTC"></i> Bitcoin</a>
+                          <ul class="megamenu-dropdown-icons is-hidden">
+                            <li>
+                              <a class="megamenu-dropdown-item item-1" href="search.html">
+                                <h3><i class="cc mmt-icon BTC" title="BTC"></i> All Transactions (BTC)</h3>
+                                <div>View Sent/Received Transactions</div>
+                              </a>
+                            </li>
+                            <li>
+                              <a class="megamenu-dropdown-item item-2" href="search.html">
+                                <h3><i class="cc mmt-icon BTC" title="BTC"></i> Sent BTC (Transactions)</h3>
+                                <div>In-dept Check Sent Transactions</div>
+                              </a>
+                            </li>
+                            <li>
+                              <a class="megamenu-dropdown-item item-3" href="search.html">
+                                <h3><i class="cc mmt-icon BTC" title="BTC"></i> Received BTC (Transactions)</h3>
+                                <div>In-dept Check Received Transactions</div>
+                              </a>
+                            </li>
+                            <li>
+                              <a class="megamenu-dropdown-item item-4" href="search.html">
+                                <h3><i class="cc mmt-icon BTC" title="BTC"></i> Exchanged BTC (Transactions)</h3>
+                                <div>View Sent/Received Exchanges</div>
+                              </a>
+                            </li>
+                          </ul> <!-- .megamenu-dropdown-icons -->
+                        </li> <!-- .has-children -->
+                        <li class="has-children">
+                          <a href="#"><i class="cc mmt-icon LTC" title="LTC"></i> Litecoin</a>
+                          <ul class="megamenu-dropdown-icons is-hidden">
+                            <li>
+                              <a class="megamenu-dropdown-item item-1" href="search.html">
+                                <h3><i class="cc mmt-icon LTC" title="LTC"></i> All Transactions (LTC)</h3>
+                                <div>View Sent/Received Transactions</div>
+                              </a>
+                            </li>
+                            <li>
+                              <a class="megamenu-dropdown-item item-2" href="search.html">
+                                <h3><i class="cc mmt-icon LTC" title="LTC"></i> Sent LTC (Transactions)</h3>
+                                <div>In-dept Check Sent Transactions</div>
+                              </a>
+                            </li>
+                            <li>
+                              <a class="megamenu-dropdown-item item-3" href="search.html">
+                                <h3><i class="cc mmt-icon LTC" title="LTC"></i> Received LTC (Transactions)</h3>
+                                <div>In-dept Check Received Transactions</div>
+                              </a>
+                            </li>
+                            <li>
+                              <a class="megamenu-dropdown-item item-4" href="search.html">
+                                <h3><i class="cc mmt-icon LTC" title="LTC"></i> Exchanged LTC (Transactions)</h3>
+                                <div>View Sent/Received Exchanges</div>
+                              </a>
+                            </li>
+                          </ul> <!-- .megamenu-dropdown-icons -->
+                        </li> <!-- .has-children -->
+                        <li class="has-children">
+                          <a href="#"><i class="cc mmt-icon ETH" title="ETH"></i> Ethereum</a>
+                          <ul class="megamenu-dropdown-icons is-hidden">
+                            <li>
+                              <a class="megamenu-dropdown-item item-1" href="search.html">
+                                <h3><i class="cc mmt-icon ETH" title="ETH"></i> All Transactions (ETH)</h3>
+                                <div>View Sent/Received Transactions</div>
+                              </a>
+                            </li>
+                            <li>
+                              <a class="megamenu-dropdown-item item-2" href="search.html">
+                                <h3><i class="cc mmt-icon ETH" title="ETH"></i> Sent ETH (Transactions)</h3>
+                                <div>In-dept Check Sent Transactions</div>
+                              </a>
+                            </li>
+                            <li>
+                              <a class="megamenu-dropdown-item item-3" href="search.html">
+                                <h3><i class="cc mmt-icon ETH" title="ETH"></i> Received ETH (Transactions)</h3>
+                                <div>In-dept Check Received Transactions</div>
+                              </a>
+                            </li>
+                            <li>
+                              <a class="megamenu-dropdown-item item-4" href="search.html">
+                                <h3><i class="cc mmt-icon ETH" title="ETH"></i> Exchanged ETH (Transactions)</h3>
+                                <div>View Sent/Received Exchanges</div>
+                              </a>
+                            </li>
+                          </ul> <!-- .megamenu-dropdown-icons -->
+                        </li> <!-- .has-children -->
+                        <li class="has-children">
+                          <a href="#"><i class="cc mmt-icon DASH" title="DASH"></i> DASH</a>
+                          <ul class="megamenu-dropdown-icons is-hidden">
+                            <li>
+                              <a class="megamenu-dropdown-item item-1" href="search.html">
+                                <h3><i class="cc mmt-icon DASH" title="DASH"></i> All Transactions (DASH)</h3>
+                                <div>View Sent/Received Transactions</div>
+                              </a>
+                            </li>
+                            <li>
+                              <a class="megamenu-dropdown-item item-2" href="search.html">
+                                <h3><i class="cc mmt-icon DASH" title="DASH"></i> Sent DASH (Transactions)</h3>
+                                <div>In-dept Check Sent Transactions</div>
+                              </a>
+                            </li>
+                            <li>
+                              <a class="megamenu-dropdown-item item-3" href="search.html">
+                                <h3><i class="cc mmt-icon DASH" title="DASH"></i> Received DASH (Transactions)</h3>
+                                <div>In-dept Check Received Transactions</div>
+                              </a>
+                            </li>
+                            <li>
+                              <a class="megamenu-dropdown-item item-4" href="search.html">
+                                <h3><i class="cc mmt-icon DASH" title="DASH"></i> Exchanged DASH (Transactions)</h3>
+                                <div>View Sent/Received Exchanges</div>
+                              </a>
+                            </li>
+                          </ul> <!-- .megamenu-dropdown-icons -->
+                        </li> <!-- .has-children -->
+                        <li>
+                          <a href="#"><i class="icon-wallet icons cc"></i> Add New Wallet</a>
+                        </li>
+                      </ul> <!-- .megamenu-dropdown-content -->
+                    </nav> <!-- .megamenu-dropdown -->
+                  </div> <!-- .megamenu-dropdown-wrapper -->
+                  <!-- megamenu -->              
+                </li>
+                <li class="dropdown-menu-1-li">
+                  <div class="dropdown-menu-1 dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"><i class="icon-feed icons"></i> Reports
+                    <span class="fa fa-angle-down"></span></a>
+                    <ul class="dropdown-menu archive">
+                      <li><a href="crypto_address.html"><span class="pull-left">...8b0133 (0.01 BTC)</span> <span class="label label-success pull-right">Success</span></a></li>
+                      <li><a href="crypto_address.html"><span class="pull-left">...9c3286 (0.07 BTC)</span> <span class="label label-success pull-right">Success</span></a></li>
+                      <li><a href="crypto_address.html"><span class="pull-left">...4a3432 (0.44 LTC)</span> <span class="label label-danger pull-right">Canceled</span></a></li>
+                      <li><a href="crypto_address.html"><span class="pull-left">...1e8437 (0.91 BTC)</span> <span class="label label-warning pull-right">Pending</span></a></li>
+                      <li><a href="crypto_address.html"><span class="pull-left">...8b0133 (3.51 LTC)</span> <span class="label label-success pull-right">Success</span></a></li>
+                      <li><a href="crypto_address.html"><span class="pull-left">...9c3286 (0.07 ETH)</span> <span class="label label-warning pull-right">Pending</span></a></li>
+                      <li><a href="crypto_address.html"><span class="pull-left">...8b0133 (0.01 BTC)</span> <span class="label label-success pull-right">Success</span></a></li>
+                      <li><a href="crypto_address.html"><span class="pull-left">...9c3286 (0.07 BTC)</span> <span class="label label-success pull-right">Success</span></a></li>
+                    </ul>
+                  </div>
+                </li>
+              </ul> <!-- top menu ul -->
+              <ul class="nav navbar-nav navbar-right">
+                <li id="st-trigger-effects" class="">
+                  <a data-effect="st-effect"  class="trigger-sidebar">
+                    <i class="fa fa-th"></i>
+                  </a>
+                </li>
+                <li class="">
+                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <img src="assets/images/profile-pic.jpg" alt="">
+                  </a>
+                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                    <li><a href="javascript:;"> Profile</a></li>
+                    <li>
+                      <a href="javascript:;">
+                        <span class="badge bg-red pull-right">50%</span>
+                        <span>Settings</span>
+                      </a>
+                    </li>
+                    <li><a href="javascript:;">Help</a></li>
+                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                  </ul>
+                </li>
+                <li role="presentation" class="dropdown">
+                  <a href="javascript:;" class="dropdown-toggle info-number faa-horizontal" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-envelope faa-horizontal animated"></i>
+                    <span class="badge faa-horizontal animated">3</span>
+                  </a>
+                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                    <li>
+                      <a>
+                        <span class="image"><img src="assets/images/profile-pic.jpg" alt="Profile Image" /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers...
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <a>
+                        <span class="image"><img src="assets/images/profile-pic.jpg" alt="Profile Image" /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">4 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers...
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <a>
+                        <span class="image"><img src="assets/images/profile-pic.jpg" alt="Profile Image" /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">6 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers...
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="text-center">
+                        <a>
+                          <strong>See All Alerts</strong>
+                          <i class="fa fa-angle-right"></i>
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+                <li class="search-wrap">
+                  <a href="javascript:;" id="btn-search" class="search-nav">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+  
+          <!-- PAGE CONTENT -->
+          <div class="right_col" role="main" id="bootstrap-kit">
+            <div class="spacer_30"></div>
+            <div class="clearfix"></div>
+            <div class="header-title-breadcrumb element-box-shadow">
+              <div class="container">
+                  <div class="row">
+                      <div class="col-md-7 col-sm-6 col-xs-12 text-left">
+                        <h3>Boostrap UI KIT</h3>
+                      </div>
+                      <div class="col-md-5 col-sm-6 col-xs-12 hide-on-tablet">
+                          <ol class="breadcrumb text-right">
+                            <li><a href="#">Home</a></li> 
+                            <li class="active">Boostrap UI KIT</li>
+                          </ol>                    
+                      </div>
+                  </div>
+              </div>
+            </div>
+    <div class="container">
+      <!-- Navbar
+      ================================================== -->
+      <div class="bs-docs-section clearfix">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="page-header">
+              <h1 id="navbar">Navbar</h1>
+            </div>
+            <div class="bs-component">
+              <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                          <span class="sr-only">Toggle navigation</span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">Brand</a>
+                      </div>
+                    </div>
+                    <div class="col-md-10">
+                      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                          <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                          <li><a href="#">Link</a></li>
+                          <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                              <li><a href="#">Action</a></li>
+                              <li><a href="#">Another action</a></li>
+                              <li><a href="#">Something else here</a></li>
+                              <li class="divider"></li>
+                              <li><a href="#">Separated link</a></li>
+                              <li class="divider"></li>
+                              <li><a href="#">One more separated link</a></li>
+                            </ul>
+                          </li>
+                        </ul>
+                        <form class="navbar-form navbar-left" role="search">
+                          <div class="form-group">
+                            <input class="form-control" placeholder="Search" type="text">
+                          </div>
+                          <button type="submit" class="btn btn-default">Submit</button>
+                        </form>
+                        <ul class="nav navbar-nav navbar-right">
+                          <li><a href="#">Link</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div><!-- row -->
+                </div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Buttons
+      ================================================== -->
+      <div class="bs-docs-section">
+        <div class="page-header">
+          <div class="row">
+            <div class="col-lg-12">
+              <h1 id="buttons">Buttons</h1>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-7">
+            <p class="bs-component">
+              <a href="#" class="btn btn-default button-element">Default</a>
+              <a href="#" class="btn btn-primary button-element">Primary</a>
+              <a href="#" class="btn btn-success button-element">Success</a>
+              <a href="#" class="btn btn-info button-element">Info</a>
+              <a href="#" class="btn btn-warning button-element">Warning</a>
+              <a href="#" class="btn btn-danger button-element">Danger</a>
+              <a href="#" class="btn btn-link">Link</a>
+            </p>
+            <p class="bs-component">
+              <a href="#" class="btn btn-default disabled">Default</a>
+              <a href="#" class="btn btn-primary disabled">Primary</a>
+              <a href="#" class="btn btn-success disabled">Success</a>
+              <a href="#" class="btn btn-info disabled">Info</a>
+              <a href="#" class="btn btn-warning disabled">Warning</a>
+              <a href="#" class="btn btn-danger disabled">Danger</a>
+              <a href="#" class="btn btn-link disabled">Link</a>
+            </p>
+            <div class="btn-toolbar bs-component">
+              <div class="btn-group">
+                <a href="#" class="btn btn-default button-element">Default</a>
+                <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+              </div>
+              <div class="btn-group">
+                <a href="#" class="btn btn-primary button-element">Primary</a>
+                <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+              </div>
+              <div class="btn-group">
+                <a href="#" class="btn btn-success button-element">Success</a>
+                <a href="#" class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+              </div>
+              <div class="btn-group">
+                <a href="#" class="btn btn-info button-element">Info</a>
+                <a href="#" class="btn btn-info dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+              </div>
+              <div class="btn-group">
+                <a href="#" class="btn btn-warning button-element">Warning</a>
+                <a href="#" class="btn btn-warning dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+              </div>
+            </div>
+            
+            <p class="bs-component">
+              <a href="#" class="btn btn-primary btn-lg button-element">Large button</a>
+              <a href="#" class="btn btn-primary button-element">Default button</a>
+              <a href="#" class="btn btn-primary btn-sm button-element">Small button</a>
+              <a href="#" class="btn btn-primary btn-xs button-element">Mini button</a>
+            </p>
+          </div>
+          <div class="col-lg-5">
+            <p class="bs-component">
+              <a href="#" class="btn btn-default btn-lg btn-block button-element">Block level button</a>
+            </p>
+            <div class="bs-component">
+              <div class="btn-group btn-group-justified">
+                <a href="#" class="btn btn-default button-element">Left</a>
+                <a href="#" class="btn btn-default button-element">Middle</a>
+                <a href="#" class="btn btn-default button-element">Right</a>
+              </div>
+            </div>
+            <div class="bs-component">
+              <div class="btn-toolbar">
+                <div class="btn-group">
+                  <a href="#" class="btn btn-default button-element">1</a>
+                  <a href="#" class="btn btn-default button-element">2</a>
+                  <a href="#" class="btn btn-default button-element">3</a>
+                  <a href="#" class="btn btn-default button-element">4</a>
+                </div>
+                <div class="btn-group">
+                  <a href="#" class="btn btn-default button-element">5</a>
+                  <a href="#" class="btn btn-default button-element">6</a>
+                  <a href="#" class="btn btn-default button-element">7</a>
+                </div>
+                <div class="btn-group">
+                  <a href="#" class="btn btn-default button-element">8</a>
+                  <div class="btn-group">
+                    <a href="#" class="btn btn-default dropdown-toggle button-element" data-toggle="dropdown">
+                      Dropdown
+                      <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">Dropdown link</a></li>
+                      <li><a href="#">Dropdown link</a></li>
+                      <li><a href="#">Dropdown link</a></li>
+                     </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bs-component">
+              <div class="btn-group-vertical">
+                  <a href="#" class="btn btn-default button-element">Button</a>
+                  <a href="#" class="btn btn-default button-element">Button</a>
+                  <a href="#" class="btn btn-default button-element">Button</a>
+                  <a href="#" class="btn btn-default button-element">Button</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Typography
+      ================================================== -->
+      <div class="bs-docs-section">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="page-header">
+              <h1 id="typography">Typography</h1>
+            </div>
+          </div>
+        </div>
+        <!-- Headings -->
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="bs-component">
+              <h1>Heading 1</h1>
+              <h2>Heading 2</h2>
+              <h3>Heading 3</h3>
+              <h4>Heading 4</h4>
+              <h5>Heading 5</h5>
+              <h6>Heading 6</h6>
+              <p class="lead">Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="bs-component">
+              <h2>Example body text</h2>
+              <p>Nullam quis risus eget <a href="#">urna mollis ornare</a> vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula.</p>
+              <p><small>This line of text is meant to be treated as fine print.</small></p>
+              <p>The following snippet of text is <strong>rendered as bold text</strong>.</p>
+              <p>The following snippet of text is <em>rendered as italicized text</em>.</p>
+              <p>An abbreviation of the word attribute is <abbr title="attribute">attr</abbr>.</p>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="bs-component">
+              <h2>Emphasis classes</h2>
+              <p class="text-muted">Fusce dapibus, tellus ac cursus commodo, tortor mauris nibh.</p>
+              <p class="text-primary">Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <p class="text-warning">Etiam porta sem malesuada magna mollis euismod.</p>
+              <p class="text-danger">Donec ullamcorper nulla non metus auctor fringilla.</p>
+              <p class="text-success">Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+              <p class="text-info">Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Blockquotes -->
+        <div class="row">
+          <div class="col-lg-12">
+            <h2 id="type-blockquotes">Blockquotes</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="bs-component">
+              <blockquote>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
+              </blockquote>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="bs-component">
+              <blockquote class="blockquote-reverse">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Tables
+      ================================================== -->
+      <div class="bs-docs-section">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="page-header">
+              <h1 id="tables">Tables</h1>
+            </div>
+            <div class="bs-component">
+              <table class="table table-striped table-hover ">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Column heading</th>
+                    <th>Column heading</th>
+                    <th>Column heading</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>Column content</td>
+                    <td>Column content</td>
+                    <td>Column content</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>Column content</td>
+                    <td>Column content</td>
+                    <td>Column content</td>
+                  </tr>
+                  <tr class="info">
+                    <td>3</td>
+                    <td>Column content</td>
+                    <td>Column content</td>
+                    <td>Column content</td>
+                  </tr>
+                  <tr class="success">
+                    <td>4</td>
+                    <td>Column content</td>
+                    <td>Column content</td>
+                    <td>Column content</td>
+                  </tr>
+                  <tr class="danger">
+                    <td>5</td>
+                    <td>Column content</td>
+                    <td>Column content</td>
+                    <td>Column content</td>
+                  </tr>
+                  <tr class="warning">
+                    <td>6</td>
+                    <td>Column content</td>
+                    <td>Column content</td>
+                    <td>Column content</td>
+                  </tr>
+                  <tr class="active">
+                    <td>7</td>
+                    <td>Column content</td>
+                    <td>Column content</td>
+                    <td>Column content</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div><!-- /example -->
+          </div>
+        </div>
+      </div>
+      <!-- Forms
+      ================================================== -->
+      <div class="bs-docs-section">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="page-header">
+              <h1 id="forms">Forms</h1>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="well bs-component element-box-shadow">
+              <form class="form-horizontal">
+                <fieldset>
+                  <div class="form-group">
+                    <div class="col-lg-2">
+                      <label for="inputEmail" class="control-label">Email</label>
+                    </div>
+                    <div class="col-lg-10">
+                      <input class="form-control" id="inputEmail" placeholder="Email" type="text">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-lg-2">
+                      <label for="inputPassword" class="control-label">Password</label>
+                    </div>
+                    <div class="col-lg-10">
+                      <input class="form-control" id="inputPassword" placeholder="Password" type="password">
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox"> Checkbox
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-lg-2">
+                      <label for="textArea" class="control-label">Textarea</label>
+                    </div>
+                    <div class="col-lg-10">
+                      <textarea class="form-control" rows="3" id="textArea"></textarea>
+                      <span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-lg-2">
+                      <label class="control-label">Radios</label>
+                    </div>
+                    <div class="col-lg-10">
+                      <div class="radio">
+                        <label>
+                          <input name="optionsRadios" id="optionsRadios1" value="option1" checked="" type="radio">
+                          Option one is this
+                        </label>
+                      </div>
+                      <div class="radio">
+                        <label>
+                          <input name="optionsRadios" id="optionsRadios2" value="option2" type="radio">
+                          Option two can be something else
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-lg-2">
+                      <label for="select" class="control-label">Selects</label>
+                    </div>
+                    <div class="col-lg-10">
+                      <select class="form-control" id="select">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </select>
+                      <br>
+                      <select multiple="" class="form-control">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-2">
+                      <button type="reset" class="btn btn-default button-element">Cancel</button>
+                      <button type="submit" class="btn btn-primary button-element">Submit</button>
+                    </div>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+          <div class="col-lg-4 col-lg-offset-1">
+              <form class="well bs-component element-box-shadow">
+                <div class="form-group">
+                  <label class="control-label" for="focusedInput">Focused input</label>
+                  <input class="form-control" id="focusedInput" value="This is focused..." type="text">
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="disabledInput">Disabled input</label>
+                  <input class="form-control" id="disabledInput" placeholder="Disabled input here..." disabled="" type="text">
+                </div>
+                <div class="form-group has-warning">
+                  <label class="control-label" for="inputWarning">Input warning</label>
+                  <input class="form-control" id="inputWarning" type="text">
+                </div>
+                <div class="form-group has-error">
+                  <label class="control-label" for="inputError">Input error</label>
+                  <input class="form-control" id="inputError" type="text">
+                </div>
+                <div class="form-group has-success">
+                  <label class="control-label" for="inputSuccess">Input success</label>
+                  <input class="form-control" id="inputSuccess" type="text">
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="inputLarge">Large input</label>
+                  <input class="form-control input-lg" id="inputLarge" type="text">
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="inputDefault">Default input</label>
+                  <input class="form-control" id="inputDefault" type="text">
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="inputSmall">Small input</label>
+                  <input class="form-control input-sm" id="inputSmall" type="text">
+                </div>
+                <div class="form-group">
+                  <label class="control-label">Input addons</label>
+                  <div class="input-group">
+                    <span class="input-group-addon">$</span>
+                    <input class="form-control" type="text">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default button-element" type="button">Button</button>
+                    </span>
+                  </div>
+                </div>
+              </form>
+          </div>
+        </div>
+      </div>
+      <!-- Navs
+      ================================================== -->
+      <div class="bs-docs-section">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="page-header">
+              <h1 id="navs">Navs</h1>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <h2 id="nav-tabs">Tabs</h2>
+            <div class="well bs-component element-box-shadow">
+              <ul class="nav nav-tabs">
+                <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
+                <li><a href="#profile" data-toggle="tab">Profile</a></li>
+                <li class="disabled"><a>Disabled</a></li>
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Dropdown <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#dropdown1" data-toggle="tab">Action</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#dropdown2" data-toggle="tab">Another action</a></li>
+                  </ul>
+                </li>
+              </ul>
+              <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade active in" id="home">
+                  <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+                </div>
+                <div class="tab-pane fade" id="profile">
+                  <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
+                </div>
+                <div class="tab-pane fade" id="dropdown1">
+                  <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork.</p>
+                </div>
+                <div class="tab-pane fade" id="dropdown2">
+                  <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <h2 id="nav-pills">Pills</h2>
+            <div class="well bs-component element-box-shadow">
+              <ul class="nav nav-pills">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Profile</a></li>
+                <li class="disabled"><a href="#">Disabled</a></li>
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Dropdown <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            <br>
+            <div class="well bs-component element-box-shadow">
+              <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Profile</a></li>
+                <li class="disabled"><a href="#">Disabled</a></li>
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Dropdown <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <h2 id="nav-breadcrumbs">Breadcrumbs</h2>
+            <div class="well bs-component element-box-shadow">
+              <ul class="breadcrumb">
+                <li class="active">Home</li>
+              </ul>
+            </div>
+            <div class="well bs-component element-box-shadow">
+              <ul class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li class="active">Library</li>
+              </ul>
+            </div>
+            <div class="well bs-component element-box-shadow">
+              <ul class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Library</a></li>
+                <li class="active">Data</li>
+              </ul>
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <h2 id="pagination">Pagination</h2>
+            <div class="well bs-component element-box-shadow">
+              <ul class="pagination">
+                <li class="disabled"><a href="#"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+              </ul>
+              <ul class="pagination cryptic-pagination">
+                <li class="disabled"><a href="#"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+              </ul>
+              <ul class="pagination pagination-lg">
+                <li class="disabled"><a href="#"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+              </ul>
+              <ul class="pagination pagination-sm">
+                <li class="disabled"><a href="#"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <h2 id="pager">Pager</h2>
+            <div class="well bs-component element-box-shadow">
+              <ul class="pager">
+                <li><a href="#">Previous</a></li>
+                <li><a href="#">Next</a></li>
+              </ul>
+              <ul class="pager">
+                <li class="previous disabled"><a href="#">??? Older</a></li>
+                <li class="next"><a href="#">Newer ???</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4">
+          </div>
+        </div>
+      </div>
+      <!-- Indicators
+      ================================================== -->
+      <div class="bs-docs-section">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="page-header">
+              <h1 id="indicators">Indicators</h1>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <h2>Alerts</h2>
+            <div class="bs-component">
+              <div class="alert alert-dismissible alert-warning">
+                <button type="button" class="close" data-dismiss="alert">??</button>
+                <h4>Warning!</h4>
+                <p>Best check yo self, you're not looking too good. Nulla vitae elit libero, a pharetra augue. Praesent commodo cursus magna, <a href="#" class="alert-link">vel scelerisque nisl consectetur et</a>.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="bs-component">
+              <div class="alert alert-dismissible alert-danger">
+                <button type="button" class="close" data-dismiss="alert">??</button>
+                <strong>Oh snap!</strong> <a href="#" class="alert-link">Change a few things up</a> and try submitting again.
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="bs-component">
+              <div class="alert alert-dismissible alert-success">
+                <button type="button" class="close" data-dismiss="alert">??</button>
+                <strong>Well done!</strong> You successfully read <a href="#" class="alert-link">this important alert message</a>.
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="bs-component">
+              <div class="alert alert-dismissible alert-info">
+                <button type="button" class="close" data-dismiss="alert">??</button>
+                <strong>Heads up!</strong> This <a href="#" class="alert-link">alert needs your attention</a>, but it's not super important.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <h2>Labels</h2>
+            <div class="bs-component">
+              <span class="label label-default">Default</span>
+              <span class="label label-primary">Primary</span>
+              <span class="label label-success">Success</span>
+              <span class="label label-warning">Warning</span>
+              <span class="label label-danger">Danger</span>
+              <span class="label label-info">Info</span>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <h2>Badges</h2>
+            <div class="bs-component">
+              <ul class="nav nav-pills">
+                <li class="active"><a href="#">Home <span class="badge">42</span></a></li>
+                <li><a href="#">Profile <span class="badge"></span></a></li>
+                <li><a href="#">Messages <span class="badge">3</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Progress bars
+      ================================================== -->
+      <div class="bs-docs-section">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="page-header">
+              <h1 id="progress-bars">Progress bars</h1>
+            </div>
+            <h3 id="progress-basic">Basic</h3>
+            <div class="bs-component">
+              <div class="progress">
+                <div class="progress-bar" style="width: 60%;"></div>
+              </div>
+            </div>
+            <h3 id="progress-alternatives">Contextual alternatives</h3>
+            <div class="bs-component">
+              <div class="progress">
+                <div class="progress-bar progress-bar-info" style="width: 20%"></div>
+              </div>
+              <div class="progress">
+                <div class="progress-bar progress-bar-success" style="width: 40%"></div>
+              </div>
+              <div class="progress">
+                <div class="progress-bar progress-bar-warning" style="width: 60%"></div>
+              </div>
+              <div class="progress">
+                <div class="progress-bar progress-bar-danger" style="width: 80%"></div>
+              </div>
+            </div>
+            <h3 id="progress-striped">Striped</h3>
+            <div class="bs-component">
+              <div class="progress progress-striped">
+                <div class="progress-bar progress-bar-info" style="width: 20%"></div>
+              </div>
+              <div class="progress progress-striped">
+                <div class="progress-bar progress-bar-success" style="width: 40%"></div>
+              </div>
+              <div class="progress progress-striped">
+                <div class="progress-bar progress-bar-warning" style="width: 60%"></div>
+              </div>
+              <div class="progress progress-striped">
+                <div class="progress-bar progress-bar-danger" style="width: 80%"></div>
+              </div>
+            </div>
+            <h3 id="progress-animated">Animated</h3>
+            <div class="bs-component">
+              <div class="progress progress-striped active">
+                <div class="progress-bar" style="width: 45%"></div>
+              </div>
+            </div>
+            <h3 id="progress-stacked">Stacked</h3>
+            <div class="bs-component">
+              <div class="progress">
+                <div class="progress-bar progress-bar-success" style="width: 35%"></div>
+                <div class="progress-bar progress-bar-warning" style="width: 20%"></div>
+                <div class="progress-bar progress-bar-danger" style="width: 10%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Containers
+      ================================================== -->
+      <div class="bs-docs-section">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="page-header">
+              <h1 id="containers">Containers</h1>
+            </div>
+            <div class="bs-component">
+              <div class="jumbotron element-box-shadow">
+                <h1>Jumbotron</h1>
+                <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                <p><a class="btn btn-primary btn-lg button-element">Learn more</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <h2>List groups</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="bs-component">
+              <ul class="list-group">
+                <li class="list-group-item">
+                  <span class="badge">14</span>
+                  Cras justo odio
+                </li>
+                <li class="list-group-item">
+                  <span class="badge">2</span>
+                  Dapibus ac facilisis in
+                </li>
+                <li class="list-group-item">
+                  <span class="badge">1</span>
+                  Morbi leo risus
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="bs-component">
+              <div class="list-group">
+                <a href="#" class="list-group-item active">
+                  Cras justo odio
+                </a>
+                <a href="#" class="list-group-item">Dapibus ac facilisis in
+                </a>
+                <a href="#" class="list-group-item">Morbi leo risus
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="bs-component">
+              <div class="list-group">
+                <a href="#" class="list-group-item">
+                  <h4 class="list-group-item-heading">List group item heading</h4>
+                  <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                </a>
+                <a href="#" class="list-group-item">
+                  <h4 class="list-group-item-heading">List group item heading</h4>
+                  <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <h2>Panels</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="bs-component">
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  Basic panel
+                </div>
+              </div>
+              <div class="panel panel-default">
+                <div class="panel-heading">Panel heading</div>
+                <div class="panel-body">
+                  Panel content
+                </div>
+              </div>
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  Panel content
+                </div>
+                <div class="panel-footer">Panel footer</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="bs-component">
+              <div class="panel panel-primary">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Panel primary</h3>
+                </div>
+                <div class="panel-body">
+                  Panel content
+                </div>
+              </div>
+              <div class="panel panel-success">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Panel success</h3>
+                </div>
+                <div class="panel-body">
+                  Panel content
+                </div>
+              </div>
+              <div class="panel panel-warning">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Panel warning</h3>
+                </div>
+                <div class="panel-body">
+                  Panel content
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="bs-component">
+              <div class="panel panel-danger">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Panel danger</h3>
+                </div>
+                <div class="panel-body">
+                  Panel content
+                </div>
+              </div>
+              <div class="panel panel-info">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Panel info</h3>
+                </div>
+                <div class="panel-body">
+                  Panel content
+                </div>
+              </div>
+              <div class="panel panel-cryptic">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Panel cryptic</h3>
+                </div>
+                <div class="panel-body">
+                  Panel content
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="page-header">
+              <h1 id="dialogs">Dialogs</h1>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <h2>Modals</h2>
+            <div class="well bs-component element-box-shadow">
+              <div class="modal">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title">Modal title</h4>
+                    </div>
+                    <div class="modal-body">
+                      <p>One fine body???</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default button-element" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary button-element">Save changes</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div></div>
+          </div>
+          <div class="col-lg-6">
+            <h2>Popovers</h2>
+            <div class="bs-component">
+              <button type="button" class="btn btn-default button-element" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="" title="">Left</button>
+              <button type="button" class="btn btn-default button-element" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="" title="">Top</button>
+              <button type="button" class="btn btn-default button-element" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus
+              sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="" title="">Bottom</button>
+              <button type="button" class="btn btn-default button-element" data-container="body" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="" title="">Right</button>
+            </div>
+            <h2>Tooltips</h2>
+            <div class="bs-component">
+              <button type="button" class="btn btn-default button-element" data-toggle="tooltip" data-placement="left" title="" data-original-title="Tooltip on left">Left</button>
+              <button type="button" class="btn btn-default button-element" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top">Top</button>
+              <button type="button" class="btn btn-default button-element" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Tooltip on bottom">Bottom</button>
+              <button type="button" class="btn btn-default button-element" data-toggle="tooltip" data-placement="right" title="" data-original-title="Tooltip on right">Right</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a href="#" class="scrollToTop"><i class="fa fa-chevron-up text-white" aria-hidden="true"></i></a>
+    </div>
+        </div>
+          <!-- PAGE FOOTER -->
+          <footer>
+            <div class="pull-right">
+              Cryptic - Admin Template by <a href="https://themeforest.net/user/modeltheme/portfolio">ModelTheme</a>
+            </div>
+            <div class="clearfix"></div>
+          </footer>
+        </div>
+        <!-- RIGHT SIDE SIDEBAR NAVIGATION -->
+        <nav class="st-menu st-effect">
+          <span class="demo-icon demo-icon icon-th-1 close-sidebar"></span>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </nav>
+      </div>
+      <!-- RIGHT SIDE: SEARCH FORM -->
+      <div class="search search-main">
+        <div id="btn-search-close" class="btn btn--search-close" aria-label="Close search form">
+          <i class="fa fa-times"></i>
+        </div>
+        <form class="search__form" action="search.html">
+          <input class="search__input" name="search" type="search" placeholder="Hash, transactions..." autocomplete="off" autocapitalize="off" spellcheck="false" />
+          <span class="search__info">Hit enter to search or ESC to close</span>
+        </form>
+      </div>
+      <!-- JS SCRIPTS -->
+      <script src="assets/js/jquery.min.js"></script>
+      <script src="assets/js/jquery.scrollbar.min.js"></script>
+      <script src="assets/plugins/modernizr/modernizr.custom.js"></script>
+      <script src="assets/plugins/classie/classie.js"></script>  
+      <script src="assets/plugins/bootstrap/bootstrap.min.js"></script>
+      <!-- Custom Theme Scripts -->
+      <script src="assets/js/custom.min.js"></script>
+      <script src="assets/js/preloader.min.js"></script>
+    
+  </body>
+</html>

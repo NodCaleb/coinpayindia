@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Logs>
+@{
+    Layout = "~/Views/Shared/_LayoutAltexBlue.cshtml";
+    ViewBag.Title = "Login History";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="markets-filter-tabs clear-block">
+            <ul class="flex-row tabs-nav">
+                @Html.Partial("_TabbedMenuPartial")
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div class="pane active card-block markets-table">
+                <div class="markets-table-tbody">
+                    <div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <a>@Html.DisplayNameFor(model => model.Ip)</a>
+                                    </th>
+                                    <th>
+                                        <a>Status</a>
+                                    </th>
+                                    <th>
+                                        <a>@Html.DisplayNameFor(model => model.Text)</a>
+                                    </th>
+                                    <th>
+                                        <a>@Html.DisplayNameFor(model => model.DateTime)</a>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.Ip
+                                        </td>
+                                        <td>
+                                            @switch (item.Type)
+                                            {
+                                                case Logs.LogType.LoggedIn:
+                                                    @:Success
+                                                        break;
+                                                case Logs.LogType.FaliedLoggingIn:
+                                                    @:FAILED
+                                                        break;
+                                            }
+                                        </td>
+                                        <td>
+                                            @item.Text
+                                        </td>
+                                        <td>
+                                            @item.DateTime
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

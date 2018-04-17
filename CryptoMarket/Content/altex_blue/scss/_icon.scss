@@ -1,0 +1,43 @@
+.icon{
+	display: inline-block;
+	background: url(../img/sprite.png) no-repeat;
+}
+
+.icon-setting{
+	width: 16px;
+	height: 16px;
+}
+
+.icon-setting-white{
+	width: 16px;
+	height: 16px;
+	background-position: -16px 0;
+	vertical-align: middle;	
+}
+
+.icoCoinPayIndia{
+	width: 16px;
+	height: 14px;
+	background-position: -32px 0;
+}
+.icon-voting{
+	width: 16px;
+	height: 16px;
+	background-position: -48px 0;
+
+}
+.icon-faq{
+	width: 16px;
+	height: 14px;
+	background-position: -64px 0;
+}
+.icon-fees{
+	width: 16px;
+	height: 16px;
+	background-position: -80px 0;
+}
+.icon-support{
+	width: 16px;
+	height: 16px;
+	background-position: -96px 0;
+}

@@ -1,0 +1,384 @@
+﻿@using BtcE
+@using CryptoMarket.Controllers
+@using CryptoMarket.Source.Core
+@model PlatformsController.BtceTradePageModel
+    
+@{
+    Layout = "~/Views/Shared/_LayoutAltexBlue.cshtml";
+}
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+@{
+    var friendlyPair = BtceCurrencyHelper.FromBtcePair(Model.Pair);
+}
+<script>
+    function OnTradeSuccess(data) {
+        if (data.success === false) {
+            $.Notification.notify('warning', 'top right', 'BTC-E Error', data.error);
+        } else {
+            location.reload();
+        }
+    }
+
+    function SellCalculate() {
+        var price = parseFloat($("#SellPrice").val());
+        var amount = parseFloat($("#SellAmount").val());
+        var total = (price * amount).toFixed(2);
+        $("#SellTotal").val(total);
+    }
+
+    function BuyCalculate() {
+        var price = parseFloat($("#BuyPrice").val());
+        var amount = parseFloat($("#BuyAmount").val());
+        var total = (price * amount).toFixed(2);
+        $("#BuyTotal").val(total);
+    }
+
+    $(function() {
+        $("#SellAmount")
+            .keyup(function() {
+                SellCalculate();
+            });
+        $("#SellPrice")
+            .keyup(function() {
+                SellCalculate();
+            });
+
+        $("#BuyAmount")
+            .keyup(function() {
+                BuyCalculate();
+            });
+        $("#BuyPrice")
+            .keyup(function() {
+                BuyCalculate();
+            });
+
+
+        $("#cancelOrder")
+            .click(function() {
+                var orderId = $(this).data("orderid");
+                $.post("@Url.Action("CancelTradeBtce")",
+                    { id: orderId },
+                    function(data) {
+                        if (data.success === false) {
+                            $.Notification.notify('warning', 'top right', 'BTC-E Error', data.error);
+                        } else {
+                            location.reload();
+                        }
+                    });
+            });
+
+        $("#BuyOrderType")
+            .change(function(e) {
+                switch ($(this).val()) {
+                    // Limit
+                case "0":
+                    $("#BuyPrice").prop("disabled", false);
+                    $("#BuyStopProfitPrice").prop("disabled", true);
+                    break;
+
+                // Market
+                case "1":
+                    $("#BuyPrice").prop("disabled", true);
+                    $("#BuyStopProfitPrice").prop("disabled", true);
+                    break;
+
+                // Stop loss
+                case "2":
+                    $("#BuyPrice").prop("disabled", true);
+                    $("#BuyStopProfitPrice").prop("disabled", false);
+                    break;
+
+                // Take Profit
+                case "3":
+                    $("#BuyPrice").prop("disabled", true);
+                    $("#BuyStopProfitPrice").prop("disabled", false);
+                    break;
+
+                // Stop Loss Limit
+                case "4":
+                    $("#BuyPrice").prop("disabled", false);
+                    $("#BuyStopProfitPrice").prop("disabled", false);
+                    break;
+
+                // Take Profit Limit
+                case "5":
+                    $("#BuyPrice").prop("disabled", false);
+                    $("#BuyStopProfitPrice").prop("disabled", false);
+                    break;
+                }
+            });
+
+        $("#SellOrderType")
+            .change(function(e) {
+                switch ($(this).val()) {
+                    // Limit
+                case "0":
+                    $("#SellPrice").prop("disabled", false);
+                    $("#SellStopProfitPrice").prop("disabled", true);
+                    break;
+
+                // Market
+                case "1":
+                    $("#SellPrice").prop("disabled", true);
+                    $("#SellStopProfitPrice").prop("disabled", true);
+                    break;
+
+                // Stop loss
+                case "2":
+                    $("#SellPrice").prop("disabled", true);
+                    $("#SellStopProfitPrice").prop("disabled", false);
+                    break;
+
+                // Take Profit
+                case "3":
+                    $("#SellPrice").prop("disabled", true);
+                    $("#SellStopProfitPrice").prop("disabled", false);
+                    break;
+
+                // Stop Loss Limit
+                case "4":
+                    $("#SellPrice").prop("disabled", false);
+                    $("#SellStopProfitPrice").prop("disabled", false);
+                    break;
+
+                // Take Profit Limit
+                case "5":
+                    $("#SellPrice").prop("disabled", false);
+                    $("#SellStopProfitPrice").prop("disabled", false);
+                    break;
+                }
+            });
+    });
+</script>
+<div class="row">
+    <div class="col-sm-12">
+        <ul class="clear-block chart-label-btn">
+            @foreach (BtcePair pairEnum in Enum.GetValues(typeof(BtcePair)))
+            {
+                if (pairEnum != BtcePair.Unknown)
+                {
+                    <li>
+                        <label class="@if (pairEnum == Model.Pair) {<text>active</text>}">
+                            <a href="@Url.Action("Btce", new {pair = pairEnum})">@pairEnum</a>
+                        </label>
+                    </li>
+                }
+            }
+        </ul>
+        <div class="row card-row">
+            <div class="col-lg-6">
+                <div class="card-block">
+                    <div class="card-header">
+                        <h3>
+                            Buy @friendlyPair.Item1
+                        </h3>
+                    </div>
+                    <div class="card-form">
+                        @using (Ajax.BeginForm("TradeBtce", new { pair = Model.Pair }, new AjaxOptions
+                        {
+                            Url = Url.Action("TradeBtce", new { pair = Model.Pair, type = TradeType.Buy }),
+                            OnSuccess = "OnTradeSuccess",
+                            HttpMethod = "POST"
+                        }, new { @class = "form-horizontal" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("SellFee", "")
+
+                            @Html.Hidden("marketId", "")
+                            @Html.Hidden("tradeType", "1")
+
+                            <div class="">
+                                <div class="form-group clear-block">
+                                    <label class="col-md-5 control-label" for="Price">Amount</label>
+                                    <div class="col-md-7">
+                                        <div class="input-block flex-row flex-align-items-center">
+                                            @Html.TextBox("amount", "0", new { @class = "form-control", id = "BuyAmount" })
+                                            <div class="input-block-label">
+                                                @friendlyPair.Item1
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group clear-block">
+                                    <label class="col-md-5 control-label" for="Price">Order Type</label>
+                                    <div class="col-md-7">
+                                        <div class="input-block flex-row flex-align-items-center">
+                                            @Html.EnumDropDownListFor(model => model.OrderType, new { @class = "form-control", id = "BuyTradeType" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group clear-block">
+                                    <label class="col-md-5 control-label" for="Price">Price Per</label>
+                                    <div class="col-md-7">
+                                        <div class="input-block flex-row flex-align-items-center">
+                                            @Html.TextBox("price", Model.Ticker.Buy, new { @class = "form-control", id = "BuyPrice" })
+                                            <div class="input-block-label">
+                                                @friendlyPair.Item2
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group clear-block">
+                                    <label class="col-md-5 control-label" for="Price">Stop/Profit Value</label>
+                                    <div class="col-md-7">
+                                        <div class="input-block flex-row flex-align-items-center">
+                                            @Html.TextBox("StopProfitPrice", Model.Ticker.Buy, new { disabled = "disabled", @class = "form-control", id = "BuyStopProfitPrice" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group clear-block">
+                                    <label class="col-md-5 control-label" for="Price">Total (Minimum > 0.0001)</label>
+                                    <div class="col-md-7">
+                                        <div class="input-block flex-row flex-align-items-center">
+                                            @Html.TextBox("total", "0", new { disabled = "disabled", style = "background: #f2f2f2;", @class = "form-control", id = "BuyTotal" })
+                                            <div class="input-block-label">
+                                                @friendlyPair.Item2
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-bottom">
+                                <button type="submit" name="submit" class="btn btn-default">Submit Buy Order</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card-block">
+                    <div class="card-header">
+                        <h3>
+                            Buy @friendlyPair.Item2
+                        </h3>
+                    </div>
+                    <div class="card-form">
+                        @using (Ajax.BeginForm("TradeBtce", new { pair = Model.Pair }, new AjaxOptions
+                        {
+                            Url = Url.Action("TradeBtce", new { pair = Model.Pair, type = TradeType.Sell }),
+                            OnSuccess = "OnTradeSuccess",
+                            HttpMethod = "POST"
+                        }, new { @class = "form-horizontal" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("SellFee", "")
+
+                            @Html.Hidden("marketId", "")
+                            @Html.Hidden("tradeType", "1")
+
+                            <div class="">
+                                <div class="form-group clear-block">
+                                    <label class="col-md-5 control-label" for="Price">Amount</label>
+                                    <div class="col-md-7">
+                                        <div class="input-block flex-row flex-align-items-center">
+                                            @Html.TextBox("amount", "0", new { @class = "form-control", id = "SellAmount" })
+                                            <div class="input-block-label">
+                                                @friendlyPair.Item2
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group clear-block">
+                                    <label class="col-md-5 control-label" for="Price">Order Type</label>
+                                    <div class="col-md-7">
+                                        <div class="input-block flex-row flex-align-items-center">
+                                            @Html.EnumDropDownListFor(model => model.OrderType, new { @class = "form-control", id = "SellTradeType" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group clear-block">
+                                    <label class="col-md-5 control-label" for="Price">Price Per</label>
+                                    <div class="col-md-7">
+                                        <div class="input-block flex-row flex-align-items-center">
+                                            @Html.TextBox("price", Model.Ticker.Buy, new { @class = "form-control", id = "SellPrice" })
+                                            <div class="input-block-label">
+                                                @friendlyPair.Item1
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group clear-block">
+                                    <label class="col-md-5 control-label" for="Price">Stop/Profit Value</label>
+                                    <div class="col-md-7">
+                                        <div class="input-block flex-row flex-align-items-center">
+                                            @Html.TextBox("StopProfitPrice", Model.Ticker.Buy, new { disabled = "disabled", @class = "form-control", id = "SellStopProfitPrice" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group clear-block">
+                                    <label class="col-md-5 control-label" for="Price">Total (Minimum > 0.0001)</label>
+                                    <div class="col-md-7">
+                                        <div class="input-block flex-row flex-align-items-center">
+                                            @Html.TextBox("total", "0", new { disabled = "disabled", style = "background: #f2f2f2;", @class = "form-control", id = "SellTotal" })
+                                            <div class="input-block-label">
+                                                @friendlyPair.Item1
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-bottom">
+                                <button type="submit" name="submit" class="btn btn-default">Submit Sell Order</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sell-buy-block-table">
+            <div class="sell-buy-block-table-tbody">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pair</th>
+                            <th>Type</th>
+                            <th>Trade Type</th>
+                            <th>Amount</th>
+                            <th>State</th>
+                            <th>Price</th>
+                            <th>Created?</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableOrders">
+                        @if (Model.OrderList != null)
+                        {
+                            foreach (var order in Model.OrderList)
+                            {
+                                <tr>
+                                    <th>@BtceCurrencyHelper.FromBtcePair(order.Pair)</th>
+                                    <th>@order.Type</th>
+                                    <th>@order.TradeType</th>
+                                    <th>@order.Amount</th>
+                                    <th>@order.State</th>
+                                    <th>
+                                        @if (order.Type == OrderTypes.Market || order.Type == OrderTypes.StopLossMarket || order.Type == OrderTypes.TakeProfitMarket)
+                                        {
+                                            <text>Market Price</text>
+                                        }
+                                        else
+                                        {
+                                            @order.Price
+                                        }
+                                    </th>
+                                    <th>
+                                        @if (order.DateCreated.HasValue)
+                                        {
+                                            <text>Yes. @order.DateCreated.Value</text>
+                                        }
+                                        else
+                                        {
+                                            <text>No, wait for trigger</text>
+                                        }
+                                    </th>
+                                    <th><a class="btn btn-sm btn-warning" id="cancelOrder" data-orderId="@order.OrderId">Cancel Order</a></th>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

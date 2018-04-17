@@ -1,0 +1,115 @@
+﻿@using CryptoMarket
+@model CryptoMarket.Models.ChangePasswordViewModel
+    @{
+        Layout = "~/Views/Shared/_LayoutAltexBlue.cshtml";
+        ViewBag.Title = "General Account Information";
+    }
+@section scripts{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}
+<style>
+    .validation-summary-valid {
+        display: none;
+    }
+
+    .validation-summary-errors ul {
+        list-style: none;
+    }
+    .form-content {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: 0;
+    }
+    .form-bottom{
+        position: relative;
+    }
+    h3{
+        margin: 15px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="markets-filter-tabs clear-block">
+            <ul class="flex-row tabs-nav">
+                @Html.Partial("_TabbedMenuPartial")
+            </ul>
+        </div>  
+        <div class="tabs-pane">
+            <div class="pane active card-block">
+                <h3>Password change</h3>
+                @using (Html.BeginForm("ChangePassword", "Manage", FormMethod.Post, new {@class = "form-horizontal" })) {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary("", new {@class = "alert alert-danger"})
+                    <div class="form-content">
+                        <div class="form-group clear-block">
+                            @Html.LabelFor(m => m.OldPassword, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                <div class="input-block flex-row flex-align-items-center">
+                                    @Html.PasswordFor(m => m.OldPassword, new { @class = "form-control", style = "text-align:left;" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group clear-block">
+                            @Html.LabelFor(m => m.NewPassword, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                <div class="input-block flex-row flex-align-items-center">
+                                    @Html.PasswordFor(m => m.NewPassword, new { @class = "form-control", style = "text-align:left;" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group clear-block">
+                            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                <div class="input-block flex-row flex-align-items-center">
+                                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", style = "text-align:left;" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group clear-block">
+                            @Html.Raw(HttpUtility.HtmlDecode(Html.LabelFor(m => m.PinCode, new { @class = "col-md-2 control-label" }).ToString()))
+                            <div class="col-md-10">
+                                <div class="input-block flex-row flex-align-items-center">
+                                    @Html.PasswordFor(m => m.PinCode, new { @class = "form-control", style = "text-align:left;" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @Html.Partial("_PinRestoreCompleteView")
+                    <div class="form-bottom">
+                        <button type="submit" class="btn btn-default">
+                            Submit Change
+                        </button>
+                    </div>
+                }
+                <hr/>
+                <h3>General Information</h3>
+                <form class="form-horizontal" role="form">
+                    <div class="alert alert-warning">
+                        Contact administration for username or email change
+                    </div>
+                    <div class="form-content">
+                        <div class="form-group clear-block">
+                            <label class="control-label col-md-2">Username</label>
+                            <div class="col-md-10">
+                                <div class="input-block flex-row flex-align-items-center">
+                                    <input type="text" class="form-control" disabled="disabled" style="text-align:left; background-color: #eee; cursor: not-allowed;" value="@User.Identity.GetUserName()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group clear-block">
+                            <label class="control-label col-md-2">Email</label>
+                            <div class="col-md-10">
+                                <div class="input-block flex-row flex-align-items-center">
+                                    <input type="text" class="form-control" disabled="disabled" style="text-align:left; background-color: #eee; cursor: not-allowed;" value="@ApplicationUserManager.GetUserEmail(User.Identity.GetUserId())">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

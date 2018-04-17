@@ -1,0 +1,62 @@
+﻿@model CryptoMarket.Models.CoinInspectionPageModel
+    @{
+        ViewBag.Title = "Coin Inspection";
+    }
+<script>
+    var time = 0;
+    $(document).ready(function() {
+        $("#datatable_tabletools > tbody  > tr").each(function () {
+            var elemId = $(this).attr("id");
+            var hotBalanceSpan = "hotbalance-" + elemId;
+            $.post('@Url.Action("GetHotBalance")', { id: elemId }, function (data) {
+                $("#" + hotBalanceSpan).html(data);
+            }).fail(function () {
+                $("#" + hotBalanceSpan).html("ERROR <a id='retry-'" + elemId + ">Retry?</a>").css("color", "red").click(function () {
+                    $("#" + hotBalanceSpan).html('<img src="/Assets/img/loader.GIF" />');
+                    $.post('@Url.Action("GetHotBalance")', { id: elemId }, function(data) {
+                        $("#" + hotBalanceSpan).html(data).css("color","black");
+                    }).fail(function() {
+                        $("#" + hotBalanceSpan).html("Retry failed. Seems that Coin Daemon hanged.").css("color", "red");
+                    });
+                });
+            });
+
+            setTimeout(function () {
+                console.log('paused');
+            }, time);
+            time += 100;
+        });
+    });
+</script>
+
+<div class="row">
+    <div class="col-sm-12">
+        <h2>Coin Inspection</h2>
+        <div class="alert alert-info no-margin fade in">
+            <i class="fa-fw fa fa-info"></i> Due to high-power overall system polling during Inspection, results are cached for 5 minutes
+        </div>
+        <div class="pane active card-block markets-table">
+            <div class="markets-table-tbody">
+                <table id="datatable_tabletools">
+                    <thead>
+                        <tr>
+                            <th>Coin Name</th>
+                            <th>User Total Balances</th>
+                            <th>Hot Wallet Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var coinInfo in Model.CoinsInspectionInformation)
+                        {
+                            <tr id="@coinInfo.Coin.Id">
+                                <td>@coinInfo.Coin.Name</td>
+                                <td>@coinInfo.UsersTotalBalance.ToString("f8") @coinInfo.Coin.ShortName</td>
+                                <td><span id="hotbalance-@coinInfo.Coin.Id"><img src="~/Content/altex_blue/img/loader.gif" /></span> @coinInfo.Coin.ShortName</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

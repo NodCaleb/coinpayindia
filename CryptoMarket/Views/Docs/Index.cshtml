@@ -1,0 +1,200 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutDocs.cshtml";
+
+    var currentUrl = Request.Url.Scheme + System.Uri.SchemeDelimiter + Request.Url.Host;
+}
+
+<div class="one-page-content">
+    <div id="content">
+        <div class="container-fluid container-spaced">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="js-prepend-mobile-menu">
+                    </div>
+
+                    <div class="category-info " id="ticker_api">
+                        <h3 class="category-title">
+                            Ticker API
+                            <!-- Fragment Identifier -->
+                            <a class="fragment-identifier js-fragment-identifier fragment-identifier-scroll" href="#table-with-properties">
+                                <i class="fa fa-link"></i>
+                            </a>
+                            <!-- End of Fragment Identifier -->
+                        </h3>
+                        <h4 class="category-description">To get tickers in real-time, please make request to <a href ="@currentUrl/api/ticker" target="_blank">@currentUrl/api/ticker</a></h4>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Response Parameter</th>
+                                <th>Example Value</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="">
+                                <th scope="row">PairName</th>
+                                <td>DOGE/BTC</td>
+                            </tr>
+                            <tr class="">
+                                <th scope="row">Volume24</th>
+                                <td>763.848737</td>
+                            </tr>
+                            <tr class="">
+                                <th scope="row">LastPrice</th>
+                                <td>0.04364</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="category-info " id="ticker_api">
+                        <h3 class="category-title">
+                            Coins API
+                            <!-- Fragment Identifier -->
+                            <a class="fragment-identifier js-fragment-identifier fragment-identifier-scroll" href="#table-with-properties">
+                                <i class="fa fa-link"></i>
+                            </a>
+                            <!-- End of Fragment Identifier -->
+                        </h3>
+                        <h4 class="category-description">To get all coins(currencies/assets) used to trade at our exchange, please make request to <a href ="@currentUrl/api/coins" target="_blank">@currentUrl/api/coins</a></h4>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Response Parameter</th>
+                                <th>Example Value</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="">
+                                <th scope="row">Id</th>
+                                <td>3d7c58fc-5205-e411-80b9-0cc47a02cce9</td>
+                            </tr>
+                            <tr class="">
+                                <th scope="row">Name</th>
+                                <td>Bitcoin</td>
+                            </tr>
+                            <tr class="">
+                                <th scope="row">Abbreviation</th>
+                                <td>BTC</td>
+                            </tr>
+                            <tr class="">
+                                <th scope="row">Active</th>
+                                <td>true</td>
+                            </tr>
+                            <tr class="">
+                                <th scope="row">DepositDisabled</th>
+                                <td>false</td>
+                            </tr>
+                            <tr class="">
+                                <th scope="row">WithdrawDisabled</th>
+                                <td>false</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    
+                    <div class="category-info " id="markets_api">
+                        <h3 class="category-title">
+                            Markets API
+                            <!-- Fragment Identifier -->
+                            <a class="fragment-identifier js-fragment-identifier fragment-identifier-scroll" href="#table-with-properties">
+                                <i class="fa fa-link"></i>
+                            </a>
+                            <!-- End of Fragment Identifier -->
+                        </h3>
+                        <h4 class="category-description">To get all trading pairs(markets) and it's information, please make request to <a href ="@currentUrl/api/markets" target="_blank">@currentUrl/api/markets</a></h4>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Response Parameter</th>
+                                <th>Example Value</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="">
+                                <th scope="row">Id</th>
+                                <td>616a6e09-495a-e711-80bc-8aea03d8975e</td>
+                            </tr>
+                            <tr class="">
+                                <th scope="row">Pair</th>
+                                <td>DOGE/BTC</td>
+                            </tr>
+                            <tr class="">
+                                <th scope="row">LatestPrice</th>
+                                <td>0.04356</td>
+                            </tr>
+                            <tr class="">
+                                <th scope="row">DailyLow</th>
+                                <td>0.04252</td>
+                            </tr>
+                            <tr class="">
+                                <th scope="row">DailyHigh</th>
+                                <td>0.04452</td>
+                            </tr>
+                            <tr class="">
+                                <th scope="row">DailyVolume</th>
+                                <td>23.2346</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    
+                    
+                    @*<div class="category-info " id="ticker_api">
+                        <h3 class="category-title">
+                            Orders API
+                            <!-- Fragment Identifier -->
+                            <a class="fragment-identifier js-fragment-identifier fragment-identifier-scroll" href="#table-with-properties">
+                                <i class="fa fa-link"></i>
+                            </a>
+                            <!-- End of Fragment Identifier -->
+                        </h3>
+                        <h4 class="category-description">To get order book for specified market, please make request with parameter "Id", returned from method "Markets". For examlle, DOGE/BTC: <a href ="@currentUrl/api/orders/616a6e09-495a-e711-80bc-8aea03d8975e" target="_blank">@currentUrl/api/ticker/616a6e09-495a-e711-80bc-8aea03d8975e</a></h4>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Response Parameter</th>
+                                <th>Example Value</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="">
+                                <th scope="row">PairName</th>
+                                <td>DOGE/BTC</td>
+                            </tr>
+                            <tr class="">
+                                <th scope="row">Volume24</th>
+                                <td>763.848737</td>
+                            </tr>
+                            <tr class="">
+                                <th scope="row">LastPrice</th>
+                                <td>0.04364</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>*@
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

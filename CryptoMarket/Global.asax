@@ -1,0 +1,1 @@
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="CryptoMarket.MvcApplication" Language="C#" %>

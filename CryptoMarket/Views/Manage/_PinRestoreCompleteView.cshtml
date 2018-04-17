@@ -1,0 +1,26 @@
+﻿<script>
+    $(document).ready(function() {
+        $("#pin-restore-button").css("border-bottom", "1px dotted");
+
+        $("#pin-restore-button").click(function(e) {
+            $.SmartMessageBox({
+                title: "Are you sure to reset Pin Code?",
+                content: "Your new Pin Code will be sended to @UsersManager.GetUserObfuscatedEmail(User.Identity.GetUserId())",
+                buttons: '[No][Yes]'
+            }, function(buttonPressed) {
+                if (buttonPressed === "Yes") {
+                    $.post('@Url.Action("PinReset", "Manage")', null, function() {
+                        $.smallBox({
+                            title: "Pin Restore",
+                            content: "<i class='fa fa-clock-o'></i> <i>Your new Pin Code soon will be delivered to your email :)</i>",
+                            color: "#659265",
+                            iconSmall: "fa fa-check fa-2x fadeInRight animated",
+                            timeout: 4000
+                        });
+                    });
+                }
+            });
+            e.preventDefault();
+        });
+    });
+</script>

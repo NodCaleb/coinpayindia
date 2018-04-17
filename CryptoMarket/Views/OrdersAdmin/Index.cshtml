@@ -1,0 +1,125 @@
+﻿@using CryptoMarket
+@model IEnumerable<Order>
+
+@Scripts.Render("~/datatable")
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#dt_basic').dataTable({
+            "sPaginationType": "bootstrap_full"
+        });
+        $("#datatable_fixed_column thead input").keyup(function() {
+            oTable.fnFilter(this.value, oTable.oApi._fnVisibleToColumnIndex(oTable.fnSettings(), $("thead input").index(this)));
+        });
+        $("#datatable_fixed_column thead input").each(function(i) {
+            this.initVal = this.value;
+        });
+        $("#datatable_fixed_column thead input").focus(function() {
+            if (this.className == "search_init") {
+                this.className = "";
+                this.value = "";
+            }
+        });
+        $("#datatable_fixed_column thead input").blur(function(i) {
+            if (this.value == "") {
+                this.className = "search_init";
+                this.value = this.initVal;
+            }
+        });
+        var oTable = $('#datatable_fixed_column').dataTable({
+            "sDom": "<'dt-top-row'><'dt-wrapper't><'dt-row dt-bottom-row'<'row'<'col-sm-6'i><'col-sm-6 text-right'p>>",
+            "oLanguage": {
+                "sSearch": "Search all columns:"
+            },
+            "bSortCellsTop": true
+        });
+        $('#datatable_col_reorder').dataTable({
+            "sPaginationType": "bootstrap",
+            "sDom": "R<'dt-top-row'Clf>r<'dt-wrapper't><'dt-row dt-bottom-row'<'row'<'col-sm-6'i><'col-sm-6 text-right'p>>",
+            "fnInitComplete": function(oSettings, json) {
+                $('.ColVis_Button').addClass('btn btn-default btn-sm').html('Columns <i class="icon-arrow-down"></i>');
+            }
+        });
+        $('#datatable_tabletools').dataTable({
+            "sDom": "<'dt-top-row'Tlf>r<'dt-wrapper't><'dt-row dt-bottom-row'<'row'<'col-sm-6'i><'col-sm-6 text-right'p>>",
+            "oTableTools": {
+                "aButtons": [
+                    "copy", "print", {
+                        "sExtends": "collection",
+                        "sButtonText": 'Save <span class="caret" />',
+                        "aButtons": ["csv", "xls", "pdf"]
+                    }
+                ],
+                "sSwfPath": "~/Assets/js/plugin/datatables/media/swf/copy_csv_xls_pdf.swf"
+            },
+            "fnInitComplete": function(oSettings, json) {
+                $(this).closest('#dt_table_tools_wrapper').find('.DTTT.btn-group').addClass('table_tools_group').children('a.btn').each(function() {
+                    $(this).addClass('btn-sm btn-default');
+                });
+            }
+        });
+    });
+</script>
+<div class="row">
+    <div class="col-sm-12">
+        <h2>Order List</h2>
+        <div class="pane active card-block markets-table">
+            <div class="markets-table-tbody">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Date</th>
+                            <th>Market</th>
+                            <th>Type</th>
+                            <th>Creator</th>
+                            <th>Amount (Left)</th>
+                            <th>Price Per</th>
+                            <th>Total</th>
+                            <th>Fee</th>
+                            <th>Net Total</th>
+                            <th>Closed?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var order in Model)
+                        {
+                            <tr>
+                                <td><a href="@Url.Action("Details", "OrdersAdmin", new{id = order.Id})">@order.Id</a></td>
+                                <td>@order.DateCreated</td>
+                                <td>@order.MarketId</td>
+                                <td>
+                                    @if (order.TradeType == TradeType.Buy)
+                                    {
+                                        <text>BUY</text>
+                                    }
+                                    else
+                                    {
+                                        <text>SELL</text>
+                                    }
+                                </td>
+                                <td><a href="@Url.Action("Details", "UsersAdmin", new{Id = order.UserId})">@ApplicationUserManager.GetUserEmail(order.UserId)</a></td>
+                                <td>@order.Amount.ToString("F8") (@order.PartialOrderTotalLeft.ToString("F8"))</td>
+                                <td>@order.Price.ToString("F8")</td>
+                                <td>@order.Total.ToString("F8")</td>
+                                <td>@order.FeeTotal.ToString("F8")</td>
+                                <td>@order.NetTotal.ToString("F8")</td>
+                                <td>
+                                    @if (order.Closed)
+                                    {
+                                        <text>YES. @order.DateClosed by <a href="@Url.Action("Details", "UsersAdmin", new{Id = order.CloserUserId})">@ApplicationUserManager.GetUserEmail(order.CloserUserId)</a>, order: <a href="@Url.Action("Details", "OrdersAdmin", new{id = order.ClosingOrderId})">@order.ClosingOrderId</a></text>
+                                    }
+                                    else
+                                    {
+                                        <text>NO <a href="@Url.Action("Remove", "OrdersAdmin", new{order.Id, userId = order.UserId})">Delete Order</a></text>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

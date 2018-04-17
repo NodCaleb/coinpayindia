@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="HTML,CSS,JavaScript">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="assets/images/favicon.png" type="image/ico" />
+    <title>Cryptic - Cryptocurrency Admin Dashboard Template</title>
+    <!-- CSS -->
+    <!-- Bootstrap -->
+    <link href="assets/plugins/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/plugins/dataTables/jquery.dataTables.min.css" rel="stylesheet">
+    <!-- Simple line icons -->
+    <link href="assets/css/simple-line-icons.css" rel="stylesheet">
+    <link href="assets/fonts/cryptocoins.css" rel="stylesheet">
+    <!-- Font awesome icons -->
+    <link href="assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="assets/css/font-awesome-animation.min.css" rel="stylesheet">
+    <!-- Custom Style -->
+    <link href="assets/css/custom.css" rel="stylesheet">
+    <link href="assets/css/media.css" rel="stylesheet">
+    <link href="assets/css/skin-colors/skin-yellow.css" rel="stylesheet">
+    <!-- Custom Font -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  </head>
+
+  <body class="nav-md preloader-off">
+    <div class="pace-cover"></div>
+    <div id="st-container" class="st-container st-effect">
+
+      <!-- MAIN PAGE CONTAINER -->
+      <div class="container body">
+        <div class="main_container">
+
+          <!-- LEFT PRIMARY NAVIGATION -->
+          <div class="col-md-3 left_col">
+            <div class="scroll-view">
+              <div class="navbar nav_title">
+                <h1 class="logo_wrapper">
+                  <a href="index.html" class="site_logo">
+                    <img class="logo" src="assets/images/cryptic-logo.png" alt="cryptic logo">
+                    <span class="logo-text">Cryptic</span>
+                  </a>
+                </h1>
+              </div>
+              <div class="clearfix"></div>
+              <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                <div class="menu_section">
+                  <h3>General</h3>
+                  <ul class="nav side-menu">
+                    <li class="active">
+                      <a><i class="icon-home icons"></i> <span>Home</span><span class="fa fa-angle-up"></span></a>
+                      <ul class="nav child_menu" style="display:block">
+                        <li><a href="index.html"><span>Dashboard Default</span></a></li>
+                        <li><a href="dashboard-v1.html"><span>Dashboard v1</span></a></li>
+                        <li><a href="dashboard-v2.html"><span>Dashboard v2</span></a></li>
+                        <li><a href="dashboard-v3.html"><span>Dashboard v3</span></a></li>
+                      </ul>
+                    </li>
+                    <li><a><i class="icon-chart icons"></i> <span>Reports <span class="label label-danger">Hot</span></span><span class="fa fa-angle-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="tables.transactions.html"><span>Transactions</span></a></li>
+                        <li><a href="mining-pool-shares.html"><span>Mining Pool Shares</span></a></li>
+                        <li><a href="tables.top-gainers-losers.html"><span>Top Gainers/Losers</span></a></li>
+                        <li><a href="tables.market-capitalizations.html"><span>Market Capitalizations</span></a></li>
+                        <li><a href="tables.crypto-stats.html"><span>Crypto Stats</span></a></li>
+                      </ul>
+                    </li>
+                    <li><a><i class="icon-compass icons"></i> <span>Initial Coin Offering <span class="fa fa-angle-down"></span></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="ico-distribution-countdown.html"><span>ICO Countdown</span></a></li>
+                        <li><a href="ico-roadmap-timeline.html"><span>ICO Roadmap/Timeline</span></a></li>
+                        <li><a href="ico-progress.html"><span>ICO Progress Bar</span></a></li>
+                        <li><a href="ico-details.html"><span>ICO Details</span></a></li>
+                        <li><a href="ico-listing-3-colums.html"><span>ICO Listing (3 colums)</span></a></li>
+                        <li><a href="ico-listing-3-colums-isotope-filter.html"><span>ICO Listing - Filters (3 colums)</span></a></li>
+                        <li><a href="ico-listing-4-colums.html"><span>ICO Listing (4 colums)</span></a></li>
+                        <li><a href="ico-listing-4-colums-isotope-filter.html"><span>ICO Listing - Filters (4 colums)</span></a></li>
+                      </ul>
+                    </li>
+                    <li><a href="exchange.html"><i class="icon-refresh icons"></i> <span>Currency Exchange</span></a></li>
+                    <li><a><i class="icon-people icons"></i> <span>Members</span><span class="fa fa-angle-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="members.html"> <span>Members Grid v1</span></a></li>
+                        <li><a href="members-v2.html"> <span>Members Grid v2</span></a></li>
+                        <li><a href="members-list.html"> <span>Members List</span></a></li>
+                        <li><a href="member-profile.html"> <span>Member Profile</span></a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a><i class="icon-equalizer icons"></i> <span>Tickers</span><span class="fa fa-angle-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="tickers-dark.html"><span>Ticker Dark</span></a></li>
+                        <li><a href="tickers-light.html"><span>Ticker Light</span></a></li>
+                        <li><a href="pricing-tables-live.html"><span>Live Crypto Prices</span></a></li>
+                      </ul>
+                    </li>
+                    <li><a><i class="icon-refresh icons"></i> <span>Transactions</span> <span class="label label-success">New</span> <span class="fa fa-angle-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="tables.transactions.html"><span>Transactions Tables &amp; Blocks</span></a></li>
+                        <li><a href="search.html"><span>Transactions List</span></a></li>
+                        <li><a href="crypto_address.html"><span>Single Transaction</span></a></li>
+                        <li><a href="counter-transactions.html"><span>Transactions Counter</span></a></li>
+                      </ul>
+                    </li>
+                    <li><a><i class="icon-layers icons"></i> <span>Charts</span><span class="fa fa-angle-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="mining-pool-shares.html"><span>Donnut Chart</span></a></li>
+                        <li><a href="candlestick-charts.html"><span>Candlestick Charts</span></a></li>
+                        <li><a href="chart-depth-chart.html"><span>Depth Chart</span></a></li>
+                        <li><a href="ricksaw-chart-realtime.html"><span>Realtime Charts</span></a></li>
+                        <li><a href="chartjs-bar-chart-vertical.html"><span>Bar Charts</span></a></li>
+                        <li><a href="chartjs-line-chart.html"><span>Line Charts</span></a></li>
+                        <li><a href="chartjs-line-point-sizes.html"><span>Line Point Sizes</span></a></li>
+                        <li><a href="chartjs-line-styles-chart.html"><span>Line Styles Chart</span></a></li>
+                      </ul>
+                    </li>
+                    <li><a><i class="icon-calendar icons"></i> <span>Events</span><span class="fa fa-angle-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="events-calendar.html"><span>Events Calendar</span></a></li>
+                        <li><a href="event-create.html"><span>Add Event</span></a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div class="menu_section">
+                  <h3>Elements</h3>
+                  <ul class="nav side-menu">
+                    <li><a href="bootstrap.ui.kit.html"><i class="icon-drop icons"></i> <span>Bootstrap UI KIT</span></a></li>
+                    <li><a><i class="icon-grid icons"></i> <span>Pricing Tables</span><span class="fa fa-angle-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="pricing-tables-v1.html"><span>Pricing Tables v1</span></a></li>
+                        <li><a href="pricing-tables-v2.html"><span>Pricing Tables v2</span></a></li>
+                      </ul>
+                    </li>
+                    <li><a href="blog-posts-grid.html"><i class="icon-bubbles icons"></i> <span>Blog posts</span></a></li>
+                    <li><a href="stepper.html"><i class="icon-loop icons"></i> <span>Multi Steps Block</span></a></li>
+                    <li><a href="sweetalert.html"><i class="icon-bell icons"></i> <span>Sweet Form Alerts</span></a></li>
+                    <li><a><i class="icon-layers icons"></i> <span>Vector Icons</span><span class="fa fa-angle-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="icons.html"><span>Line Icons</span></a></li>
+                        <li><a href="icons-cryptocurrencies.html"><span>Cryptocurrencies Icons</span></a></li>
+                      </ul>
+                    </li>
+                    <li><a><i class="icon-settings icons"></i> <span>Multi Level Menu</span><span class="fa fa-angle-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="#level1_1"><span>Level One</span></a>
+                        <li><a><span>Level One</span><span class="fa fa-angle-down"></span></a>
+                          <ul class="nav child_menu">
+                            <li class="sub_menu"><a href="level2.html"><span>Level Two</span></a>
+                            </li>
+                            <li><a href="#level2_1"><span>Level Two</span></a>
+                            </li>
+                            <li><a href="#level2_2"><span>Level Two</span></a>
+                            </li>
+                          </ul>
+                        </li>
+                        <li><a href="#level1_2"><span>Level One</span></a>
+                        </li>
+                      </ul>
+                    </li>    
+                  </ul>
+                </div>
+                <div class="menu_section">
+                  <h3>Pages</h3>
+                  <ul class="nav side-menu">
+                    <li><a href="register.html"><i class="icon-note icons"></i> <span>Register</span></a></li>
+                    <li><a href="login.html"><i class="icon-user-follow icons"></i> <span>Login</span></a></li>
+                    <li><a href="maintenance.html"><i class="icon-exclamation icons"></i> <span>Maintenance</span></a></li>
+                    <li><a href="password.html"><i class="icon-lock icons"></i> <span>Recover Password</span></a></li>
+                    <li><a href="reset-password.html"><i class="icon-lock-open icons"></i> <span>Reset Password</span></a></li>
+                    <li><a href="confirm-mail.html"><i class="icon-lock-open icons"></i> <span>Confirm Registration Mail</span></a></li>
+                    <li><a href="404-error.html"><i class="icon-ban icons"></i> <span>Error 404</span></a></li>
+                  </ul>
+                </div>
+              </div>
+              <!-- /sidebar menu -->
+              <!-- /menu footer buttons -->
+              <div class="sidebar-footer hidden-small">
+                <a data-toggle="tooltip" data-placement="top" title="Settings">
+                  <span class="icon-settings icons" aria-hidden="true"></span>
+                </a>
+                <a data-toggle="tooltip" id="btnFullscreen" data-placement="top" title="FullScreen">
+                  <span class="icon-size-fullscreen icons" aria-hidden="true"></span>
+                </a>
+                <a data-toggle="tooltip" data-placement="top" title="Lock">
+                  <span class="icon-eye icons" aria-hidden="true"></span>
+                </a>
+                <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+                  <span class="icon-power icons" aria-hidden="true"></span>
+                </a>
+              </div>
+              <!-- /menu footer buttons -->
+            </div>
+          </div>
+          <!-- TOP SECONDARY NAVIGATION -->
+          <div class="top_nav">
+            <div class="nav_menu">
+              <ul class="nav navbar-nav navbar-left">
+                <li class="toggle-li">
+                  <div class="nav toggle burger-nav">
+                    <a id="menu_toggle">
+                      <div class="burger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                      </div>
+                    </a>
+                  </div>
+                </li>
+                <li class="megamenu-li">                  
+                  <!-- megamenu -->
+                  <div class="megamenu-dropdown-wrapper">
+                    <a class="megamenu-dropdown-trigger megamenu-trigger" href="#0">
+                      <i class="icon-wallet icons"></i>
+                      <span> The Wallet </span>
+                      <span class="fa fa-angle-down"></span>
+                    </a>
+                    <nav class="megamenu-dropdown">
+                      <a href="#0" class="megamenu-close">Close</a>
+                      <ul class="megamenu-dropdown-content">
+                        <li class="has-children">
+                          <a href="#"><i class="cc mmt-icon BTC" title="BTC"></i> Bitcoin</a>
+                          <ul class="megamenu-dropdown-icons is-hidden">
+                            <li>
+                              <a class="megamenu-dropdown-item item-1" href="search.html">
+                                <h3><i class="cc mmt-icon BTC" title="BTC"></i> All Transactions (BTC)</h3>
+                                <div>View Sent/Received Transactions</div>
+                              </a>
+                            </li>
+                            <li>
+                              <a class="megamenu-dropdown-item item-2" href="search.html">
+                                <h3><i class="cc mmt-icon BTC" title="BTC"></i> Sent BTC (Transactions)</h3>
+                                <div>In-dept Check Sent Transactions</div>
+                              </a>
+                            </li>
+                            <li>
+                              <a class="megamenu-dropdown-item item-3" href="search.html">
+                                <h3><i class="cc mmt-icon BTC" title="BTC"></i> Received BTC (Transactions)</h3>
+                                <div>In-dept Check Received Transactions</div>
+                              </a>
+                            </li>
+                            <li>
+                              <a class="megamenu-dropdown-item item-4" href="search.html">
+                                <h3><i class="cc mmt-icon BTC" title="BTC"></i> Exchanged BTC (Transactions)</h3>
+                                <div>View Sent/Received Exchanges</div>
+                              </a>
+                            </li>
+                          </ul> <!-- .megamenu-dropdown-icons -->
+                        </li> <!-- .has-children -->
+                        <li class="has-children">
+                          <a href="#"><i class="cc mmt-icon LTC" title="LTC"></i> Litecoin</a>
+                          <ul class="megamenu-dropdown-icons is-hidden">
+                            <li>
+                              <a class="megamenu-dropdown-item item-1" href="search.html">
+                                <h3><i class="cc mmt-icon LTC" title="LTC"></i> All Transactions (LTC)</h3>
+                                <div>View Sent/Received Transactions</div>
+                              </a>
+                            </li>
+                            <li>
+                              <a class="megamenu-dropdown-item item-2" href="search.html">
+                                <h3><i class="cc mmt-icon LTC" title="LTC"></i> Sent LTC (Transactions)</h3>
+                                <div>In-dept Check Sent Transactions</div>
+                              </a>
+                            </li>
+                            <li>
+                              <a class="megamenu-dropdown-item item-3" href="search.html">
+                                <h3><i class="cc mmt-icon LTC" title="LTC"></i> Received LTC (Transactions)</h3>
+                                <div>In-dept Check Received Transactions</div>
+                              </a>
+                            </li>
+                            <li>
+                              <a class="megamenu-dropdown-item item-4" href="search.html">
+                                <h3><i class="cc mmt-icon LTC" title="LTC"></i> Exchanged LTC (Transactions)</h3>
+                                <div>View Sent/Received Exchanges</div>
+                              </a>
+                            </li>
+                          </ul> <!-- .megamenu-dropdown-icons -->
+                        </li> <!-- .has-children -->
+                        <li class="has-children">
+                          <a href="#"><i class="cc mmt-icon ETH" title="ETH"></i> Ethereum</a>
+                          <ul class="megamenu-dropdown-icons is-hidden">
+                            <li>
+                              <a class="megamenu-dropdown-item item-1" href="search.html">
+                                <h3><i class="cc mmt-icon ETH" title="ETH"></i> All Transactions (ETH)</h3>
+                                <div>View Sent/Received Transactions</div>
+                              </a>
+                            </li>
+                            <li>
+                              <a class="megamenu-dropdown-item item-2" href="search.html">
+                                <h3><i class="cc mmt-icon ETH" title="ETH"></i> Sent ETH (Transactions)</h3>
+                                <div>In-dept Check Sent Transactions</div>
+                              </a>
+                            </li>
+                            <li>
+                              <a class="megamenu-dropdown-item item-3" href="search.html">
+                                <h3><i class="cc mmt-icon ETH" title="ETH"></i> Received ETH (Transactions)</h3>
+                                <div>In-dept Check Received Transactions</div>
+                              </a>
+                            </li>
+                            <li>
+                              <a class="megamenu-dropdown-item item-4" href="search.html">
+                                <h3><i class="cc mmt-icon ETH" title="ETH"></i> Exchanged ETH (Transactions)</h3>
+                                <div>View Sent/Received Exchanges</div>
+                              </a>
+                            </li>
+                          </ul> <!-- .megamenu-dropdown-icons -->
+                        </li> <!-- .has-children -->
+                        <li class="has-children">
+                          <a href="#"><i class="cc mmt-icon DASH" title="DASH"></i> DASH</a>
+                          <ul class="megamenu-dropdown-icons is-hidden">
+                            <li>
+                              <a class="megamenu-dropdown-item item-1" href="search.html">
+                                <h3><i class="cc mmt-icon DASH" title="DASH"></i> All Transactions (DASH)</h3>
+                                <div>View Sent/Received Transactions</div>
+                              </a>
+                            </li>
+                            <li>
+                              <a class="megamenu-dropdown-item item-2" href="search.html">
+                                <h3><i class="cc mmt-icon DASH" title="DASH"></i> Sent DASH (Transactions)</h3>
+                                <div>In-dept Check Sent Transactions</div>
+                              </a>
+                            </li>
+                            <li>
+                              <a class="megamenu-dropdown-item item-3" href="search.html">
+                                <h3><i class="cc mmt-icon DASH" title="DASH"></i> Received DASH (Transactions)</h3>
+                                <div>In-dept Check Received Transactions</div>
+                              </a>
+                            </li>
+                            <li>
+                              <a class="megamenu-dropdown-item item-4" href="search.html">
+                                <h3><i class="cc mmt-icon DASH" title="DASH"></i> Exchanged DASH (Transactions)</h3>
+                                <div>View Sent/Received Exchanges</div>
+                              </a>
+                            </li>
+                          </ul> <!-- .megamenu-dropdown-icons -->
+                        </li> <!-- .has-children -->
+                        <li>
+                          <a href="#"><i class="icon-wallet icons cc"></i> Add New Wallet</a>
+                        </li>
+                      </ul> <!-- .megamenu-dropdown-content -->
+                    </nav> <!-- .megamenu-dropdown -->
+                  </div> <!-- .megamenu-dropdown-wrapper -->
+                  <!-- megamenu -->              
+                </li>
+                <li class="dropdown-menu-1-li">
+                  <div class="dropdown-menu-1 dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"><i class="icon-feed icons"></i> Reports
+                    <span class="fa fa-angle-down"></span></a>
+                    <ul class="dropdown-menu archive">
+                      <li><a href="crypto_address.html"><span class="pull-left">...8b0133 (0.01 BTC)</span> <span class="label label-success pull-right">Success</span></a></li>
+                      <li><a href="crypto_address.html"><span class="pull-left">...9c3286 (0.07 BTC)</span> <span class="label label-success pull-right">Success</span></a></li>
+                      <li><a href="crypto_address.html"><span class="pull-left">...4a3432 (0.44 LTC)</span> <span class="label label-danger pull-right">Canceled</span></a></li>
+                      <li><a href="crypto_address.html"><span class="pull-left">...1e8437 (0.91 BTC)</span> <span class="label label-warning pull-right">Pending</span></a></li>
+                      <li><a href="crypto_address.html"><span class="pull-left">...8b0133 (3.51 LTC)</span> <span class="label label-success pull-right">Success</span></a></li>
+                      <li><a href="crypto_address.html"><span class="pull-left">...9c3286 (0.07 ETH)</span> <span class="label label-warning pull-right">Pending</span></a></li>
+                      <li><a href="crypto_address.html"><span class="pull-left">...8b0133 (0.01 BTC)</span> <span class="label label-success pull-right">Success</span></a></li>
+                      <li><a href="crypto_address.html"><span class="pull-left">...9c3286 (0.07 BTC)</span> <span class="label label-success pull-right">Success</span></a></li>
+                    </ul>
+                  </div>
+                </li>
+              </ul> <!-- top menu ul -->
+              <ul class="nav navbar-nav navbar-right">
+                <li id="st-trigger-effects" class="">
+                  <a data-effect="st-effect"  class="trigger-sidebar">
+                    <i class="fa fa-th"></i>
+                  </a>
+                </li>
+                <li class="">
+                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <img src="assets/images/profile-pic.jpg" alt="">
+                  </a>
+                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                    <li><a href="javascript:;"> Profile</a></li>
+                    <li>
+                      <a href="javascript:;">
+                        <span class="badge bg-red pull-right">50%</span>
+                        <span>Settings</span>
+                      </a>
+                    </li>
+                    <li><a href="javascript:;">Help</a></li>
+                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                  </ul>
+                </li>
+                <li role="presentation" class="dropdown">
+                  <a href="javascript:;" class="dropdown-toggle info-number faa-horizontal" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-envelope faa-horizontal animated"></i>
+                    <span class="badge faa-horizontal animated">3</span>
+                  </a>
+                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                    <li>
+                      <a>
+                        <span class="image"><img src="assets/images/profile-pic.jpg" alt="Profile Image" /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers...
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <a>
+                        <span class="image"><img src="assets/images/profile-pic.jpg" alt="Profile Image" /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">4 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers...
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <a>
+                        <span class="image"><img src="assets/images/profile-pic.jpg" alt="Profile Image" /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">6 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers...
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="text-center">
+                        <a>
+                          <strong>See All Alerts</strong>
+                          <i class="fa fa-angle-right"></i>
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+                <li class="search-wrap">
+                  <a href="javascript:;" id="btn-search" class="search-nav">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+         
+          <!-- PAGE CONTENT -->
+          <div class="right_col" role="main">
+            <div class="clearfix"></div>
+            <div class="header-title-breadcrumb element-box-shadow">
+              <div class="container">
+                  <div class="row">
+                      <div class="col-md-7 col-sm-6 col-xs-12 text-left">
+                        <h3>ICO Listing</h3>
+                      </div>
+                      <div class="col-md-5 col-sm-6 col-xs-12 hide-on-tablet">
+                          <ol class="breadcrumb text-right">
+                            <li><a href="#">Home</a></li> 
+                            <li class="active">Index Page</li>
+                          </ol>                    
+                      </div>
+                  </div>
+              </div>
+            </div>
+            <div class="spacer_30"></div>
+            <div class="clearfix"></div>
+            <main class="cd-main-content">
+              <div class="cd-tab-filter-wrapper element-box-shadow">
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="cd-filter-3-colums">
+                      <form>
+                        <div class="cd-filter-block">
+                          <div class="cd-filter-content">
+                            <input class="text-bold" type="search" placeholder="Search...">
+                            <span class="fa fa-times" aria-hidden="true"></span>
+                          </div> <!-- cd-filter-content -->
+                        </div> <!-- cd-filter-block -->
+                      </form>
+                    </div>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="cd-tab-filter">
+                      <ul class="cd-filters">
+                        <li class="placeholder"> 
+                          <a data-type="all" href="#0">Show all</a> <!-- selected option on mobile -->
+                        </li> 
+                        <li class="filter"><a class="selected" href="#0" data-type="all">Show all</a></li>
+                        <li class="filter" data-filter=".finance"><a href="#0" data-type="finance">Finance</a></li>
+                        <li class="filter" data-filter=".real-estate"><a href="#0" data-type="real-estate">Real Estate</a></li>
+                        <li class="filter" data-filter=".healthcare"><a href="#0" data-type="healthcare">Healthcare</a></li>
+                        <li class="filter" data-filter=".advertising"><a href="#0" data-type="advertising">Advertising</a></li>
+                        <li class="filter" data-filter=".banking"><a href="#0" data-type="banking">Banking</a></li>
+                      </ul> <!-- cd-filters -->
+                    </div> <!-- cd-tab-filter -->
+                  </div>
+                </div>
+              </div> <!-- cd-tab-filter-wrapper -->
+              <div class="spacer_30"></div>
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="cd-tab-filter-wrapper element-box-shadow">
+                    <div class="cd-filter">
+                      <form>
+                        <div class="cd-filter-block">
+                          <div class="panel panel-default">
+                            <div class="panel-heading padding_30">
+                              <h4 class="no-margin">Select Type</h4>
+                            </div>
+                            <div class="panel-body no-padding"> 
+                              <ul class="cd-filter-content cd-filters list list-3-colums">
+                                <li>
+                                  <input class="filter" data-filter=".sponsored" type="radio" name="radioButton" id="radio1">
+                                    <label class="radio-label" for="radio1">Sponsored</label>
+                                </li>
+                                <li>
+                                  <input class="filter" data-filter=".medium" type="radio" name="radioButton" id="radio2">
+                                  <label class="radio-label" for="radio2">Medium</label>
+                                </li>
+
+                                <li>
+                                  <input class="filter" data-filter=".neutral" type="radio" name="radioButton" id="radio3">
+                                  <label class="radio-label" for="radio3">Neutral</label>
+                                </li>
+
+                                <li>
+                                  <input class="filter" data-filter=".not-rated" type="radio" name="radioButton" id="radio4">
+                                  <label class="radio-label" for="radio4">Not rated</label>
+                                </li>
+                              </ul> <!-- cd-filter-content -->
+                            </div>
+                          </div>
+                        </div> <!-- cd-filter-block -->
+                      </form>
+                    </div> <!-- cd-filter -->
+                  </div><!-- cd-tab-filter-wrapper -->
+                </div>
+                <div class="col-md-9">
+                  <section class="cd-gallery cd-gallery-3-colums">
+                    <ul>
+                      <li class="mix real-estate sponsored" data-category="real-estate">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc XRP no-margin" title="XRP"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                <h3 class="no-margin"><a class="text-bold" href="ico-details.html">Ripple</a></h3>
+                                <span class="ico-listing-second-name">Real Estate</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$25.000</span> / $30.000</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">84%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Sponsored</p>
+                                <p class="ico-listing-days-left text-bold no-margin">9d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="mix finance sponsored" data-category="finance">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc BAT no-margin" title="BAT"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                <h3 class="no-margin"><a class="text-bold" href="ico-details.html">BasicAt</a></h3>
+                                <span class="ico-listing-second-name">Finance</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$2.000</span> / $5.000</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">40%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Sponsored</p>
+                                <p class="ico-listing-days-left text-bold no-margin">8d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="mix healthcare sponsored" data-category="healthcare">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc ADA no-margin" title="ADA"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                <h3 class="no-margin"><a class="text-bold" href="ico-details.html">Cardan</a></h3>
+                                <span class="ico-listing-second-name">Healthcare</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$13.900</span> / $25.000</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">62%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Sponsored</p>
+                                <p class="ico-listing-days-left text-bold no-margin">9d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="mix healthcare not-rated" data-category="finance">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc LTC no-margin" title="LTC"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                <h3 class="no-margin"><a class="text-bold" href="ico-details.html">Litecoin</a></h3>
+                                <span class="ico-listing-second-name">Healthcare</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$4.600</span> / $15.200</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">31%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Not Rated</p>
+                                <p class="ico-listing-days-left text-bold no-margin">25d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="mix finance neutral" data-category="finance">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc XEM no-margin" title="XEM"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                  <h3 class="no-margin"><a class="text-bold" href="ico-details.html">Nem</a></h3>
+                                  <span class="ico-listing-second-name">Finance</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$9.600</span> / $20.000</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">48%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Neutral</p>
+                                <p class="ico-listing-days-left text-bold no-margin">6d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="mix banking neutral" data-category="banking">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc NEO no-margin" title="NEO"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                  <h3 class="no-margin"><a class="text-bold" href="ico-details.html">NEO</a></h3>
+                                  <span class="ico-listing-second-name">Banking</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$13.200</span> / $25.000</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">60%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Neutral</p>
+                                <p class="ico-listing-days-left text-bold no-margin">9d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="mix exchange medium" data-category="exchange">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc EOS no-margin" title="EOS"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                  <h3 class="no-margin"><a class="text-bold" href="ico-details.html">EOS</a></h3>
+                                  <span class="ico-listing-second-name">Exchange</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$30.000</span> / $50.000</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">45%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Medium</p>
+                                <p class="ico-listing-days-left text-bold no-margin">9d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="mix advertising neutral" data-category="exchange">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc REP no-margin" title="REP"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                  <h3 class="no-margin"><a class="text-bold" href="ico-details.html">Augur</a></h3>
+                                  <span class="ico-listing-second-name">Advertising</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$30.000</span> / $50.000</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">45%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Neutral</p>
+                                <p class="ico-listing-days-left text-bold no-margin">9d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="mix healthcare neutral" data-category="real-estate">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc KMD no-margin" title="KMD"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                  <h3 class="no-margin"><a class="text-bold" href="ico-details.html">Komod</a></h3>
+                                  <span class="ico-listing-second-name">Healthcare</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$1.800</span> / $33.300</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">6%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Neutral</p>
+                                <p class="ico-listing-days-left text-bold no-margin">8d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="mix real-estate neutral" data-category="blockchain">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc ARK no-margin" title="ARK"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                  <h3 class="no-margin"><a class="text-bold" href="ico-details.html">Ark</a></h3>
+                                  <span class="ico-listing-second-name">Real Estate</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$2.000</span> / $5.000</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">32%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Neutral</p>
+                                <p class="ico-listing-days-left text-bold no-margin">8d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="mix real-estate not-rated" data-category="real-estate">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc XMR no-margin" title="XMR"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                  <h3 class="no-margin"><a class="text-bold" href="ico-details.html">Monero</a></h3>
+                                  <span class="ico-listing-second-name">Real Estate</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$1.800</span> / $33.300</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">31%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Not Rated</p>
+                                <p class="ico-listing-days-left text-bold no-margin">8d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="mix blockchain not-rated" data-category="blockchain">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc QTUM no-margin" title="QTUM"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                  <h3 class="no-margin"><a class="text-bold" href="ico-details.html">QTUM</a></h3>
+                                  <span class="ico-listing-second-name">Blockchain</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$2.000</span> / $5.000</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">32%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Not Rated</p>
+                                <p class="ico-listing-days-left text-bold no-margin">8d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="mix trading not-rated" data-category="trading">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc LSK no-margin" title="LSK"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                  <h3 class="no-margin"><a class="text-bold" href="ico-details.html">Lisk</a></h3>
+                                  <span class="ico-listing-second-name">Trading</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$13.600</span> / $18.800</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">71%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Not Rated</p>
+                                <p class="ico-listing-days-left text-bold no-margin">9d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="mix smart not-rated" data-category="smart">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc OMG no-margin" title="OMG"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                  <h3 class="no-margin"><a class="text-bold" href="ico-details.html">OmiGO</a></h3>
+                                  <span class="ico-listing-second-name">Smart</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$36.600</span> / $40.000</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">28%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Not rated</p>
+                                <p class="ico-listing-days-left text-bold no-margin">9d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="mix advertising medium" data-category="advertising">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc USDT no-margin" title="USDT"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                  <h3 class="no-margin"><a class="text-bold" href="ico-details.html">Tether</a></h3>
+                                  <span class="ico-listing-second-name">Advertising</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$4.100</span> / $25.000</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">13%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Medium</p>
+                                <p class="ico-listing-days-left text-bold no-margin">44d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="mix advertising sponsored" data-category="blockchain">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc ZEC no-margin" title="ZEC"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                  <h3 class="no-margin"><a class="text-bold" href="ico-details.html">Zcach</a></h3>
+                                  <span class="ico-listing-second-name">Advertising</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$8.000</span> / $12.000</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">58%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Sponsored</p>
+                                <p class="ico-listing-days-left text-bold no-margin">12d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="mix trading neutral" data-category="trading">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc STRAT no-margin" title="STRAT"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                  <h3 class="no-margin"><a class="text-bold" href="ico-details.html">Stratis</a></h3>
+                                  <span class="ico-listing-second-name">Trading</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$8.100</span> / $15.000</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">47%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Neutral</p>
+                                <p class="ico-listing-days-left text-bold no-margin">22d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="mix finance sponsored" data-category="finance">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc ARDR no-margin" title="ARDR"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                  <h3 class="no-margin"><a class="text-bold" href="ico-details.html">Ardor</a></h3>
+                                  <span class="ico-listing-second-name">Finance</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$2.000</span> / $5.000</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">40%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Sponsored</p>
+                                <p class="ico-listing-days-left text-bold no-margin">8d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="mix finance neutral" data-category="finance">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc STEEM no-margin" title="STEEM"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                  <h3 class="no-margin"><a class="text-bold" href="ico-details.html">Steem</a></h3>
+                                  <span class="ico-listing-second-name">Finance</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$9.600</span> / $20.000</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">48%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Neutral</p>
+                                <p class="ico-listing-days-left text-bold no-margin">6d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="mix banking neutral" data-category="banking">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc WAVES no-margin" title="WAVES"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                  <h3 class="no-margin"><a class="text-bold" href="ico-details.html">Wavrs</a></h3>
+                                  <span class="ico-listing-second-name">Banking</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$13.200</span> / $22.500</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">60%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Neutral</p>
+                                <p class="ico-listing-days-left text-bold no-margin">9d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="mix banking sponsored" data-category="exchange">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc REP no-margin" title="REP"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                  <h3 class="no-margin"><a class="text-bold" href="ico-details.html">Augur</a></h3>
+                                  <span class="ico-listing-second-name">Banking</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$30.000</span> / $50.000</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">45%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Sponsored</p>
+                                <p class="ico-listing-days-left text-bold no-margin">9d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="mix real-estate not-rated" data-category="real-estate">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc KMD no-margin" title="KMD"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                  <h3 class="no-margin"><a class="text-bold" href="ico-details.html">Komod</a></h3>
+                                  <span class="ico-listing-second-name">Real Estate</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$1.800</span> / $33.300</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">6%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Not Rated</p>
+                                <p class="ico-listing-days-left text-bold no-margin">8d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="mix blockchain not-rated" data-category="blockchain">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc ARK no-margin" title="ARK"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                  <h3 class="no-margin"><a class="text-bold" href="ico-details.html">Ark</a></h3>
+                                  <span class="ico-listing-second-name">Blockchain</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$2.000</span> / $5.000</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">32%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Not Rated</p>
+                                <p class="ico-listing-days-left text-bold no-margin">8d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                       <li class="mix banking medium" data-category="smart">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc OMG no-margin" title="OMG"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                  <h3 class="no-margin"><a class="text-bold" href="ico-details.html">OmiGO</a></h3>
+                                  <span class="ico-listing-second-name">Banking</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$36.600</span> / $40.000</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">28%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Medium</p>
+                                <p class="ico-listing-days-left text-bold no-margin">9d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="mix healthcare medium" data-category="advertising">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc USDT no-margin" title="USDT"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                  <h3 class="no-margin"><a class="text-bold" href="ico-details.html">Tether</a></h3>
+                                  <span class="ico-listing-second-name">Healthcare</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$4.100</span> / $25.000</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">13%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Medium</p>
+                                <p class="ico-listing-days-left text-bold no-margin">44d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="mix real-estate medium" data-category="blockchain">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc ZEC no-margin" title="ZEC"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                  <h3 class="no-margin"><a class="text-bold" href="ico-details.html">Zcach</a></h3>
+                                  <span class="ico-listing-second-name">Real Estate</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$8.000</span> / $12.000</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">58%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Medium</p>
+                                <p class="ico-listing-days-left text-bold no-margin">12d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="mix finance medium" data-category="trading">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc STRAT no-margin" title="STRAT"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                  <h3 class="no-margin"><a class="text-bold" href="ico-details.html">Stratis</a></h3>
+                                  <span class="ico-listing-second-name">Finance</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$8.100</span> / $15.000</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">47%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Medium</p>
+                                <p class="ico-listing-days-left text-bold no-margin">22d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="mix advertising not-rated" data-category="healthcare">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc ADA no-margin" title="ADA"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                <h3 class="no-margin"><a class="text-bold" href="ico-details.html">Cardan</a></h3>
+                                <span class="ico-listing-second-name">Advertising</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$13.900</span> / $25.000</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">62%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Not Rated</p>
+                                <p class="ico-listing-days-left text-bold no-margin">9d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="mix banking not-rated" data-category="finance">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc LTC no-margin" title="LTC"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                <h3 class="no-margin"><a class="text-bold" href="ico-details.html">Litecoin</a></h3>
+                                <span class="ico-listing-second-name">Banking</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$4.600</span> / $15.200</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">31%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Not Rated</p>
+                                <p class="ico-listing-days-left text-bold no-margin">25d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="mix real-estate not-rated" data-category="finance">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc XEM no-margin" title="XEM"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                  <h3 class="no-margin"><a class="text-bold" href="ico-details.html">Nem</a></h3>
+                                  <span class="ico-listing-second-name">Real Estate</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$9.600</span> / $20.000</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">48%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Not Rated</p>
+                                <p class="ico-listing-days-left text-bold no-margin">6d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="mix finance not-rated" data-category="banking">
+                        <div class="panel panel-default ico-listing-box padding_30">
+                          <div class="panel-heading ico-listing-title no-padding">
+                              <div class="text-center ico-listing-img">
+                                <a class="show-code" href="ico-details.html"><i class="cc NEO no-margin" title="NEO"></i></a>
+                              </div>
+                              <div class="ico-listing-name">
+                                  <h3 class="no-margin"><a class="text-bold" href="ico-details.html">NEO</a></h3>
+                                  <span class="ico-listing-second-name">Finance</span>
+                              </div>
+                          </div>
+                          <div class="panel-body ico-listing-details no-padding">
+                              <div class="ico-listing-save">
+                                <p class="ico-listing-evolution text-bold"><span class="text-green">$13.200</span> / $25.000</p>
+                                <p class="ico-listing-save-percent"><span class="text-green text-bold">60%</span></p>
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="ico-listing-second-details text-bold">
+                                <p class="ico-listing-type text-bold no-margin">Not Rated</p>
+                                <p class="ico-listing-days-left text-bold no-margin">9d left</p>
+                              </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="gap"></li>
+                      <li class="gap"></li>
+                      <li class="gap"></li>
+                    </ul>
+                    <div class="cd-fail-message">No results found</div>
+                  </section><!-- grid -->
+                  <div class="isotpe-pagination text-center">
+                    <ul class="pagination cryptic-pagination">
+                      <li class="disabled"><a href="#"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                      <li class="active"><a href="#">1</a></li>
+                      <li><a href="#">2</a></li>
+                      <li><a href="#">3</a></li>
+                      <li><a href="#">4</a></li>
+                      <li><a href="#">5</a></li>
+                      <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </main>
+            <a href="#" class="scrollToTop"><i class="fa fa-chevron-up text-white" aria-hidden="true"></i></a>
+          </div>
+
+          <!-- PAGE FOOTER -->
+          <footer>
+            <div class="pull-right">
+              Cryptic - Admin Template by <a href="https://themeforest.net/user/modeltheme/portfolio">ModelTheme</a>
+            </div>
+            <div class="clearfix"></div>
+          </footer>
+        </div>
+
+        <!-- RIGHT SIDE SIDEBAR NAVIGATION -->
+        <nav class="st-menu st-effect">
+          <span class="fa fa-times close-sidebar"></span>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </nav>
+
+      </div>
+
+
+      <!-- RIGHT SIDE: SEARCH FORM -->
+      <div class="search search-main">
+        <div id="btn-search-close" class="btn btn--search-close" aria-label="Close search form">
+          <i class="fa fa-times"></i>
+        </div>
+        <form class="search__form" action="search.html">
+          <input class="search__input" name="search" type="search" placeholder="Hash, transactions..." autocomplete="off" autocapitalize="off" spellcheck="false" />
+          <span class="search__info">Hit enter to search or ESC to close</span>
+        </form>
+      </div>
+
+
+      <!-- JS SCRIPTS -->
+      <script src="assets/js/jquery.min.js"></script>
+      <script src="assets/js/jquery.scrollbar.min.js"></script>
+      <script src="assets/plugins/modernizr/modernizr.custom.js"></script>
+      <script src="assets/plugins/classie/classie.js"></script>  
+      <script src="assets/plugins/bootstrap/bootstrap.min.js"></script>
+      <script src="assets/plugins/dataTables/jquery.dataTables.min.js"></script>
+      <!-- Custom Theme Scripts -->
+      <script src="assets/js/custom.min.js"></script>
+      <script src="assets/js/preloader.min.js"></script>
+      <!-- Custom ISOTOPE filter -->
+      <script src="assets/plugins/isotope/jquery-2.1.1.js"></script>
+      <script src="assets/plugins/isotope/jquery.mixitup.min.js"></script>
+      <script src="assets/plugins/isotope/main.js"></script>
+      <script src="assets/plugins/isotope/modernizr.js"></script>
+    </div>
+  </body>
+</html>

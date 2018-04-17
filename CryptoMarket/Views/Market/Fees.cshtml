@@ -1,0 +1,95 @@
+﻿@model CryptoMarket.Models.HomeViewModels.FeesPageModel
+@{
+    ViewBag.Title = "Fees";
+    Layout = "~/Views/Shared/_LayoutAltexBlue.cshtml";
+}
+<style>
+    p {
+        margin: 15px 0px 15px 0px;
+    }
+    body{
+        font-family:sans-serif;
+    }
+</style>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h3>Trading Fees</h3>
+                    <p>Current trading fees on our Exchange</p>
+                    <div class="card-block markets-table">
+                        <div class="markets-table-thead">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th><a>Market</a></th>
+                                        <th><a>Sell Fee</a></th>
+                                        <th><a>Buy Fee</a></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="markets-table-tbody">
+                            <div>
+                                <table>
+                                    <tbody>
+                                        @foreach (var tradeFee in Model.TradingFees)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @tradeFee.Key
+                                                </td>
+                                                <td>
+                                                    @tradeFee.Value%
+                                                </td>
+                                                <td>
+                                                    @tradeFee.Value%
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h3>Withdraw Fees</h3>
+                    <p>Current withdrawing fees on our Exchange</p>
+                    <div class="card-block markets-table">
+                        <div class="markets-table-thead">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th><a>Coin</a></th>
+                                        <th><a>Fee</a></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="markets-table-tbody">
+                            <div>
+                                <table>
+                                    <tbody>
+                                        @foreach (var withdrawFee in Model.WithdrawFees)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @withdrawFee.Key
+                                                </td>
+                                                <td>
+                                                    @withdrawFee.Value @withdrawFee.Key
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

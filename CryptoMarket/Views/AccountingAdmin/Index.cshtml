@@ -1,0 +1,49 @@
+﻿@model IEnumerable<AccountingFees>
+
+<div class="row">
+    <div class="col-sm-12">
+        <h2>Available Fees</h2>
+        <div class="pane active card-block markets-table">
+            <div class="markets-table-tbody">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Coin Name</th>
+                            <th>Available Amount</th>
+                            <th>Hot Wallet Balance</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @item.CoinId
+                                </td>
+                                <td>
+                                    @item.AvailableAmount.ToString("F8")
+                                </td>
+                                <td>
+                                       @@CoinsRpcManager.Init(item.CoinId).GetBalance().ToString("F8")
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                            Withdraw <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" style="position: relative; z-index: 9999;">
+                                            <li>
+                                                <a href="@Url.Action("Withdraw", "AccountingAdmin", new{id = item.CoinId, amount = item.AvailableAmount.ToString("F8")})">Withdraw All</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

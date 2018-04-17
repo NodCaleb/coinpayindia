@@ -1,0 +1,74 @@
+﻿@using CryptoMarket
+@model List<Vouchers>
+@{
+    ViewBag.Title = "Vouch Admin";
+}
+@Scripts.Render("~/datatable")
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#dt_basic').dataTable({
+            "sPaginationType": "bootstrap_full"
+        });
+    });
+</script>
+<style>
+    p {
+        margin: 15px;
+    }
+</style>
+<div class="row">
+    <div class="col-sm-12">
+        <h2>Vouchers</h2>
+        <div class="pane active card-block markets-table">
+            <h3 style="margin:15px;">Vouchers Summary</h3>
+            <p>Total Issued: @Model.Count</p>
+            <p>Total Redeemed: @Model.Count(vouch => vouch.Redeemed)</p>
+            <p>Total Waiting for Redeem: @Model.Count(vouch => !vouch.Redeemed)</p>
+            <hr />
+            <div class="markets-table-tbody">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                Code
+                            </th>
+                            <th>
+                                Created By, At
+                            </th>
+                            <th>
+                                Redeemed?
+                            </th>
+                            <th>
+                                Amount
+                            </th>
+                            <th>
+                                Expiry Date
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.VoucherCode.Substring(0, 16)******</td>
+                                <td><a href="@Url.Action("Details", "UsersAdmin", new { id = item.CreatorUserId })">@ApplicationUserManager.GetUserEmail(item.CreatorUserId)</a>, @item.DateCreated</td>
+                                <td>
+                                    @if (item.Redeemed)
+                                    {
+                                        <text>YES. @item.RedeemDate by @ApplicationUserManager.GetUserEmail(item.RedeemerUserId)</text>
+                                    }
+                                    else
+                                    {
+                                        <text>No</text>
+                                    }
+                                </td>
+                                <td>@item.Amount @CoinsManager.GetCoinNameById(item.CoinId)</td>
+                                <td><span class="utcdate">@item.ExpiryDate</span></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+﻿@model IEnumerable<VotingForCoins>
+@{
+    ViewBag.Title = "Voting";
+    Layout = "~/Views/Shared/_LayoutAltexBlue.cshtml";
+}
+<h2>Voting for new Coins</h2>
+<h3>
+    Here you can vote for adding new Coin onto Exchange.
+</h3>
+<br />
+<div class="card-block markets-table">
+    <div class="markets-table-thead">
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        <a>@Html.DisplayNameFor(model => model.CoinName)</a>
+                    </th>
+                    <th>
+                        <a>@Html.DisplayNameFor(model => model.VotingAddress)</a>
+                    </th>
+                    <th>
+                        <a>@Html.DisplayNameFor(model => model.Price)</a>
+                    </th>
+                    <th>
+                        <a>@Html.DisplayNameFor(model => model.CoinUsed)</a>
+                    </th>
+                    <th>
+                        <a>@Html.DisplayNameFor(model => model.CurrentVotesNumber)</a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="markets-table-tbody">
+        <div>
+            <table>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        var coinInfo = CoinsManager.Get(item.CoinUsed);
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CoinName)
+                            </td>
+                            <td>
+                                @item.VotingAddress
+                            </td>
+                            <td>
+                                @item.Price @coinInfo.ShortName
+                            </td>
+                            <td>
+                                @coinInfo.Name
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CurrentVotesNumber)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

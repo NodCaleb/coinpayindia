@@ -1,0 +1,91 @@
+﻿@model IEnumerable<WithdrawRequests>
+@{
+    Layout = "~/Views/Shared/_LayoutAltexBlue.cshtml";
+    ViewBag.Title = "Withdrawals";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="markets-filter-tabs clear-block">
+            <ul class="flex-row tabs-nav">
+                @Html.Partial("_TabbedMenuPartial")
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div class="pane active card-block markets-table">
+                <div class="markets-table-tbody">
+                    <div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <a>Tx Id</a>
+                                    </th>
+                                    <th>
+                                        <a>Coin Name</a>
+                                    </th>
+                                    <th>
+                                        <a>Amount</a>
+                                    </th>
+                                    <th>
+                                        <a>Date Created</a>
+                                    </th>
+                                    <th>
+                                        <a>Paid?</a>
+                                    </th>
+                                    <th>
+                                        <a>Status</a>
+                                    </th>
+                                    <th>
+                                        <a>Address</a>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.TxId
+                                        </td>
+                                        <td>
+                                            @CoinsManager.GetCoinNameById(item.CoinId)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Amount)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DateCreated)
+                                        </td>
+                                        <td>
+                                            @if (item.Paid)
+                                            {
+                                                <text>DONE</text>
+                                            }
+                                            else
+                                            {
+                                                <text>PENDING</text>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (item.DatePaid.HasValue)
+                                            {
+                                                <text>@item.DatePaid.Value</text>
+                                            }
+                                            else
+                                            {
+                                                <text>Waiting for admin approval</text>
+                                            }
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Address)
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

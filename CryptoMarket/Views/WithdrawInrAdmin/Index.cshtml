@@ -1,0 +1,49 @@
+﻿@model IEnumerable<CryptoMarket.Models.DB.INRWithdrawRequest>
+@{
+    Layout = "~/Views/Shared/_LayoutAltexBlue.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <h2>Withdraw INR Administration</h2>
+        <div class="pane active card-block markets-table">
+            <h3>Pending Withdrawals</h3>
+            <div class="markets-table-tbody">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                Fullname
+                            </th>
+                            <th>
+                                Amount
+                            </th>
+                            <th>
+                                Actions
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CustomerName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Amount) INR
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Proceed","WithdrawInrAdmin",new { id = item.Id})">Proceed Withdraw</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

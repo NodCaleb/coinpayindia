@@ -1,0 +1,126 @@
+﻿@model CryptoMarket.Models.WithdrawViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutAltexBlue.cshtml";
+    var coinInfo = CoinsManager.Get(Model.CoinId);
+    var coinName = coinInfo.Name;
+    ViewBag.Title = "Withdraw";
+}
+<script>
+    var withdrawFee = parseFloat('@Model.WithdrawFee');
+
+    $(document).ready(function() {
+        $("#Amount").keyup(function() {
+            calculate();
+        });
+    });
+
+    function calculate() {
+        var amount = parseFloat($("#Amount").val());
+        var netAmount = amount - withdrawFee;
+        $("#NetAmount").val(netAmount.toFixed(8));
+    }
+</script>
+<style>
+    .validation-summary-valid { display: none; }
+
+    .validation-summary-errors ul { list-style: none; }
+
+    body{
+        font-family: sans-serif;
+    }
+</style>
+
+<div class="row">
+    @if (coinInfo.WithdrawDisabled)
+    {
+        <p class="alert alert-danger no-margin">
+            <i class="fa fa-warning fa-fw"></i> At this moment, all withdraw requests are temporarily suspended
+        </p>
+            <script>
+                $(document).ready(function () {
+                    $("#comment-form :input").prop("disabled", true);
+                    $("#comment-form :button").prop("disabled", true);
+                });
+            </script>
+
+    }
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <h3>
+            <i class="fa fa-money fa-fw "></i> @ViewBag.Title <span> &gt; @coinName</span>
+        </h3>
+    </div>
+</div>
+<div class="row card-row">
+    <div class="col-lg-4">
+        <div class="card-block">
+            <div class="card-header">
+                <h3>
+                    Withdraw to @coinName wallet
+                </h3>
+            </div>
+            <div class="card-form">
+
+                <form method="post" class="smart-form" autocomplete="Off">
+                    @Html.HiddenFor(model => model.CoinId)
+                    @Html.ValidationSummary("", new { @class = "alert alert-danger" })
+
+                    <div class="form-content">
+                        
+                        <div class="form-group clear-block">
+                            <label class="col-md-5 control-label" for="Price">Amount to Withdraw, Available: @Model.AvailableUserAmount</label>
+                            <div class="col-md-7">
+                                <div class="input-block flex-row flex-align-items-center">
+                                    @Html.TextBoxFor(model => model.Amount, new {  @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group clear-block">
+                            <label class="col-md-5 control-label" for="Price">Service Fee</label>
+                            <div class="col-md-7">
+                                <div class="input-block flex-row flex-align-items-center">
+                                    @Html.TextBoxFor(model => model.WithdrawFee, new { disabled = "disabled", @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group clear-block">
+                            <label class="col-md-5 control-label" for="Price">Net Withdraw Amount</label>
+                            <div class="col-md-7">
+                                <div class="input-block flex-row flex-align-items-center">
+                                    @Html.TextBoxFor(model => model.NetAmount, new { disabled = "disabled", @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group clear-block">
+                            <label class="col-md-5 control-label" for="Price">@coinName Withdraw Address</label>
+                            <div class="col-md-7">
+                                <div class="input-block flex-row flex-align-items-center">
+                                    @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group clear-block">
+                            @Html.Raw(HttpUtility.HtmlDecode(Html.LabelFor(m => m.PinCode, new { @class = "col-md-5 control-label" }).ToString()))
+                            <div class="col-md-7">
+                                <div class="input-block flex-row flex-align-items-center">
+                                    @Html.PasswordFor(model => model.PinCode, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    @Html.Partial("_PinRestoreCompleteView")
+                    <div class="form-bottom">
+                        <button type="submit" class="btn btn-default">
+                            Withdraw
+                        </button>
+                    </div>
+                </form>
+                <p class="alert alert-success no-margin">Your current Balance: @BalancesManager.Get(User.Identity.GetUserId(), Model.CoinId).Balance @CoinsManager.GetCoinShortNameById(Model.CoinId)</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Balances")
+</p>

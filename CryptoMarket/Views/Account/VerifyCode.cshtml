@@ -1,0 +1,86 @@
+﻿@model CryptoMarket.Models.VerifyCodeViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutAltexBlueLogin.cshtml";
+}
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<div class="container-fluid wrapper-page">
+    <div class="card-block">
+        <div class="card-header" style="height:70px">
+            <h3>
+                This account protected<br />Enter Google Authenticator Code
+            </h3>
+        </div>
+        <div class="card-form">
+            @using (Html.BeginForm("VerifyCode", "Account", new { Model.ReturnUrl }, FormMethod.Post, new { @class = "smart-form", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                @Html.Hidden("provider", @Model.Provider)
+
+                <div class="form-content">
+                    <div class="form-group clear-block">
+                        <label class="col-md-4 control-label" style="margin-left:0">@Html.LabelFor(m => m.Code, new { @class = "col-md-2 control-label" })</label>
+                        <div class="col-md-8">
+                            <div class="input-block flex-row flex-align-items-center">
+                                @Html.TextBoxFor(m => m.Code, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-content">
+                    <div class="form-group clear-block">
+                        <div class="col-md-8 col-md-offset-4">
+                            <div class="flex-row flex-align-items-center">
+                                <input type="checkbox" name="RememberBrowser" checked="checked">
+                                <i></i> Remember Browser?
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-bottom">
+                    <button type="submit" name="submit" class="btn btn-default">Submit</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@*<div id="content">
+    <div class="row">
+        <div class="well well-sm well-light .bg-color-greenLight">
+            @using (Html.BeginForm("VerifyCode", "Account", new{Model.ReturnUrl}, FormMethod.Post, new{@class = "smart-form", role = "form"})){
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary("", new{@class = "text-danger"})
+                @Html.Hidden("provider", @Model.Provider)
+                <header>
+                    This account protected. Enter Google Authenticator Code.
+                </header>
+                <fieldset>
+                    <div class="row">
+                        <section class="col">
+                            <label class="label">@Html.LabelFor(m => m.Code, new{@class = "col-md-2 control-label"})</label>
+                            <label class="input">
+                                @Html.TextBoxFor(m => m.Code, new{@class = "form-control"})
+                            </label>
+                        </section>
+                    </div>
+                    <div class="row">
+                        <section class="col">
+                            <label class="checkbox">
+                                <input type="checkbox" name="RememberBrowser" checked="checked">
+                                <i></i> Remember Browser?
+                            </label>
+                        </section>
+                    </div>
+                </fieldset>
+                <footer>
+                    <button type="submit" name="submit" class="btn btn-primary">
+                        Submit
+                    </button>
+                </footer>
+            }
+        </div>
+    </div>
+</div>*@

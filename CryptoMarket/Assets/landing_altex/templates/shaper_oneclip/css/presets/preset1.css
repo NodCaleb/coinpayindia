@@ -1,0 +1,253 @@
+a {
+  color: #007c83;
+}
+a:hover {
+  color: #004c50;
+}
+.sp-megamenu-parent .sp-dropdown li.sp-menu-item >a:hover {
+  background: #007c83;
+}
+.sp-megamenu-parent .sp-dropdown li.sp-menu-item.active >a {
+  color: #007c83;
+}
+#offcanvas-toggler >i:hover {
+  color: #007c83;
+}
+.btn-primary,
+.sppb-btn-primary {
+  border-color: #007c83;
+  background-color: #007c83;
+}
+.btn-primary:hover,
+.sppb-btn-primary:hover {
+  border-color: #004c50;
+  background-color: #004c50;
+}
+.btn.btn-link:hover,
+.sppb-btn.sppb-btn-link:hover,
+.btn.btn-lg.btn-link:hover,
+.sppb-btn.sppb-btn-lg.sppb-btn-link:hover {
+  border-color: #007c83;
+  background-color: #007c83;
+}
+ul.social-icons >li a:hover {
+  color: #007c83;
+}
+.sp-page-title {
+  background: #007c83;
+}
+.layout-boxed .body-innerwrapper {
+  background: #ffffff;
+}
+.sp-module ul >li >a {
+  color: #525252;
+}
+.sp-module ul >li >a:hover {
+  color: #007c83;
+}
+.sp-module .latestnews >div >a {
+  color: #525252;
+}
+.sp-module .latestnews >div >a:hover {
+  color: #007c83;
+}
+.sp-module .tagscloud .tag-name:hover {
+  background: #007c83;
+}
+.sp-simpleportfolio .sp-simpleportfolio-filter > ul > li.active > a,
+.sp-simpleportfolio .sp-simpleportfolio-filter > ul > li > a:hover {
+  background: #007c83;
+}
+.search .btn-toolbar button {
+  background: #007c83;
+}
+.post-format {
+  background: #007c83;
+}
+.voting-symbol span.star.active:before {
+  color: #007c83;
+}
+.sp-rating span.star:hover:before,
+.sp-rating span.star:hover ~ span.star:before {
+  color: #004c50;
+}
+.entry-link,
+.entry-quote {
+  background: #007c83;
+}
+blockquote {
+  border-color: #007c83;
+}
+.carousel-left:hover,
+.carousel-right:hover {
+  background: #007c83;
+}
+.sp-comingsoon body {
+  background-color: #007c83;
+}
+.pagination>li>a,
+.pagination>li>span {
+  color: #525252;
+}
+.pagination>li>a:hover,
+.pagination>li>a:focus,
+.pagination>li>span:hover,
+.pagination>li>span:focus {
+  color: #525252;
+}
+.pagination>.active>a,
+.pagination>.active>span {
+  border-color: #007c83;
+  background-color: #007c83;
+}
+.pagination>.active>a:hover,
+.pagination>.active>a:focus,
+.pagination>.active>span:hover,
+.pagination>.active>span:focus {
+  border-color: #007c83;
+  background-color: #007c83;
+}
+.view-category .item .entry-header h2 a:hover,
+.view-article .item .entry-header h2 a:hover,
+.view-category .item p.readmore a.btn-default:after,
+.view-article .item p.readmore a.btn-default:after,
+.view-category .item p.readmore:hover a.btn-default,
+.view-article .item p.readmore:hover a.btn-default,
+.view-category #sp-right .latestnews > div:hover a,
+.view-article #sp-right .latestnews > div:hover a,
+.view-article .entry-header h2,
+.pagination>.active>a,
+.variation-applanding .sppb-addon-feature .sppb-icon,
+.variation-applanding .sppb-addon-feature .sppb-feature-box-title,
+.varition-simple .customNavigation >a:hover,
+.varition-simple .sppb-fullwidth-title span,
+.sppb-addon-tab .sppb-nav-tabs > li > a i.fa,
+.sppb-addon-animated-number.advanced:hover *,
+.sppb-cta-title,
+.sppb-addon-pricing-table.simple .sppb-btn,
+.sppb-testimonial-pro .sppb-testimonial-client .pro-client-name,
+.sppb-addon-articles .sppb-addon-article h3 a:hover,
+.sppb-addon-articles.advanced .sppb-addon-article .sppb-article-meta > span a:hover,
+.sppb-addon-articles .sppb-see-all-btn:hover {
+  color: #007c83;
+}
+.sppb-addon-feature:hover .sppb-icon > span,
+.sppb-addon-feature:hover .sppb-feature-box-title {
+  color: #007c83 !important;
+}
+.view-category #sp-right .tagspopular ul li:hover a,
+.view-article #sp-right .tagspopular ul li:hover a,
+.view-article ul.pagenav li a:hover,
+.variation-applanding #sp-header,
+.sppb-addon-pricing-table .sppb-pricing-box.sppb-pricing-featured,
+.sppb-addon-pricing-table.simple .sppb-pricing-box.sppb-pricing-featured .sppb-pricing-features .sppb-btn,
+.sppb-addon-pricing-table.simple .sppb-pricing-box.sppb-pricing-featured .sppb-btn,
+.sppb-addon-ajax-contact.advanced .sppb-btn,
+.sppb-carousel.watch .sppb-carousel-indicators li:hover,
+.sppb-carousel.watch .sppb-carousel-indicators li.active,
+.menu-fixed .sp-megamenu-parent >li.active >a:before,
+.variation-creative .sp-megamenu-parent >li.active >a:before,
+.menu-fixed .sp-megamenu-parent >li:hover >a:before,
+.variation-creative .sp-megamenu-parent >li:hover >a:before,
+.btn.btn-primary,
+.sppb-btn.sppb-btn-primary,
+.btn.btn-lg.btn-primary,
+.sppb-btn.sppb-btn-lg.sppb-btn-primary,
+.view-search #sp-header,
+.corporate-slider .varition-simple .sppb-slide-item-bg .sppb-slideshow-fullwidth-item-wrapper .sppb-slideshow-fullwidth-item-text .sppb-fw-slider-button-wrapper a.btn-link,
+.bg-majorcolor-overlay:after {
+  background-color: #007c83;
+}
+.btn.btn-primary:hover,
+.sppb-btn.sppb-btn-primary:hover,
+.btn.btn-lg.btn-primary:hover,
+.sppb-btn.sppb-btn-lg.sppb-btn-primary:hover,
+.btn.btn-primary:focus,
+.sppb-btn.sppb-btn-primary:focus,
+.btn.btn-lg.btn-primary:focus,
+.sppb-btn.sppb-btn-lg.sppb-btn-primary:focus,
+.btn.btn-primary:active,
+.sppb-btn.sppb-btn-primary:active,
+.btn.btn-lg.btn-primary:active,
+.sppb-btn.sppb-btn-lg.sppb-btn-primary:active {
+  background-color: #004246;
+}
+.corporate-slider .varition-simple .sppb-slide-item-bg .sppb-slideshow-fullwidth-item-wrapper .sppb-slideshow-fullwidth-item-text .sppb-fw-slider-button-wrapper a.btn-link:hover,
+.variation-creative .sppb-addon-ajax-contact.advanced .sppb-btn:hover {
+  background-color: #004c50;
+}
+.sp-simpleportfolio .sp-simpleportfolio-item:hover .sp-simpleportfolio-overlay {
+  background-color: rgba(0,124,131,0.8) !important;
+}
+.bg-overlay,
+.bg-color-overlay:after {
+  background-color: rgba(0,124,131,0.9);
+}
+.variation-agency #sp-header .sp-megamenu-parent > li > a:before,
+.variation-creative .sp-megamenu-parent > li.active > a:before,
+.variation-corporate #sp-header.menu-fixed .sp-megamenu-parent > li > a:before,
+.varition-advance .sppb-slideshow-fullwidth-item-text .sppb-fullwidth-title:after,
+.sppb-addon-tab .sppb-nav-tabs > li > a:after,
+.sppb-testimonial-pro .sppb-carousel-indicators li:hover,
+.sppb-testimonial-pro .sppb-carousel-indicators li.active,
+.sp-simpleportfolio .sp-simpleportfolio-item:hover .img-wrapper {
+  background: #007c83;
+}
+.pagination>li>a:hover {
+  background: #007c83 !important;
+}
+.sppb-addon-articles.advanced .sppb-addon-article .sppb-img-wrapper:before {
+  background: rgba(0,124,131,0.9);
+}
+.sppb-addon-persion .sppb-person-image .sppb-person-social-icons {
+  background: rgba(0,124,131,0.9);
+}
+.app-title-angel-border-major-color .sppb-addon-title:after,
+.sppb-addon-animated-number.advanced:hover .sppb-animated-number-title,
+.sppb-carousel.watch .sppb-carousel-indicators li:hover,
+.sppb-carousel.watch .sppb-carousel-indicators li.active,
+.btn.btn-primary,
+.sppb-btn.sppb-btn-primary,
+.btn.btn-lg.btn-primary,
+.sppb-btn.sppb-btn-lg.sppb-btn-primary {
+  border-color: #007c83;
+}
+.btn.btn-primary:hover,
+.sppb-btn.sppb-btn-primary:hover,
+.btn.btn-lg.btn-primary:hover,
+.sppb-btn.sppb-btn-lg.sppb-btn-primary:hover,
+.btn.btn-primary:focus,
+.sppb-btn.sppb-btn-primary:focus,
+.btn.btn-lg.btn-primary:focus,
+.sppb-btn.sppb-btn-lg.sppb-btn-primary:focus,
+.btn.btn-primary:active,
+.sppb-btn.sppb-btn-primary:active,
+.btn.btn-lg.btn-primary:active,
+.sppb-btn.sppb-btn-lg.sppb-btn-primary:active {
+  border-color: #004246;
+}
+#top-search-input-wrap.top-search-input-wrap .searchwrapper {
+  border-bottom: 5px solid rgba(0,124,131,0.7);
+}
+.sppb-form-control:focus {
+  border: 1px solid #007c83;
+}
+select:focus,
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+  border: 1px solid #007c83 !important;
+}

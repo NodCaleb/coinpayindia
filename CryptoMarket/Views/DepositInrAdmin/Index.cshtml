@@ -1,0 +1,49 @@
+﻿@model IEnumerable<CryptoMarket.Models.DB.DepositINR>
+@{
+    Layout = "~/Views/Shared/_LayoutAltexBlue.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <h2>Deposit INR Administration</h2>
+        <div class="pane active card-block markets-table">
+            <h3>Pending Deposits</h3>
+            <div class="markets-table-tbody">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                Fullname
+                            </th>
+                            <th>
+                                Amount
+                            </th>
+                            <th>
+                                Actions
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Where(_=>_.Status == DepositINR.DepositInrStatus.Waiting))
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UserFullName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Amomunt) INR
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Proceed","DepositInrAdmin",new { id = item.Id})">Proceed Deposit</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

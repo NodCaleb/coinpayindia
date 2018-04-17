@@ -1,0 +1,146 @@
+﻿@model VerificationManager.VerificationLevel
+@{
+    Layout = "~/Views/Shared/_LayoutAltexBlue.cshtml";
+    ViewBag.Title = "Verification";
+}
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+<style>
+    h3, .card-block p, .card-block img {
+        margin: 15px;
+    }
+
+    .form-content {
+        padding-bottom: 0;
+        border-bottom: 0;
+    }
+
+    .form-bottom {
+        position: relative;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="markets-filter-tabs clear-block">
+            <ul class="flex-row tabs-nav">
+                @Html.Partial("_TabbedMenuPartial")
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div class="pane active card-block">
+                <div class="row">
+                    <div class="col-md-8">
+                        
+                        @if (Model == VerificationManager.VerificationLevel.Email) {
+                            <script>
+                                $(function () {
+                                    $('#sendSms').click(function () {
+                                        $.ajax({
+                                            type: 'POST',
+                                            url: "@Url.Action("VerificationSMSSend")",
+                                            data: {
+                                                phoneNum: $('#phoneNumber').val()
+                                            }
+                                        }).done(function (data) {
+                                            $('#sendsmsdiv').hide();
+                                            $('#verifycodediv').show();
+                                        });
+                                    });
+
+                                    $('#verifySms').click(function () {
+                                        $.ajax({
+                                            type: 'POST',
+                                            url: "@Url.Action("VerificationCodeCheck")",
+                                            data: {
+                                                code: $('#smscode').val()
+                                            }
+                                        }).done(function (data) {
+                                            if (data === true) {
+                                                window.location.reload(true);
+                                            } else {
+                                                alert("SMS code error");
+                                            }
+                                        });
+                                    });
+                                });
+                            </script>
+                            <div class="modal fade" id="myModal" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div id="sendsmsdiv">
+                                                <p>Please enter your phone number(only India, do not prefix "+91"):</p>
+                                                <div class="input-block flex-row flex-align-items-center">
+                                                    @Html.TextBox("phoneNumber", "", new {
+                                                        @class = "form-control", placeholder = "90076123480"
+                                                    })
+                                                </div>
+                                                <br/>
+                                                <button id="sendSms">SEND VERIFICATION SMS</button>
+                                            </div>
+                                            <div id="verifycodediv" style="display: none;">
+                                                <p>Please enter code that you received:</p>
+                                                <div class="input-block flex-row flex-align-items-center">
+                                                    @Html.TextBox("smscode", "", new {
+                                                        @class = "form-control", placeholder = "123456"
+                                                    })
+                                                </div>
+                                                <br/>
+                                                <button id="verifySms">VERIFY PHONE</button>
+                                            </div>
+                                        </div>
+                                    </div>
+      
+                                </div>
+                            </div>
+                            <h3>Tier 1 (Email): <span class="success">VERIFICATED</span></h3>
+                            <h3>Tier 2 (Phone): <span class="error">UNVERIFICATED</span> <button id="gosmsverification"  data-toggle="modal" data-target="#myModal">Verify by SMS</button> </h3>
+                            <h3>Tier 3 (ID/Documents): <span class="error">UNVERIFICATED</span> SMS Verification Required</h3>
+                        }
+                        else if(Model == VerificationManager.VerificationLevel.Phone)
+                        {
+                            <div class="modal fade" id="myModal" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div id="sendimagediv">
+                                                
+                                                @using (Html.BeginForm("UploadDocument", "Manage", FormMethod.Post, 
+                                                    new { enctype = "multipart/form-data" }))
+                                                {  
+                                                    <label for="file">Please upload image of your ID/Passport:</label> 
+                                                    <p>Only .PNG images, others will be rejected!</p>
+                                                    <input type="file" name="file" id="file" /> 
+                                                    <input type="submit" value="Upload Document" /> 
+                                                }
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+      
+                                </div>
+                            </div>
+                            <h3>Tier 1 (Email): <span class="success">VERIFICATED</span></h3>
+                            <h3>Tier 2 (Phone): <span class="success">VERIFICATED</span> </h3>
+                            <h3>Tier 3 (ID/Documents): <span class="error">UNVERIFICATED</span> <button id="goidverification"  data-toggle="modal" data-target="#myModal">Upload Documents</button></h3>
+                        }
+                        else if (Model == VerificationManager.VerificationLevel.Passport)
+                        {
+                            <h3>Tier 1 (Email): <span class="success">VERIFICATED</span></h3>
+                            <h3>Tier 2 (Phone): <span class="success">VERIFICATED</span> </h3>
+                            <h3>Tier 3 (ID/Documents): <span class="success">VERIFICATED</span> </h3>
+                        }else if (Model == VerificationManager.VerificationLevel.AwaitForPassportValidation) {
+                            <h2>Awaiting for Document Verification Approval by Administration</h2>
+                        }
+                    </div>            
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

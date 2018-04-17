@@ -1,0 +1,51 @@
+﻿@model Markets
+@{
+    Layout = "~/Views/Shared/_LayoutAltexBlue.cshtml";
+}
+<style>
+    .validation-summary-valid { display: none; }
+</style>
+<div class="pane active card-block">
+    <h2 style="margin-left:15px">Edit Market</h2>
+    @using (Html.BeginForm("Create", "MarketsAdmin", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("", new { @class = "alert alert-danger" })
+        <div class="form-content">
+
+            <div class="form-group clear-block">
+                @Html.LabelFor(model => model.CoinFrom, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    <div class="input-block flex-row flex-align-items-center">
+                        @Html.DropDownListFor(model => model.CoinFrom, new SelectList(ViewBag.FromCoins, "Id", "Name"), new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group clear-block">
+                @Html.LabelFor(model => model.CoinTo, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    <div class="input-block flex-row flex-align-items-center">
+                        @Html.DropDownListFor(model => model.CoinTo, new SelectList(ViewBag.CoinSystemsList, "Id", "Name"), new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group clear-block">
+                @Html.LabelFor(model => model.Fee, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    <div class="input-block flex-row flex-align-items-center">
+                        @Html.EditorFor(model => model.Fee, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="form-bottom">
+            <button type="submit" class="btn btn-default">
+                Submit Creation
+            </button>
+        </div>
+    }
+</div>
+<p style="margin:15px; font-family:sans-serif;">
+    @Html.ActionLink("Back to List", "Index")
+</p>

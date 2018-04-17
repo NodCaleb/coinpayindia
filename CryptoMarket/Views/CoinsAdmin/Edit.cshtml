@@ -1,0 +1,110 @@
+﻿@model CoinSystems
+@{
+    Layout = "~/Views/Shared/_LayoutAltexBlue.cshtml";
+}
+<style>
+    .validation-summary-valid { display: none; }
+
+    .validation-summary-errors ul { list-style: none; }
+</style>
+
+<div class="pane active card-block">
+    <h2 style="margin-left:15px">Edit Coin</h2>
+    @using (Html.BeginForm("Edit", "CoinsAdmin", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("", new { @class = "alert alert-danger" })
+        <div class="form-content">
+
+            <div class="form-group clear-block">
+                <label class="col-md-2 control-label" for="PairName">Coin Full Name</label>
+                <div class="col-md-10">
+                    <div class="input-block flex-row flex-align-items-center">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group clear-block">
+                <label class="col-md-2 control-label" for="PairName">Coin Short Name (Abbreviation)</label>
+                <div class="col-md-10">
+                    <div class="input-block flex-row flex-align-items-center">
+                        @Html.EditorFor(model => model.ShortName, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group clear-block">
+                <label class="col-md-2 control-label" for="PairName">Endpoint IP</label>
+                <div class="col-md-10">
+                    <div class="input-block flex-row flex-align-items-center">
+                        @Html.EditorFor(model => model.EndpointIP, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group clear-block">
+                <label class="col-md-2 control-label" for="PairName">Endpoint Port</label>
+                <div class="col-md-10">
+                    <div class="input-block flex-row flex-align-items-center">
+                        @Html.EditorFor(model => model.EndpointPort, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group clear-block">
+                <label class="col-md-2 control-label" for="PairName">Endpoint Login</label>
+                <div class="col-md-10">
+                    <div class="input-block flex-row flex-align-items-center">
+                        @Html.EditorFor(model => model.EndpointLogin, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group clear-block">
+                <label class="col-md-2 control-label" for="PairName">Endpoint Password</label>
+                <div class="col-md-10">
+                    <div class="input-block flex-row flex-align-items-center">
+                        @Html.EditorFor(model => model.EndpointPassword, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group clear-block">
+                <label class="col-md-2 control-label" for="PairName">Minimum Trade Amount</label>
+                <div class="col-md-10">
+                    <div class="input-block flex-row flex-align-items-center">
+                        @Html.EditorFor(model => model.MinimumTradeAmount, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group clear-block">
+                <label class="col-md-2 control-label" for="PairName">Confirmation count for User Deposit</label>
+                <div class="col-md-10">
+                    <div class="input-block flex-row flex-align-items-center">
+                        @Html.EditorFor(model => model.ConfirmationCointForDeposit, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group clear-block">
+                <label class="col-md-2 control-label" for="PairName">User Withdraw Fee (@Model.ShortName)</label>
+                <div class="col-md-10">
+                    <div class="input-block flex-row flex-align-items-center">
+                        @Html.EditorFor(model => model.WithdrawalFee, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group clear-block">
+                <label class="col-md-2 control-label" for="PairName">Fee Withdraw Admin Wallet</label>
+                <div class="col-md-10">
+                    <div class="input-block flex-row flex-align-items-center">
+                        @Html.EditorFor(model => model.AdminWallet, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="form-bottom">
+            <button type="submit" class="btn btn-default">
+                Submit Coin Editing
+            </button>
+        </div>
+    }
+</div>
+<p style="margin:15px; font-family:sans-serif;">
+    @Html.ActionLink("Back to List", "Index")
+</p>

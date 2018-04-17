@@ -1,0 +1,112 @@
+﻿@using CryptoMarket
+@model Markets
+@{
+    Layout = "~/Views/Shared/_LayoutAltexBlue.cshtml";
+}
+
+@Scripts.Render("~/datatable")
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#dt_basic').dataTable({
+            "sPaginationType": "bootstrap_full"
+        });
+
+        $(".marketdelete").click(function (e) {
+            e.preventDefault();
+            var marketId = $(this).data('marketid');
+            $.SmartMessageBox({
+                title: "Confirm Market Removing",
+                content: "When you remove that market, all opened orders will be canceled. Are you sure to continue?",
+                buttons: '[No][Yes]'
+            }, function (buttonPressed) {
+                if (buttonPressed === "Yes") {
+                    $.post('@Url.Action("DeleteMarket","MarketsAdmin")', { marketId: marketId }, function () {
+                        window.location = '@Url.Action("Index","MarketsAdmin")';
+                    });
+                }
+            });
+        });
+    });
+</script>
+<style>
+    p{
+        margin:15px;
+    }
+</style>
+<div class="row">
+    <div class="col-sm-12">
+        <h2>Market Details</h2>
+        <div class="pane active card-block markets-table">
+            <p>Coin From:  @CoinsManager.GetCoinNameById(Model.CoinFrom)</p>
+            <p>Coin To: @CoinsManager.GetCoinNameById(Model.CoinTo)</p>
+            <p>Pair Name: @Model.PairName</p>
+            <p>Order Fee: @Model.Fee%</p>
+            <p>Latest Traded Price: @Model.LatestPrice </p>
+            <p>Price Change Last 3h: @Model.PriceChangePercent</p>
+            <hr />
+            <p>24h Market Volume: @ViewBag.DayVolume.ToString("F8") @CoinsManager.GetCoinNameById(Model.CoinFrom)</p>
+            <p>24h Market Volume: @ViewBag.TotalVolume.ToString("F8") @CoinsManager.GetCoinNameById(Model.CoinFrom)</p>
+            <hr />
+            <div class="buttons-container">
+                <button class="btn btn-default" data-marketid="@Model.Id">Delete Market</button>
+            </div>
+            <hr />
+            <h2 style="margin-left:15px">Market Order</h2>
+            <div class="markets-table-tbody">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th>Amount (Left)</th>
+                            <th>Price Per</th>
+                            <th>Total</th>
+                            <th>Fee</th>
+                            <th>Net Total</th>
+                            <th>Closed?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var order in (List<Order>)ViewBag.Orders)
+                        {
+                            <tr>
+                                <td><a href="@Url.Action("Details", "OrdersAdmin", new{id = order.Id})">@order.Id</a></td>
+                                <td>@order.DateCreated</td>
+                                <td>
+                                    @if (order.TradeType == TradeType.Buy)
+                                    {
+                                        <text>BUY</text>
+                                    }
+                                    else
+                                    {
+                                        <text>SELL</text>
+                                    }
+                                </td>
+                                <td>@order.Amount.ToString("F8") (@order.PartialOrderTotalLeft.ToString("F8"))</td>
+                                <td>@order.Price.ToString("F8")</td>
+                                <td>@order.Total.ToString("F8")</td>
+                                <td>@order.FeeTotal.ToString("F8")</td>
+                                <td>@order.NetTotal.ToString("F8")</td>
+                                <td>
+                                    @if (order.Closed)
+                                    {
+                                        <text>YES. @order.DateClosed by <a href="@Url.Action("Details", "UsersAdmin", new{Id = order.CloserUserId})">@ApplicationUserManager.GetUserEmail(order.CloserUserId)</a>, order: <a href="@Url.Action("Details", "OrdersAdmin", new{id = order.ClosingOrderId})">@order.ClosingOrderId</a></text>
+                                    }
+                                    else
+                                    {
+                                        <text>NO</text>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<p style="margin:15px; font-family:sans-serif;">
+    @Html.ActionLink("Back to List", "Index")
+</p>
